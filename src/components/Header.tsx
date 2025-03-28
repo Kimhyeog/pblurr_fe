@@ -1,36 +1,48 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image"; // Image 컴포넌트 임포트
-import { checkLoginStatus } from "@/api/auth";
+import Image from "next/image";
+import { checkLoginStatus, logout, getUserInfo } from "@/api/auth";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Header() {
   const [isLoginState, setIsLoginState] = useState(false);
+  const [userName, setUserName] = useState("");
   const router = useRouter();
-  // 로그인 상태를 확인하는 함수
+
+  // 로그인 상태 확인 함수
   const fetchLoginState = async () => {
     try {
-      const response = await checkLoginStatus();
-      if (response) {
-        console.log("로그인 성공");
-        setIsLoginState(true); // 로그인 상태일 경우 true로 설정
-      } else {
-        console.log("로그인 실패");
-        setIsLoginState(false); // 로그인되지 않은 상태일 경우 false로 설정
-      }
+      const isLoggedIn = await checkLoginStatus();
+      const response = await getUserInfo();
+      console.log(response.data);
+      setUserName(response.userName); // 직접 userName을 추출
+      setIsLoginState(isLoggedIn);
     } catch (error) {
-      console.error("로그인 상태 확인 중 오류가 발생했습니다.", error);
-      setIsLoginState(false); // 오류가 발생하면 로그인되지 않은 상태로 설정
+      console.error("로그인 상태 확인 중 오류 발생:", error);
+      setIsLoginState(false);
     }
   };
 
+  // 로그아웃 함수
+  const handleLogout = async () => {
+    const success = await logout();
+    if (success) {
+      alert("로그아웃 성공!");
+      setIsLoginState(false);
+      router.push("/login"); // 로그아웃 후 로그인 페이지로 이동
+    } else {
+      alert("로그아웃 실패!");
+    }
+  };
+
+  // 로그인 버튼 클릭 시 이동
   const onClickLogin = (): void => {
     router.push("/login");
   };
 
-  // 컴포넌트가 마운트될 때 로그인 상태를 확인
+  // 컴포넌트가 마운트될 때 로그인 상태 확인
   useEffect(() => {
     fetchLoginState();
   }, []);
@@ -38,51 +50,35 @@ export default function Header() {
   return (
     <div className="w-full bg-white shadow-md px-10 py-4 flex justify-between items-center">
       <div>
-        {/* 이미지 경로는 /public을 제외한 경로로 지정 */}
         <Link href="/">
           <Image
-            src="/images/loginLogo.png" // public 폴더 기준 경로
+            src="/images/loginLogo.png"
             alt="로그인 로고"
-            width={250} // 원하는 width
-            height={100} // 원하는 height
+            width={250}
+            height={100}
           />
         </Link>
       </div>
       {isLoginState ? (
         <div className="flex items-center gap-5">
-          <p className="text-gray-700 font-medium">김형준님</p>
+          <p className="text-gray-700 font-medium">{userName}님</p>
           <button
+            onClick={handleLogout}
             className="
-                bg-[#7FC5E0]
-                text-white
-                px-4
-                py-2
-                font-bold
-                rounded-lg
-                hover:bg-[#5CA7C8]
-                active:bg-[#4A8FBF]
-                transition
-                cursor-pointer
-              "
+              bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg
+              hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer
+            "
           >
             로그아웃
           </button>
         </div>
       ) : (
         <button
-          className="
-              bg-[#7FC5E0]
-              text-white
-              font-bold
-              px-4
-              py-2
-              rounded-lg
-              hover:bg-[#5CA7C8]
-              active:bg-[#4A8FBF]
-              transition
-              cursor-pointer
-            "
           onClick={onClickLogin}
+          className="
+            bg-[#7FC5E0] text-white font-bold px-4 py-2 rounded-lg
+            hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer
+          "
         >
           로그인
         </button>

@@ -117,4 +117,25 @@ const checkUserId = async (userId: string): Promise<boolean> => {
   }
 };
 
-export { checkLoginStatus, login, logout, signup, checkUserId };
+// 사용자 정보 조회 함수
+const getUserInfo = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/userinfo`, {
+      withCredentials: true, // 인증된 요청
+    });
+
+    if (response.status === 200) {
+      console.log("사용자 정보:", response.data);
+      return response.data;
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 401) {
+        console.log("로그인이 필요합니다.");
+      }
+    }
+    console.error("API 요청 중 오류가 발생했습니다.", error);
+  }
+};
+
+export { checkLoginStatus, login, logout, signup, checkUserId, getUserInfo };

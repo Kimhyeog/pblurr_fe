@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { login } from "@/api/auth";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function Page() {
   const [userId, setUserId] = useState("");
@@ -27,25 +29,40 @@ export default function Page() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold mb-4">로그인</h2>
+    <div className="max-w-md m-auto h-screen p-6 flex flex-col justify-center items-center bg-white rounded-lg">
+      <div className="flex flex-col items-center justify-center">
+        <Image
+          src="/images/loginLogo.png"
+          alt="로그인 로고"
+          width={700}
+          height={300}
+        />
+        <div className="flex flex-row items-center mb-5">
+          <p>회원이 아니신가요?</p>
+          <nav className="text-[#7FC5E0] px-3 py-1 rounded-md">
+            <Link href="/signup" className="hover:underline">
+              회원가입
+            </Link>
+          </nav>
+        </div>
+      </div>
       <input
         type="text"
         placeholder="아이디"
         value={userId}
         onChange={(e) => setUserId(e.target.value)}
-        className="w-full p-2 border rounded mb-2"
+        className="bg-[#FFFFFF] w-full p-2 border rounded mb-2 border-[#b6b1c6d5]"
       />
       <input
         type="password"
         placeholder="비밀번호"
         value={userPassword}
         onChange={(e) => setUserPassword(e.target.value)}
-        className="w-full p-2 border rounded mb-4"
+        className="bg-[#FFFFFF] w-full p-2 border rounded mb-4 border-[#b6b1c6d5]"
       />
       <button
         onClick={handleLogin}
-        className="w-full bg-blue-500 text-white p-2 rounded"
+        className="w-full bg-[#7FC5E0] text-white p-2 rounded-lg hover:bg-[#5CA7C8] action:bg-[#4A8FBF]"
       >
         로그인
       </button>

@@ -1,7 +1,10 @@
-"use client";
+"use client"; // Ensure this is the top line to ensure client-side rendering
 
 import { useState } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter ,
 import { signup, checkUserId } from "@/api/auth";
+
+//nextJS에서 useRouter 사용시, /navigation (O)
 
 export default function Page() {
   const [userName, setUserName] = useState("");
@@ -10,6 +13,8 @@ export default function Page() {
   const [userBirthday, setUserBirthday] = useState("");
   const [userGender, setUserGender] = useState("male");
   const [isIdAvailable, setIsIdAvailable] = useState<boolean | null>(null);
+
+  const router = useRouter(); // useRouter hook
 
   // 아이디 중복 확인 함수
   const handleCheckUserId = async () => {
@@ -49,6 +54,7 @@ export default function Page() {
 
     if (success) {
       alert("회원가입이 완료되었습니다!");
+      router.push("/login"); // 로그인 페이지로 이동
     } else {
       alert("회원가입 실패. 다시 시도해주세요.");
     }
