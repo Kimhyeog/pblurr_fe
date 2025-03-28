@@ -1,31 +1,120 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 const BASE_URL = "https://capstone-backend-1234-ab6179e289b1.herokuapp.com";
 
-// 로그인 여부 확인 함수
-const checkLoginStatus = async () => {
+/**
+ * 로그인 여부 확인
+ */
+const checkLoginStatus = async (): Promise<boolean> => {
   try {
-    const response = await axios.get(`${BASE_URL}/check-login`, {
-      withCredentials: true, // 쿠키를 포함한 요청
-    });
+    const response: AxiosResponse<{ message: string; isLoggedIn: boolean }> =
+      await axios.get(`${BASE_URL}/check-login`, {
+        withCredentials: true,
+      });
 
-    if (response.status === 200) {
-      // 로그인 상태일 때 처리
-      console.log(response.data.message); // "로그인된 사용자입니다."
-      return response.data.isLoggedIn;
-    }
+    console.log(response.data.message); // "로그인된 사용자입니다."
+    return response.data.isLoggedIn;
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      if (error.response?.status === 401) {
-        // 로그인되지 않은 상태일 때 처리
-        console.log("로그인되지 않은 사용자입니다.");
-        return false;
-      }
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      console.log("로그인되지 않은 사용자입니다.");
+      return false;
     }
-    // 기타 오류 처리
     console.error("API 요청 중 오류가 발생했습니다.", error);
     return false;
   }
 };
 
-export { checkLoginStatus };
+/**
+ * 로그인
+ */
+const login = async (
+  userId: string,
+  userPassword: string
+): Promise<boolean> => {
+  try {
+    const response: AxiosResponse<{ message: string }> = await axios.post(
+      `${BASE_URL}/login`,
+      { userId, userPassword },
+      { withCredentials: true }
+    );
+
+    console.log(response.data.message); // "로그인 성공"
+    return true;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data.message || "로그인 실패");
+    }
+    return false;
+  }
+};
+
+/**
+ * 로그아웃
+ */
+const logout = async (): Promise<boolean> => {
+  try {
+    const response: AxiosResponse<{ message: string }> = await axios.post(
+      `${BASE_URL}/logout`,
+      {},
+      { withCredentials: true }
+    );
+
+    console.log(response.data.message); // "로그아웃 성공."
+    return true;
+  } catch (error) {
+    console.error("로그아웃 실패", error);
+    return false;
+  }
+};
+
+/**
+ * 회원가입
+ */
+const signup = async (userData: {
+  userName: string;
+  userId: string;
+  userPassword: string;
+  userBirthday: string;
+  userGender: string;
+}): Promise<boolean> => {
+  try {
+    const response: AxiosResponse<{ message: string }> = await axios.post(
+      `${BASE_URL}/signup`,
+      userData
+    );
+
+    console.log(response.data.message); // "회원가입이 완료되었습니다."
+    return true;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.data.message || "회원가입 실패");
+    }
+    return false;
+  }
+};
+
+/**
+ * userId 중복 확인
+ */
+const checkUserId = async (userId: string): Promise<boolean> => {
+  try {
+    const response: AxiosResponse<{ message: string }> = await axios.get(
+      `${BASE_URL}/check-userid`,
+      {
+        params: { userId },
+      }
+    );
+
+    console.log(response.data.message); // "사용 가능한 아이디입니다."
+    return true;
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 400) {
+      console.log("이미 사용 중인 아이디입니다.");
+    } else {
+      console.error("중복 확인 중 오류 발생", error);
+    }
+    return false;
+  }
+};
+
+export { checkLoginStatus, login, logout, signup, checkUserId };

@@ -3,15 +3,17 @@
 import { useEffect, useState } from "react";
 import Image from "next/image"; // Image 컴포넌트 임포트
 import { checkLoginStatus } from "@/api/auth";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Header() {
   const [isLoginState, setIsLoginState] = useState(false);
-
+  const router = useRouter();
   // 로그인 상태를 확인하는 함수
   const fetchLoginState = async () => {
     try {
       const response = await checkLoginStatus();
-      if (response.isLoggedIn) {
+      if (response) {
         console.log("로그인 성공");
         setIsLoginState(true); // 로그인 상태일 경우 true로 설정
       } else {
@@ -24,6 +26,10 @@ export default function Header() {
     }
   };
 
+  const onClickLogin = (): void => {
+    router.push("/login");
+  };
+
   // 컴포넌트가 마운트될 때 로그인 상태를 확인
   useEffect(() => {
     fetchLoginState();
@@ -33,12 +39,14 @@ export default function Header() {
     <div className="w-full bg-white shadow-md px-10 py-4 flex justify-between items-center">
       <div>
         {/* 이미지 경로는 /public을 제외한 경로로 지정 */}
-        <Image
-          src="/images/loginLogo.png" // public 폴더 기준 경로
-          alt="로그인 로고"
-          width={250} // 원하는 width
-          height={100} // 원하는 height
-        />
+        <Link href="/">
+          <Image
+            src="/images/loginLogo.png" // public 폴더 기준 경로
+            alt="로그인 로고"
+            width={250} // 원하는 width
+            height={100} // 원하는 height
+          />
+        </Link>
       </div>
       {isLoginState ? (
         <div className="flex items-center gap-5">
@@ -74,6 +82,7 @@ export default function Header() {
               transition
               cursor-pointer
             "
+          onClick={onClickLogin}
         >
           로그인
         </button>
