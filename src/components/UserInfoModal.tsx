@@ -32,8 +32,7 @@ export default function UserInfoModal({
     const success = await deleteUser();
     if (success) {
       alert("회원 탈퇴가 완료되었습니다.");
-      router.refresh(); // 새로고침 적용
-      router.push("/"); // 메인 페이지로 이동
+      router.push("/login"); // 메인 페이지로 이동
     } else {
       alert("회원 탈퇴에 실패하였습니다.");
     }
@@ -86,7 +85,7 @@ export default function UserInfoModal({
       <div className="mb-2 flex flex-col gap-y-2">
         <p className="text-gray-500 text-sm">성별</p>
         <span className="text-black font-medium">
-          {userInformation.userGender}
+          {userInformation.userGender === "male" ? "남자" : "여자"}
         </span>
       </div>
       <div className="mb-2 flex flex-col gap-y-2">

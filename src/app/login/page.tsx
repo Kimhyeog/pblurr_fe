@@ -21,6 +21,8 @@ export default function Page() {
 
     const success = await login(userId, userPassword);
 
+    console.log(success);
+
     if (success) {
       alert("로그인 성공!");
       router.push("/"); // 로그인 성공 후 홈으로 이동

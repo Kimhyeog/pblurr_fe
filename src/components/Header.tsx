@@ -32,7 +32,6 @@ export default function Header() {
   const handleLogout = async () => {
     const success = await logout();
     if (success) {
-      alert("로그아웃 성공!");
       setIsLoginState(false);
       router.push("/login"); // 로그아웃 후 로그인 페이지로 이동
     } else {

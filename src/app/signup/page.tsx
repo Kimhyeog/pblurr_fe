@@ -19,6 +19,7 @@ export default function Page() {
   const [userGender, setUserGender] = useState("male");
   const [isIdAvailable, setIsIdAvailable] = useState<boolean | null>(null);
   const [isPWAvailable, setIsPWAvailable] = useState<boolean | null>(null);
+  const [pwMessage, setPwMessage] = useState("");
 
   const router = useRouter(); // useRouter hook
 
@@ -43,14 +44,22 @@ export default function Page() {
 
   const alertShown = useRef(false);
 
+  // 비밀번호 확인 검사 함수
+  const onNewPWCheck = () => {
+    if (userPassword !== userCheckPassword) {
+      setIsPWAvailable(false);
+      setPwMessage("비밀번호가 일치하지 않습니다.");
+      setUserCheckPassword("");
+      return;
+    }
+    setIsPWAvailable(true);
+    setPwMessage("비밀번호가 일치합니다.");
+  };
+
   // 회원가입 함수
   const handleSignup = async () => {
     if (!userName || !userId || !userPassword || !userBirthday) {
       alert("모든 정보를 입력해주세요.");
-      return;
-    }
-    if (isIdAvailable === false) {
-      alert("이미 사용 중인 아이디입니다.");
       return;
     }
 
@@ -112,7 +121,7 @@ export default function Page() {
             <p
               className={`text-sm ${
                 isIdAvailable ? "text-green-500" : "text-red-500"
-              }`}
+              } pl-3`}
             >
               {isIdAvailable
                 ? "사용 가능한 아이디입니다."
@@ -130,21 +139,20 @@ export default function Page() {
             type="password"
             placeholder="비밀번호 확인"
             value={userCheckPassword}
-            onChange={(e) => setUserCheckPassword(e.target.value)}
-            onBlur={() => {
-              if (userPassword !== userCheckPassword) setIsPWAvailable(false);
+            onChange={(e) => {
+              setUserCheckPassword(e.target.value);
+              setIsPWAvailable(null);
             }}
+            onBlur={onNewPWCheck}
             className="w-full p-2 border rounded mb-2"
           />
           {isPWAvailable !== null && (
             <p
               className={`text-sm ${
                 isPWAvailable ? "text-green-500" : "text-red-500"
-              }`}
+              } pl-3`}
             >
-              {isPWAvailable
-                ? "비밀번호가 일치합니다."
-                : "비밀번호가 일치하지 않습니다."}
+              {pwMessage}
             </p>
           )}
           <Input
@@ -176,8 +184,7 @@ export default function Page() {
               {checked && <span className="text-white text-lg">✓</span>}
             </span>
             <span className="text-lg">
-              <span className="text-black">이용 약관</span> 및{" "}
-              <span className="font-bold">개인정보 취급방침</span>에 동의합니다.
+              <span className="font-bold">개인 정보 제공</span> 에 동의합니다.
             </span>
           </label>
           <button
