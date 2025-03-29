@@ -185,6 +185,27 @@ const updatePassword = async (
   }
 };
 
+/**
+ * 회원 삭제 API
+ */
+const deleteUser = async (): Promise<boolean> => {
+  try {
+    const response: AxiosResponse<{ message: string }> = await axios.delete(
+      `${BASE_URL}/delete-account`,
+      { withCredentials: true }
+    );
+    console.log(response.data.message); // "회원 탈퇴가 완료되었습니다."
+    return response.data.message === "회원 탈퇴가 완료되었습니다.";
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      console.log("로그인이 필요합니다.");
+    } else {
+      console.error("API 요청 중 오류가 발생했습니다.", error);
+    }
+    return false;
+  }
+};
+
 export {
   checkLoginStatus,
   login,
@@ -194,4 +215,5 @@ export {
   getUserInfo,
   checkPassword,
   updatePassword,
+  deleteUser,
 };
