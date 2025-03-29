@@ -30,7 +30,7 @@ const checkLoginStatus = async (): Promise<boolean> => {
 const login = async (
   userId: string,
   userPassword: string
-): Promise<boolean> => {
+): Promise<{ success: boolean; message: string }> => {
   try {
     const response: AxiosResponse<{ message: string }> = await axios.post(
       `${BASE_URL}/login`,
@@ -39,12 +39,14 @@ const login = async (
     );
 
     console.log(response.data.message); // "로그인 성공"
-    return true;
+    return { success: true, message: response.data.message };
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.error(error.response?.data.message || "로그인 실패");
+      const errorMessage = error.response?.data.message || "로그인 실패";
+      console.error(errorMessage);
+      return { success: false, message: errorMessage };
     }
-    return false;
+    return { success: false, message: "알 수 없는 오류 발생" };
   }
 };
 

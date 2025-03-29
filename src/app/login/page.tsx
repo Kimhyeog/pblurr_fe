@@ -10,6 +10,8 @@ import Input from "@/components/LoginAndSignUp/Input";
 export default function Page() {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [loginCheck, setLoginCheck] = useState<boolean | null>(null);
+  const [failReasonMessage, setFailReasonMessage] = useState("");
   const router = useRouter();
 
   // 로그인 버튼 클릭 시 실행되는 함수
@@ -19,15 +21,15 @@ export default function Page() {
       return;
     }
 
-    const success = await login(userId, userPassword);
+    const { success, message } = await login(userId, userPassword);
 
+    setLoginCheck(success);
     console.log(success);
+    setFailReasonMessage(message);
 
     if (success) {
       alert("로그인 성공!");
       router.push("/"); // 로그인 성공 후 홈으로 이동
-    } else {
-      alert("아이디 또는 비밀번호가 틀렸습니다.");
     }
   };
 
@@ -49,27 +51,37 @@ export default function Page() {
           </nav>
         </div>
       </div>
-      <Input
-        type="text"
-        placeholder="아이디"
-        value={userId}
-        onChange={(e) => setUserId(e.target.value)}
-        className="border-none"
-      />
-      <Input
-        type="password"
-        placeholder="비밀번호"
-        value={userPassword}
-        onChange={(e) => setUserPassword(e.target.value)}
-        className="border-none"
-      />
-
-      <button
-        onClick={handleLogin}
-        className="w-full bg-[#7FC5E0] text-white p-2 rounded-lg hover:bg-[#5CA7C8] action:bg-[#4A8FBF]"
-      >
-        로그인
-      </button>
+      <div className="flex flex-col gap-y-3">
+        <Input
+          type="text"
+          placeholder="아이디"
+          value={userId}
+          onChange={(e) => setUserId(e.target.value)}
+          className="border-none"
+        />
+        <Input
+          type="password"
+          placeholder="비밀번호"
+          value={userPassword}
+          onChange={(e) => setUserPassword(e.target.value)}
+          className="border-none"
+        />
+        {loginCheck !== null && (
+          <p
+            className={`text-sm ${
+              loginCheck ? "text-green-500" : "text-red-500"
+            } pl-3`}
+          >
+            {!loginCheck && `${failReasonMessage}`}
+          </p>
+        )}
+        <button
+          onClick={handleLogin}
+          className="w-full bg-[#7FC5E0] text-white p-2 rounded-lg hover:bg-[#5CA7C8] action:bg-[#4A8FBF]"
+        >
+          로그인
+        </button>
+      </div>
     </div>
   );
 }
