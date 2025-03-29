@@ -5,6 +5,7 @@ import { login } from "@/api/auth";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import Input from "@/components/LoginAndSignUp/Input";
 
 export default function Page() {
   const [userId, setUserId] = useState("");
@@ -29,7 +30,7 @@ export default function Page() {
   };
 
   return (
-    <div className="max-w-md m-auto h-screen p-6 flex flex-col justify-center items-center bg-white rounded-lg">
+    <div className="max-w-md m-auto h-screen p-6 flex-col justify-center items-center bg-white">
       <div className="flex flex-col items-center justify-center">
         <Image
           src="/images/loginLogo.png"
@@ -46,20 +47,21 @@ export default function Page() {
           </nav>
         </div>
       </div>
-      <input
+      <Input
         type="text"
         placeholder="아이디"
         value={userId}
         onChange={(e) => setUserId(e.target.value)}
-        className="bg-[#FFFFFF] w-full p-2 border rounded mb-2 border-[#b6b1c6d5]"
+        className="border-none"
       />
-      <input
+      <Input
         type="password"
         placeholder="비밀번호"
         value={userPassword}
         onChange={(e) => setUserPassword(e.target.value)}
-        className="bg-[#FFFFFF] w-full p-2 border rounded mb-4 border-[#b6b1c6d5]"
+        className="border-none"
       />
+
       <button
         onClick={handleLogin}
         className="w-full bg-[#7FC5E0] text-white p-2 rounded-lg hover:bg-[#5CA7C8] action:bg-[#4A8FBF]"

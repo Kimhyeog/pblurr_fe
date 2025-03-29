@@ -138,4 +138,60 @@ const getUserInfo = async () => {
   }
 };
 
-export { checkLoginStatus, login, logout, signup, checkUserId, getUserInfo };
+/**
+ * 비밀번호 확인
+ */
+const checkPassword = async (currentPassword: string): Promise<boolean> => {
+  try {
+    const response: AxiosResponse<{ message: string }> = await axios.post(
+      `${BASE_URL}/check-password`,
+      { currentPassword },
+      { withCredentials: true }
+    );
+    console.log(response.data.message);
+    return response.data.message === "현재 비밀번호가 일치합니다.";
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      console.log("로그인이 필요합니다.");
+    } else {
+      console.error("API 요청 중 오류가 발생했습니다.", error);
+    }
+    return false;
+  }
+};
+
+/**
+ * 비밀번호 변경
+ */
+const updatePassword = async (
+  currentPassword: string,
+  newPassword: string
+): Promise<boolean> => {
+  try {
+    const response: AxiosResponse<{ message: string }> = await axios.put(
+      `${BASE_URL}/update-password`,
+      { currentPassword, newPassword },
+      { withCredentials: true }
+    );
+    console.log(response.data.message);
+    return response.data.message === "비밀번호가 성공적으로 변경되었습니다.";
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 401) {
+      console.log("로그인이 필요합니다.");
+    } else {
+      console.error("API 요청 중 오류가 발생했습니다.", error);
+    }
+    return false;
+  }
+};
+
+export {
+  checkLoginStatus,
+  login,
+  logout,
+  signup,
+  checkUserId,
+  getUserInfo,
+  checkPassword,
+  updatePassword,
+};
