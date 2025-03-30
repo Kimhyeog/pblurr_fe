@@ -6,6 +6,7 @@ import { signup, checkUserId } from "@/api/auth";
 import Image from "next/image";
 import Input from "@/components/LoginAndSignUp/Input";
 import Link from "next/link";
+import Swal from "sweetalert2";
 
 //nextJS에서 useRouter 사용시, /navigation (O)
 
@@ -59,12 +60,12 @@ export default function Page() {
   // 회원가입 함수
   const handleSignup = async () => {
     if (!userName || !userId || !userPassword || !userBirthday) {
-      alert("모든 정보를 입력해주세요.");
+      Swal.fire("오류", "모든 정보를 입력해주세요.", "error");
       return;
     }
 
     if (!checked) {
-      alert("이용약관에 동의해야합니다.");
+      Swal.fire("오류", "개인 정보에 동의하셔야 합니다.", "error");
       return;
     }
 
@@ -77,10 +78,11 @@ export default function Page() {
     });
 
     if (success) {
-      alert("회원가입이 완료되었습니다!");
+      Swal.fire("회원가입이 완료되었습니다!");
+
       router.push("/login"); // 로그인 페이지로 이동
     } else {
-      alert("회원가입 실패. 다시 시도해주세요.");
+      Swal.fire("오류", "회원가입 실패. 다시 시도해주세요.", "error");
     }
   };
 

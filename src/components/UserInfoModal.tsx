@@ -3,8 +3,9 @@
 import { User } from "@/types/types";
 import { useEffect, useState } from "react";
 import ChangePwBox from "./LoginAndSignUp/ChangePwBox";
-import { deleteUser } from "@/api/auth";
+import { checkPassword, deleteUser } from "@/api/auth";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2"; //Modal import
 
 // UserInfoModal.tsx
 interface UserInfoModalProps {
@@ -20,21 +21,55 @@ export default function UserInfoModal({
 }: UserInfoModalProps) {
   const [pwInputOpen, setPwInputOpen] = useState(false);
   const router = useRouter();
-  // 모달 닫기 버튼 핸들러
+  // MyPage 모달 닫기 버튼 핸들러
   const handleCancel = () => {
     setPwInputOpen(false); // `false`로 변경해야 ChangePwBox가 사라지고 버튼이 다시 보임
   };
 
-  const handleDeleteAccount = async () => {
-    const isConfirmed = confirm("정말로 회원 탈퇴를 진행하시겠습니까?");
-    if (!isConfirmed) return;
+  const handleClick = async (): Promise<void> => {
+    const { value: currentPassword, isDismissed } = await Swal.fire({
+      title: "비밀번호 입력",
+      input: "password",
+      inputPlaceholder: "비밀번호를 입력하세요",
+      showCancelButton: true,
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+      inputAttributes: {
+        autocapitalize: "off",
+        autocorrect: "off",
+      },
+    });
 
-    const success = await deleteUser();
-    if (success) {
-      alert("회원 탈퇴가 완료되었습니다.");
-      router.push("/login"); // 메인 페이지로 이동
+    if (isDismissed) return; // 취소 버튼을 누르면 아무 동작 없이 종료
+
+    if (!currentPassword) {
+      Swal.fire("오류", "회원 탈퇴에 실패하였습니다.", "error");
+      return;
+    }
+
+    const isMatch = await checkPassword(currentPassword);
+
+    if (isMatch) {
+      const { isConfirmed } = await Swal.fire({
+        title: "정말 탈퇴하시겠습니까?",
+        text: "탈퇴 후 복구할 수 없습니다.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "탈퇴하기",
+        cancelButtonText: "취소",
+      });
+
+      if (isConfirmed) {
+        const success = await deleteUser();
+        if (success) {
+          Swal.fire("탈퇴 완료", "회원 탈퇴가 완료되었습니다.", "success");
+          router.push("/login");
+        } else {
+          Swal.fire("오류", "회원 탈퇴에 실패하였습니다.", "error");
+        }
+      }
     } else {
-      alert("회원 탈퇴에 실패하였습니다.");
+      Swal.fire("오류", "비밀번호가 일치하지 않습니다.", "error");
     }
   };
 
@@ -103,7 +138,7 @@ export default function UserInfoModal({
           닫기
         </button>
         <button
-          onClick={handleDeleteAccount}
+          onClick={handleClick}
           className="w-full bg-red-400 text-white py-2 rounded-lg font-semibold cursor-pointer"
         >
           탈퇴하기

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Input from "@/components/LoginAndSignUp/Input";
+import Swal from "sweetalert2";
 
 export default function Page() {
   const [userId, setUserId] = useState("");
@@ -17,7 +18,7 @@ export default function Page() {
   // 로그인 버튼 클릭 시 실행되는 함수
   const handleLogin = async () => {
     if (!userId || !userPassword) {
-      alert("아이디와 비밀번호를 입력해주세요.");
+      Swal.fire("오류", "아이디와 비밀번호를 입력하시오.", "error");
       return;
     }
 
@@ -28,7 +29,6 @@ export default function Page() {
     setFailReasonMessage(message);
 
     if (success) {
-      alert("로그인 성공!");
       router.push("/"); // 로그인 성공 후 홈으로 이동
     }
   };
