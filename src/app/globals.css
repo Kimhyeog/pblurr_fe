@@ -3,9 +3,8 @@
 :root {
   --font-poppins: Poppins, sans-serif;
   --color-blue-400: #7FC5E0;
-  /* 기존 색상 */
   --color-blue-500: #5CA7C8;
-  /* 진한 색상 */
   --color-blue-600: #4A8FBF;
-  /* 더 진한 색상 */
+  --color-white: #ffffff;
+  /* 흰색 추가 */
 }

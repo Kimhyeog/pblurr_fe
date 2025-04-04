@@ -1,4 +1,5 @@
 import "./globals.css";
+import BodyWrapper from "@/components/BodyWrapper"; // 경로는 위치에 맞게 수정
 
 export default function RootLayout({
   children,
@@ -7,7 +8,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <BodyWrapper>{children}</BodyWrapper>
     </html>
   );
 }

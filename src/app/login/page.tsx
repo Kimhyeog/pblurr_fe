@@ -34,18 +34,21 @@ export default function Page() {
   };
 
   return (
-    <div className="max-w-md m-auto h-screen p-6 flex-col justify-center items-center bg-white">
-      <div className="flex flex-col items-center justify-center">
+    <div className="bg-red max-w-[45%] m-auto mt-[40%] p-10 flex-col justify-center items-center bg-white rounded-3xl">
+      <div className="flex flex-col items-center   justify-center">
         <Image
           src="/images/loginLogo.png"
           alt="로그인 로고"
-          width={700}
-          height={300}
+          width={1000}
+          height={700}
         />
         <div className="flex flex-row items-center mb-5">
-          <p>회원이 아니신가요?</p>
+          <p className="text-[20px]">회원이 아니신가요?</p>
           <nav className="text-[#7FC5E0] px-3 py-1 rounded-md">
-            <Link href="/signup" className="hover:underline">
+            <Link
+              href="/signup"
+              className="text-[20px] font-bold text-[#7FC5E0] hover:underline"
+            >
               회원가입
             </Link>
           </nav>
@@ -77,7 +80,7 @@ export default function Page() {
         )}
         <button
           onClick={handleLogin}
-          className="w-full bg-[#7FC5E0] text-white p-2 rounded-lg hover:bg-[#5CA7C8] action:bg-[#4A8FBF]"
+          className="w-full m bg-[#7FC5E0] text-white font-bold text-[20px] p-2 rounded-lg hover:bg-[#5CA7C8] action:bg-[#4A8FBF]"
         >
           로그인
         </button>
