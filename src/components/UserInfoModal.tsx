@@ -80,7 +80,7 @@ export default function UserInfoModal({
 
   return (
     <div
-      className="absolute right-30 top-full mt-2 w-lg mx-auto bg-white rounded-lg shadow-md p-6
+      className="absolute right-30 top-full mt-2 w-lg mx-auto bg-white rounded-2xl border-[1px] border-gray-300 shadow-md p-6
         flex flex-col gap-y-2
       "
       style={{ zIndex: 10 }}
@@ -90,25 +90,27 @@ export default function UserInfoModal({
       </h3>
 
       <div className="mb-2 flex flex-col gap-y-2">
-        <p className="text-gray-500 text-sm">출생년도</p>
-        <span className="text-black font-medium">
+        <p className="text-gray-500 text-md">출생년도</p>
+        <span className="text-black font-medium text-lg">
           {userInformation.userBirthday}
         </span>
       </div>
 
       <div className="mb-2 flex flex-col gap-y-2">
-        <p className="text-gray-500 text-sm">아이디</p>
-        <span className="text-black font-medium">{userInformation.userId}</span>
+        <p className="text-gray-500 text-md">아이디</p>
+        <span className="text-black font-medium text-lg">
+          {userInformation.userId}
+        </span>
       </div>
 
       <div className="mb-4 flex flex-col gap-y-2">
-        <p className="text-gray-500 text-sm">비밀번호</p>
+        <p className="text-gray-500 text-md text-md">비밀번호</p>
         <div className="flex flex-row gap-x-2">
           {/* 비밀번호 변경 */}
           {pwInputOpen === false ? (
             <button
               onClick={() => setPwInputOpen(true)}
-              className="bg-blue-400 text-white text-sm px-3 py-0.5 rounded-lg font-semibold cursor-pointer"
+              className="bg-blue-400 text-white text-lg px-3 py-0.5 rounded-lg font-semibold cursor-pointer"
             >
               변경
             </button>
@@ -118,14 +120,14 @@ export default function UserInfoModal({
         </div>
       </div>
       <div className="mb-2 flex flex-col gap-y-2">
-        <p className="text-gray-500 text-sm">성별</p>
-        <span className="text-black font-medium">
+        <p className="text-gray-500 text-md">성별</p>
+        <span className="text-black font-medium text-lg">
           {userInformation.userGender === "male" ? "남자" : "여자"}
         </span>
       </div>
       <div className="mb-2 flex flex-col gap-y-2">
-        <p className="text-gray-500 text-sm">가입시기</p>
-        <span className="text-black font-medium">
+        <p className="text-gray-500 text-md">가입시기</p>
+        <span className="text-black font-medium text-lg">
           {new Date(userInformation.createAt).toLocaleDateString()}
         </span>
       </div>

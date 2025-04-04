@@ -87,114 +87,121 @@ export default function Page() {
   };
 
   return (
-    <div className="w-[500px] m-auto h-screen p-6 flex-col gap-y-20 justify-center items-center bg-white">
-      <div className="flex-col items-center justify-center">
-        <Link href={"/"}>
-          <Image
-            src="/images/loginLogo.png"
-            alt="로그인 로고"
-            width={700}
-            height={300}
-          />
-        </Link>
-        <div className="flex flex-col gap-y-3">
-          <Input
-            type="text"
-            placeholder="이름"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-            className="w-full p-2"
-          />
-          <div className="flex gap-2">
+    <div className="flex flex-col items-center justify-center h-screen rounded-3xl bg-[#E3F2FD] p-4">
+      <div className="bg-white shadow-lg rounded-3xl p-6 sm:p-8 lg:p-10 w-full max-w-md sm:max-w-lg lg:max-w-xl">
+        <div className="flex flex-col items-center">
+          <Link href={"/"}>
+            <Image
+              src="/images/loginLogo.png"
+              alt="로그인 로고"
+              width={500}
+              height={200}
+            />
+          </Link>
+          <div className="w-full flex flex-col gap-3 mt-4">
             <Input
               type="text"
-              placeholder="아이디"
-              value={userId}
+              placeholder="이름"
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
+              className="w-full p-2"
+            />
+
+            <div className="flex gap-2">
+              <Input
+                type="text"
+                placeholder="아이디"
+                value={userId}
+                onChange={(e) => {
+                  setUserId(e.target.value);
+                  setIsIdAvailable(null);
+                }}
+                onBlur={handleCheckUserId}
+                className="flex-1 p-2 border rounded"
+              />
+            </div>
+            {isIdAvailable !== null && (
+              <p
+                className={`text-sm ${
+                  isIdAvailable ? "text-green-500" : "text-red-500"
+                } pl-3`}
+              >
+                {isIdAvailable
+                  ? "사용 가능한 아이디입니다."
+                  : "이미 사용 중인 아이디입니다."}
+              </p>
+            )}
+
+            <Input
+              type="password"
+              placeholder="비밀번호"
+              value={userPassword}
+              onChange={(e) => setUserPassword(e.target.value)}
+              className="w-full p-2 border rounded"
+            />
+            <Input
+              type="password"
+              placeholder="비밀번호 확인"
+              value={userCheckPassword}
               onChange={(e) => {
-                setUserId(e.target.value);
-                setIsIdAvailable(null); // 아이디 변경 시 중복 확인 초기화
+                setUserCheckPassword(e.target.value);
+                setIsPWAvailable(null);
               }}
-              onBlur={handleCheckUserId}
-              // 입력이 끝나면, 아이디 확인 기능
-              className="flex-1 p-2 border rounded"
+              onBlur={onNewPWCheck}
+              className="w-full p-2 border rounded"
             />
+            {isPWAvailable !== null && (
+              <p
+                className={`text-sm ${
+                  isPWAvailable ? "text-green-500" : "text-red-500"
+                } pl-3`}
+              >
+                {pwMessage}
+              </p>
+            )}
+
+            <Input
+              type="date"
+              value={userBirthday}
+              onChange={(e) => setUserBirthday(e.target.value)}
+              className="w-full p-2 border rounded"
+            />
+
+            <select
+              value={userGender}
+              onChange={(e) => setUserGender(e.target.value)}
+              className="w-full p-2 border-0 rounded bg-[#F1F3F6] text-gray-700 focus:border-0"
+            >
+              <option value="male">남성</option>
+              <option value="female">여성</option>
+            </select>
+
+            <label className="flex justify-center items-center text-blue-500 mt-2">
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={() => setChecked(!checked)}
+                className="hidden"
+              />
+              <span
+                className={`w-5 h-5 flex items-center justify-center border-2 rounded-md mr-2 ${
+                  checked ? "bg-blue-500 border-blue-500" : "border-gray-400"
+                }`}
+              >
+                {checked && <span className="text-white text-lg">✓</span>}
+              </span>
+              <span className="text-lg">
+                <span className="font-bold">개인 정보 제공</span> 에 동의합니다.
+              </span>
+            </label>
+
+            <button
+              onClick={handleSignup}
+              className="w-full  bg-[#7FC5E0] text-white font-bold p-3 rounded mt-4"
+            >
+              가입하기
+            </button>
           </div>
-          {isIdAvailable !== null && (
-            <p
-              className={`text-sm ${
-                isIdAvailable ? "text-green-500" : "text-red-500"
-              } pl-3`}
-            >
-              {isIdAvailable
-                ? "사용 가능한 아이디입니다."
-                : "이미 사용 중인 아이디입니다."}
-            </p>
-          )}
-          <Input
-            type="password"
-            placeholder="비밀번호"
-            value={userPassword}
-            onChange={(e) => setUserPassword(e.target.value)}
-            className="w-full p-2 border rounded mb-2"
-          />
-          <Input
-            type="password"
-            placeholder="비밀번호 확인"
-            value={userCheckPassword}
-            onChange={(e) => {
-              setUserCheckPassword(e.target.value);
-              setIsPWAvailable(null);
-            }}
-            onBlur={onNewPWCheck}
-            className="w-full p-2 border rounded mb-2"
-          />
-          {isPWAvailable !== null && (
-            <p
-              className={`text-sm ${
-                isPWAvailable ? "text-green-500" : "text-red-500"
-              } pl-3`}
-            >
-              {pwMessage}
-            </p>
-          )}
-          <Input
-            type="date"
-            value={userBirthday}
-            onChange={(e) => setUserBirthday(e.target.value)}
-            className="w-full p-2 border rounded mb-2"
-          />
-          <select
-            value={userGender}
-            onChange={(e) => setUserGender(e.target.value)}
-            className="text-[#A3A7AF] bg-[#F1F3F6] w-full p-2 border-none rounded mb-2 px-2 focus:outline-none"
-          >
-            <option value="male">남성</option>
-            <option value="female">여성</option>
-          </select>
-          <label className="flex justify-center items-center text-blue-500">
-            <input
-              type="checkbox"
-              checked={checked}
-              onChange={() => setChecked(!checked)}
-              className="hidden"
-            />
-            <span
-              className={`w-5 h-5 flex items-center justify-center border-2 rounded-md mr-2 ${
-                checked ? "bg-blue-500 border-blue-500" : "border-gray-400"
-              }`}
-            >
-              {checked && <span className="text-white text-lg">✓</span>}
-            </span>
-            <span className="text-lg">
-              <span className="font-bold">개인 정보 제공</span> 에 동의합니다.
-            </span>
-          </label>
-          <button
-            onClick={handleSignup}
-            className="w-full bg-[#7FC5E0] text-white font-bold p-2 rounded"
-          >
-            가입하기
-          </button>
         </div>
       </div>
     </div>

@@ -51,16 +51,17 @@ export default function Page() {
   }, [imageSrc]);
 
   return (
-    <div className="m-auto w-[80%] h-screen flex flex-col mt-5 gap-y-3 bg-[#F7F6F9]">
+    <div className="mx-auto w-full max-w-[900px] min-h-screen flex flex-col mt-5 gap-y-3 bg-white px-4">
       {/* 진단 결과 창 */}
-      <div className="rounded-lg flex flex-col items-center py-3 border-black border-[3px] bg-[#FFFFFF]">
-        {/* 사진 업로드 부분 */}
-        <div className="text-[26px] font-bold px-3 py-1 text-left self-start">
+      <div className="rounded-lg flex flex-col items-center py-3 border-black border-[3px] bg-white">
+        {/* 제목 */}
+        <div className="text-xl sm:text-2xl lg:text-3xl font-bold px-3 py-1 text-left w-full">
           피부 질환 진단 결과
         </div>
+
+        {/* 이미지 업로드 */}
         {!image && (
-          <div className="flex flex-col items-center justify-center relative">
-            {/* 숨겨진 파일 업로드 필드 */}
+          <div className="flex flex-col items-center justify-center relative w-full">
             <input
               id="fileUpload"
               type="file"
@@ -68,87 +69,91 @@ export default function Page() {
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
               onChange={handleImageUpload}
             />
-
-            {/* 파일 업로드 버튼 */}
             <label
               htmlFor="fileUpload"
-              className="flex items-center justify-center w-[300px] h-[300px] border-4 border-[#939498f9] border-dotted rounded-3xl cursor-pointer"
+              className="flex items-center justify-center w-[80%] sm:w-[300px] h-[300px] border-4 border-[#939498f9] border-dotted rounded-3xl cursor-pointer"
             >
               <span className="bg-[#5CA7C8] text-white px-4 py-2 font-bold rounded-lg">
                 사진 업로드
               </span>
             </label>
-
-            {/* 사진이 업로드되었을 때만 버튼 표시 */}
           </div>
         )}
+
+        {/* 업로드된 이미지 */}
         {image && (
-          <div className="flex flex-col items-center justify-center relative">
+          <div className="flex flex-col items-center justify-center relative mt-2">
             <Image
               src={imageSrc as string}
               alt="업로드된 이미지"
               width={300}
               height={300}
+              className="rounded-lg"
             />
           </div>
         )}
-        <div>
-          {image && (
-            <button
-              className="mt-4 w-[300px] bg-[#7FC5E0] text-2xl text-white px-4 py-2 font-bold rounded-lg
+
+        {/* 진단 버튼 */}
+        {image && (
+          <button
+            className="mt-4 w-[80%] sm:w-[300px] bg-[#7FC5E0] text-xl sm:text-2xl text-white px-4 py-2 font-bold rounded-lg
           hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer"
-              onClick={handleDiagnosis}
-            >
-              진단 요청
-            </button>
-          )}
-        </div>
+            onClick={handleDiagnosis}
+          >
+            진단 요청
+          </button>
+        )}
       </div>
-      <div className=" rounded-lg flex flex-col items-center">
-        {diagnosis && (
-          <div className="flex flex-col gap-y-3 px-3 py-3 rounded-lg border-black border-[3px] bg-[#FFFFFF]">
-            <h3 className="text-[23px] font-bold">의심 피부질환</h3>
-            <div className="flex flex-row px-2 gap-x-1 text-[18px] border-[2px] border-[#DEDCE1] py-2 rounded-lg">
+
+      {/* 진단 결과 */}
+      {diagnosis && (
+        <div className="rounded-lg flex flex-col items-center">
+          <div className="flex flex-col gap-y-3 px-3 py-3 rounded-lg border-black border-[3px] bg-white w-full">
+            <h3 className="text-xl sm:text-2xl font-bold">의심 피부질환</h3>
+
+            {/* 질병명 */}
+            <div className="flex items-center gap-x-2 text-base sm:text-lg border-[2px] border-[#DEDCE1] py-2 px-2 rounded-lg">
               <Image
                 src="/images/질병아이콘.png"
-                alt="의심짛환아이콘콘"
+                alt="의심 질환 아이콘"
                 width={30}
                 height={30}
               />
               질병 : {diagnosis.disease}
             </div>
-            <div className="flex flex-row px-2 gap-x-1 text-[18px] border-[2px] border-[#DEDCE1] py-2 rounded-lg">
-              <p>확률: {diagnosis.probability.toFixed(2)}%</p>
+
+            {/* 확률 */}
+            <div className="text-base sm:text-lg border-[2px] border-[#DEDCE1] py-2 px-2 rounded-lg">
+              확률: {diagnosis.probability.toFixed(2)}%
             </div>
-            <div className="flex flex-row px-2 gap-x-3 text-[18px] border-[2px] border-[#DEDCE1] py-2 rounded-lg">
-              {/* 이미지 */}
+
+            {/* 이미지 + 치료법 */}
+            <div className="flex flex-col lg:flex-row gap-y-4 lg:gap-x-4 border-[2px] border-[#DEDCE1] py-2 px-2 rounded-lg">
               <Image
                 src={diagnosis.imageUrl}
-                alt="의심 질환 아이콘"
+                alt="의심 질환 예시 이미지"
                 width={500}
                 height={500}
-                className="rounded-lg"
+                className="rounded-lg w-full lg:w-[50%] h-auto object-cover"
               />
-
-              {/* 치료법 정보 */}
-              <div className="flex flex-col justify-center">
-                <p className="font-bold text-lg">🩺 치료법</p>
-
-                {/* treatment를 문장 단위로 분리하여 리스트 형태로 출력 */}
-                <ul className="list-disc list-inside mt-2 space-y-1 px-3">
+              <div className="flex flex-col justify-center w-full lg:w-[50%]">
+                <p className="font-bold text-lg mb-2">🩺 치료법</p>
+                <ul className="list-disc list-inside space-y-1">
                   {diagnosis.treatment
-                    .split(". ") // 문장을 '.' 기준으로 나눔
-                    .filter((sentence) => sentence.trim() !== "") // 공백 필터링
+                    .split(". ")
+                    .filter((sentence) => sentence.trim() !== "")
                     .map((sentence, index) => (
-                      <li key={index}>{sentence}.</li> // 다시 '.' 추가하여 출력
+                      <li key={index}>{sentence}.</li>
                     ))}
                 </ul>
               </div>
             </div>
           </div>
-        )}
-      </div>
-      <div className="px-3 py-3 border-black border-[3px] bg-[#FFFFFF]">
+        </div>
+      )}
+
+      {/* 병원 추천 컴포넌트 */}
+      <div className="px-3 py-3 border-black border-[3px] bg-white rounded-lg">
         <HospitalRecommendComponent />
       </div>
     </div>

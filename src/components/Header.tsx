@@ -72,13 +72,19 @@ export default function Header() {
         </div>
         {isLoginState ? (
           <div className="flex items-center gap-5 relative">
-            <p onClick={handleModalOpen} className="text-gray-700 font-medium">
-              {userName}님
-            </p>
+            <div className="flex flex-row gap-x-0">
+              <p
+                onClick={handleModalOpen}
+                className="font-bold text-gray-700 hover:underline cursor-pointer"
+              >
+                {userName}
+              </p>
+              <span>님</span>
+            </div>
             <button
               onClick={handleLogout}
               className="
-              bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg
+              bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg text-lg
               hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer
             "
             >

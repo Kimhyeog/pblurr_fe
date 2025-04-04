@@ -13,13 +13,12 @@ export default function ChangePwBox(props: Props) {
   const [newPassword, setNewPassword] = useState<string>("");
   const [newCheckPassword, setNewCheckPassword] = useState<string>("");
   const [passwordMatch, setPasswordMatch] = useState<boolean | null>(null);
+  const [openNewPWInput, setOpenNewPWInput] = useState<boolean | null>(null);
   const [message, setMessage] = useState<string>("");
   const [newPasswordMatch, setnewPasswordMatch] = useState<boolean | null>(
     null
   );
   const [newPwMessage, setNewPwMessage] = useState<string>("");
-
-  console.log(passwordMatch);
 
   const handleCheckPassword = async () => {
     const isMatch = await checkPassword(currentPassword);
@@ -66,7 +65,7 @@ export default function ChangePwBox(props: Props) {
   useEffect(() => {}, [newPwMessage]);
 
   return (
-    <div className="w-full flex flex-col bg-[#eae8edeb] items-center justify-center rounded-2xl gap-y-3 p-3 py-7">
+    <div className="w-full flex flex-col bg-[#eae8edeb] items-center justify-center rounded-2xl shadow-lg gap-y-3 p-3 py-7">
       <h3 className="text-[#7FC5E0] text-2xl font-bold">비밀번호 변경</h3>
       <div className="w-full flex flex-col gap-y-2">
         <p className="ml-1">현재 비밀번호</p>
@@ -90,7 +89,7 @@ export default function ChangePwBox(props: Props) {
           </div>
         )}
       </div>
-      {passwordMatch && (
+      {openNewPWInput && (
         <div className="w-full flex flex-col gap-y-2">
           <p>새 비밀번호</p>
           <Input
@@ -147,6 +146,16 @@ export default function ChangePwBox(props: Props) {
             className="bg-blue-400 text-white text-[15px] px-3 py-2 rounded-lg font-semibold cursor-pointer"
           >
             변경
+          </button>
+        )}
+        {passwordMatch && !openNewPWInput && (
+          <button
+            onClick={() => {
+              setOpenNewPWInput(true);
+            }}
+            className="bg-blue-400 text-white text-[15px] px-3 py-2 rounded-lg font-semibold cursor-pointer"
+          >
+            확인
           </button>
         )}
       </div>
