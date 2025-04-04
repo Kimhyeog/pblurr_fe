@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
-import { checkLoginStatus, getUserInfo } from "@/api/auth";
 import React, { useEffect, useState } from "react";
-import { User, DiagnosisResult, HospitalRecommendation } from "@/types/types";
+import { User, DiagnosisResult } from "@/types/types";
 import { diagnoseSkinDisease } from "@/api/diease";
+import HospitalRecommendComponent from "@/components/HospitalRecommend/HospitalRecommendation";
 
 export default function Page() {
   const [image, setImage] = useState<File | null>(null);
@@ -104,9 +104,9 @@ export default function Page() {
           )}
         </div>
       </div>
-      <div className="px-3 py-3 rounded-lg flex flex-col items-center border-black border-[3px] bg-[#FFFFFF]">
+      <div className=" rounded-lg flex flex-col items-center">
         {diagnosis && (
-          <div className="flex flex-col gap-y-3">
+          <div className="flex flex-col gap-y-3 px-3 py-3 rounded-lg border-black border-[3px] bg-[#FFFFFF]">
             <h3 className="text-[23px] font-bold">의심 피부질환</h3>
             <div className="flex flex-row px-2 gap-x-1 text-[18px] border-[2px] border-[#DEDCE1] py-2 rounded-lg">
               <Image
@@ -147,6 +147,9 @@ export default function Page() {
             </div>
           </div>
         )}
+      </div>
+      <div className="px-3 py-3 border-black border-[3px] bg-[#FFFFFF]">
+        <HospitalRecommendComponent />
       </div>
     </div>
   );
