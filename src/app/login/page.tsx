@@ -36,21 +36,29 @@ export default function Page() {
   return (
     <div
       className="
-    w-full max-w-[85%] sm:max-w-[75%] md:max-w-[55%] lg:max-w-[40%] xl:max-w-[35%]
-    mx-auto mt-[15%] sm:mt-[12%] md:mt-[10%] lg:mt-[8%]
-    px-6 sm:px-8 md:px-10 py-8 sm:py-10
+    w-full mx-auto mt-[15%]
     flex flex-col justify-center items-center 
     bg-white rounded-3xl shadow-lg
+
+    sm:w-[90%] sm:mt-[15%] sm:px-3 sm:py-15
+
+    md:w-[70%] md:mt-[15%] md:px-3
+
+    lg:w-[50%] lg:mt-[15%]
+
+    xl:w-[25%]
   "
     >
-      <div className="flex flex-col items-center justify-center w-full">
-        <Image
-          src="/images/loginLogo.png"
-          alt="로그인 로고"
-          width={500}
-          height={400}
-          className="mb-4 "
-        />
+      <div className="flex flex-col items-center justify-center ">
+        <Link href={"/"}>
+          <Image
+            src="/images/loginLogo.png"
+            alt="로그인 로고"
+            width={400}
+            height={200}
+            className="mb-4 "
+          />
+        </Link>
         <div className="flex flex-row items-center mb-5 text-sm sm:text-base md:text-lg">
           <p>회원이 아니신가요?</p>
           <nav className="text-[#7FC5E0] px-2 sm:px-3 py-1 rounded-md">

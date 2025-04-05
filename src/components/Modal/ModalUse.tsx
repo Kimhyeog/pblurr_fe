@@ -3,7 +3,6 @@
 import { JSX, ReactNode, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import Swal, { SweetAlertOptions } from "sweetalert2";
-import Image from "next/image";
 
 interface ModalProps {
   children: (closeModal: () => void) => ReactNode;
@@ -41,7 +40,7 @@ export default function ModalUse({
       },
       customClass: {
         container: "",
-        popup: "!rounded-3xl !w-auto", // 모달 창 테두리를 더 크게 둥글게
+        popup: "!rounded-3xl !w-[45%]", // 모달 창 테두리를 더 크게 둥글게
       },
     };
 

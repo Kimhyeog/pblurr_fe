@@ -33,7 +33,7 @@ function HospitalRecommendComponent(props: Props) {
   return (
     <div className="p-6 bg-gray-50 rounded-2xl shadow-lg animate-fade-in-up">
       <div className="mb-4 text-xl font-bold text-blue-600">
-        선택된 구: {props.selectedDistrict}
+        선택된 위치 : {props.selectedDistrict}
       </div>
       <h2 className="text-2xl font-semibold mb-6">병원 추천</h2>
 
@@ -79,8 +79,8 @@ function HospitalRecommendComponent(props: Props) {
           </table>
         </div>
       ) : (
-        <div className="text-gray-500">
-          선택된 구에 대한 병원 정보를 불러오는 중입니다...
+        <div className="text-gray-500 whitespace-nowrap">
+          내 위치 주변 병원 정보를 검색해보세요.
         </div>
       )}
     </div>

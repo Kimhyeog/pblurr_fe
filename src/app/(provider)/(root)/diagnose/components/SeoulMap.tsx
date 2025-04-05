@@ -97,7 +97,7 @@ const SeoulMap = () => {
 
       {selectedDistrict && (
         <div className="text-lg font-semibold text-blue-600 animate-fade-in-up">
-          선택된 구: {selectedDistrict}
+          나의 주변 병원들: {selectedDistrict}
         </div>
       )}
     </div>
