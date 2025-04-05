@@ -115,40 +115,45 @@ export default function Page() {
             </h3>
 
             {/* 질병명 */}
-            <div className="flex items-center gap-x-2 text-base sm:text-lg border-[2px] border-[#DEDCE1] py-2 px-2 rounded-lg">
+            <div className="flex items-center gap-x-4 px-4 text-base sm:text-lg border-[2px] border-[#DEDCE1] py-2 rounded-lg">
               <Image
                 src="/images/질병아이콘.png"
                 alt="의심 질환 아이콘"
-                width={30}
-                height={30}
+                width={32}
+                height={32}
               />
-              질병 : {diagnosis.disease}
+              <p className="font-bold text-xl">
+                질병 :{" "}
+                <span className="text-[#e85959]">{diagnosis.disease}</span>
+              </p>
             </div>
 
             {/* 확률 */}
             <div className="text-base sm:text-lg border-[2px] border-[#DEDCE1] py-2 px-2 rounded-lg">
-              <div className="flex flex-row items-center gap-x-2">
+              <div className="flex flex-row items-center gap-x-4 px-2">
                 <Image
                   src="/images/질병아이콘.png"
                   alt="의심 질환 아이콘"
-                  width={30}
-                  height={30}
+                  width={32}
+                  height={32}
                 />
-                <p>확률: {diagnosis.probability.toFixed(2)}%</p>
+                <p className="font-bold text-xl">
+                  확률: {diagnosis.probability.toFixed(2)}%
+                </p>
               </div>
               <ProbabilityBar percent={diagnosis.probability.toFixed(2)} />
             </div>
 
             {/* 이미지 + 치료법 */}
             <div className="text-base sm:text-lg flex flex-col lg:flex-col gap-y-4 lg:gap-x-4 border-[2px] border-[#DEDCE1] py-2 px-2 rounded-lg">
-              <div className="flex flex-row items-center gap-x-2">
+              <div className="flex flex-row items-center gap-x-4 px-2">
                 <Image
                   src="/images/질병아이콘.png"
                   alt="의심 질환 아이콘"
-                  width={30}
-                  height={30}
+                  width={32}
+                  height={32}
                 />
-                <p> 의심질환 증상과 치료방법</p>
+                <p className="font-bold text-xl"> 의심질환 증상과 치료방법</p>
               </div>
               <div className="flex flex-col justify-start gap-y-5">
                 <div className="flex justify-center  border-[2px] border-[#DEDCE1] py-5 px-5 rounded-lg">
