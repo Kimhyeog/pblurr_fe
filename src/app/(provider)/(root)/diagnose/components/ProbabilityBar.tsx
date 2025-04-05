@@ -6,8 +6,8 @@ interface ProbabilityBarProps {
 }
 
 interface IProgress {
-  width: number;
-  backgroundColor: string;
+  $width: number;
+  $backgroundColor: string;
 }
 
 const ProgressBar = styled.div`
@@ -22,10 +22,10 @@ const ProgressBar = styled.div`
 `;
 
 const Progress = styled.div<IProgress>`
-  width: ${(props) => props.width}%;
+  width: ${(props) => props.$width}%;
   height: 30px;
   text-align: center;
-  background-color: ${(props) => props.backgroundColor};
+  background-color: ${(props) => props.$backgroundColor};
   color: #111;
   transition: width 0.1s ease, background-color 0.3s ease;
 `;
@@ -39,23 +39,21 @@ function ProbabilityBar({ percent }: ProbabilityBarProps) {
   const [currentPercent, setCurrentPercent] = useState(0);
 
   useEffect(() => {
-    // 10ms마다 퍼센트를 조금씩 올려줌
     const interval = setInterval(() => {
       setCurrentPercent((prev) => {
         if (prev < targetPercent) {
-          return prev + 1; // 1%씩 증가
+          return prev + 1;
         } else {
           clearInterval(interval);
           return targetPercent;
         }
       });
-    }, 10); // 10ms 간격
+    }, 10);
 
-    return () => clearInterval(interval); // 컴포넌트 unmount 시 정리
+    return () => clearInterval(interval);
   }, [targetPercent]);
 
-  // 퍼센트 범위에 따라 색상 결정
-  let backgroundColor = "skyblue"; // 기본
+  let backgroundColor = "skyblue";
   if (currentPercent > 70) {
     backgroundColor = "red";
   } else if (currentPercent > 30) {
@@ -64,7 +62,7 @@ function ProbabilityBar({ percent }: ProbabilityBarProps) {
 
   return (
     <ProgressBar>
-      <Progress width={currentPercent} backgroundColor={backgroundColor} />
+      <Progress $width={currentPercent} $backgroundColor={backgroundColor} />
     </ProgressBar>
   );
 }
