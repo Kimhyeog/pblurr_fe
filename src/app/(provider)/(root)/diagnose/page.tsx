@@ -5,6 +5,9 @@ import { User, DiagnosisResult } from "@/types/types";
 import { diagnoseSkinDisease } from "@/api/diease";
 import HospitalRecommendComponent from "@/components/HospitalRecommend/HospitalRecommendation";
 import ProbabilityBar from "./components/ProbabilityBar";
+import ModalUse from "@/components/Modal/ModalUse";
+import SeoulMap from "../test/page";
+import HospitalRecommendation from "@/components/HospitalRecommend/HospitalRecommendation";
 
 export default function Page() {
   const [image, setImage] = useState<File | null>(null);
@@ -188,8 +191,21 @@ export default function Page() {
       )}
 
       {/* 병원 추천 컴포넌트 */}
-      <div className="px-3 py-3 border-black border-[3px] bg-white rounded-lg">
-        <HospitalRecommendComponent />
+      <div className="relative w-full h-full">
+        <ModalUse buttonText="서울의 피부과 찾기">
+          {(closeModal) => (
+            <>
+              <SeoulMap />
+              <button
+                className="cursor-pointer absolute top-[10px] right-[10px] text-3xl"
+                onClick={closeModal} // 모달을 닫는 함수
+              >
+                ×
+              </button>
+              <HospitalRecommendation />
+            </>
+          )}
+        </ModalUse>
       </div>
     </div>
   );

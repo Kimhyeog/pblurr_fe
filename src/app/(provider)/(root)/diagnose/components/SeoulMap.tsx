@@ -13,17 +13,18 @@ const SeoulMap = () => {
   const mapRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="flex flex-col items-center space-y-4">
-      <div className="relative w-full max-w-2xl" ref={mapRef}>
+    <div>
+      <div ref={mapRef} className="relative w-[500px] h-[500px]">
         <ComposableMap
           projection="geoMercator"
           projectionConfig={{
-            scale: 20000,
+            scale: 120000, // 서울만 볼거면 이 정도
             center: [126.978, 37.5665],
           }}
-          width={200}
-          height={200}
-          style={{ width: "100%", height: "auto" }}
+          style={{
+            width: "100%",
+            height: "auto",
+          }}
         >
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
