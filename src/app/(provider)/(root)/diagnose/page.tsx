@@ -160,9 +160,9 @@ export default function Page() {
                   <Image
                     src={diagnosis.imageUrl}
                     alt="의심 질환 예시 이미지"
-                    width={100}
-                    height={500}
-                    className="rounded-lg w-full lg:w-[50%] h-auto object-cover"
+                    width={400}
+                    height={400}
+                    className="rounded-2xl"
                   />
                 </div>
                 <div className="border-[2px] border-[#DEDCE1] py-5 px-5 rounded-lg flex flex-col justify-center w-full">
