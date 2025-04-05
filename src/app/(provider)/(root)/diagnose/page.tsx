@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { User, DiagnosisResult } from "@/types/types";
 import { diagnoseSkinDisease } from "@/api/diease";
 import HospitalRecommendComponent from "@/components/HospitalRecommend/HospitalRecommendation";
+import ProbabilityBar from "./components/ProbabilityBar";
 
 export default function Page() {
   const [image, setImage] = useState<File | null>(null);
@@ -124,7 +125,16 @@ export default function Page() {
 
             {/* 확률 */}
             <div className="text-base sm:text-lg border-[2px] border-[#DEDCE1] py-2 px-2 rounded-lg">
-              확률: {diagnosis.probability.toFixed(2)}%
+              <div className="flex flex-row items-center gap-x-2">
+                <Image
+                  src="/images/질병아이콘.png"
+                  alt="의심 질환 아이콘"
+                  width={30}
+                  height={30}
+                />
+                <p>확률: {diagnosis.probability.toFixed(2)}%</p>
+              </div>
+              <ProbabilityBar percent={diagnosis.probability.toFixed(2)} />
             </div>
 
             {/* 이미지 + 치료법 */}
