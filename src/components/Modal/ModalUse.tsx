@@ -1,6 +1,6 @@
 "use client";
 
-import { JSX, ReactNode } from "react";
+import { JSX, ReactNode, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import Swal, { SweetAlertOptions } from "sweetalert2";
 import Image from "next/image";
@@ -18,7 +18,7 @@ export default function ModalUse({
     const closeModal = () => Swal.close(); // 모달 닫기 함수
 
     const options: SweetAlertOptions = {
-      html: `<div id='modal-root' style="height: 50vh;"></div>`,
+      html: `<div id='modal-root'></div>`,
       width: "50vw", // width는 여기
       showCancelButton: false,
       showConfirmButton: false,
@@ -41,7 +41,7 @@ export default function ModalUse({
       },
       customClass: {
         container: "",
-        popup: " ",
+        popup: "!rounded-3xl !w-auto", // 모달 창 테두리를 더 크게 둥글게
       },
     };
 

@@ -1,7 +1,8 @@
 "use client";
 
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import HospitalRecommendation from "@/components/HospitalRecommend/HospitalRecommendation";
 
 const geoUrl = "/assets/seoul-districts-geo.json";
 
@@ -13,7 +14,7 @@ const SeoulMap = () => {
   const mapRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className=" flex flex-col items-center space-y-4">
+    <div className=" flex flex-col items-center space-y-4 xl:flex-row">
       <div className="relative w-full max-w-2xl" ref={mapRef}>
         <ComposableMap
           projection="geoMercator"
@@ -94,11 +95,7 @@ const SeoulMap = () => {
         )}
       </div>
 
-      {selectedDistrict && (
-        <div className="text-lg font-semibold text-blue-600 animate-fade-in-up">
-          선택된 구: {selectedDistrict}
-        </div>
-      )}
+      <HospitalRecommendation selectedDistrict={selectedDistrict} />
     </div>
   );
 };

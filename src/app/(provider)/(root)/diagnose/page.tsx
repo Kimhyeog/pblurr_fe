@@ -202,7 +202,6 @@ export default function Page() {
               >
                 ×
               </button>
-              <HospitalRecommendation />
             </>
           )}
         </ModalUse>
