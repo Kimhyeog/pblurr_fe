@@ -1,56 +1,64 @@
-import styled from "styled-components";
+// components/SeoulMap.tsx
 
-interface ProbabilityBarProps {
-  percent: string; // "32%" 같은 문자열
-}
+"use client";
 
-interface IProgress {
-  width: number;
-  backgroundColor: string;
-}
+import { ComposableMap, Geographies, Geography } from "react-simple-maps";
+import { useState } from "react";
 
-const ProgressBar = styled.div`
-  width: 100%;
-  height: 30px;
-  background-color: #dedede;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.8rem;
-  margin-top: 20px;
-  overflow: hidden;
-`;
+const geoUrl = "/assets/seoul-districts-geo.json"; // public 폴더에 넣어놨다고 가정
 
-const Progress = styled.div<IProgress>`
-  width: ${(props) => props.width}%;
-  height: 30px;
-  text-align: center;
-  background-color: ${(props) => props.backgroundColor};
-  color: #111;
-  transition: width 0.3s ease, background-color 0.3s ease;
-`;
-
-function ProbabilityBar({ percent }: ProbabilityBarProps) {
-  // 문자열에서 '%' 제거하고 숫자로 변환
-  const numericPercent = parseFloat(percent.replace("%", ""));
-
-  // 변환 실패하거나 범위 벗어나면 0으로 처리
-  const validPercent = isNaN(numericPercent)
-    ? 0
-    : Math.min(Math.max(numericPercent, 0), 100);
-
-  // 퍼센트 범위에 따라 색상 결정
-  let backgroundColor = "skyblue"; // 기본
-  if (validPercent > 70) {
-    backgroundColor = "red";
-  } else if (validPercent > 30) {
-    backgroundColor = "yellow";
-  }
+const SeoulMap = () => {
+  const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
 
   return (
-    <ProgressBar>
-      <Progress width={validPercent} backgroundColor={backgroundColor} />
-    </ProgressBar>
-  );
-}
+    <div className="w-full h-auto">
+      <ComposableMap
+        projection="geoMercator"
+        projectionConfig={{
+          scale: 20000, // 서울 맞게 축척 조정
+          center: [126.978, 37.5665], // 서울 중심 좌표 (longitude, latitude)
+        }}
+        width={200}
+        height={200}
+      >
+        <Geographies geography={geoUrl}>
+          {({ geographies }) =>
+            geographies.map((geo) => {
+              const districtName = geo.properties.name;
 
-export default ProbabilityBar;
+              const isSelected = selectedDistrict === districtName;
+
+              return (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  onClick={() => {
+                    console.log(districtName);
+                    setSelectedDistrict(districtName);
+                  }}
+                  style={{
+                    default: {
+                      fill: isSelected ? "#3B82F6" : "#E5E7EB", // 선택되었을 때 색 다르게
+                      outline: "none",
+                    },
+                    hover: {
+                      fill: "#60A5FA", // hover 시 색
+                      outline: "none",
+                      filter: "drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.5))", // hover 시 그림자
+                    },
+                    pressed: {
+                      fill: "#2563EB", // 클릭할 때 색
+                      outline: "none",
+                    },
+                  }}
+                />
+              );
+            })
+          }
+        </Geographies>
+      </ComposableMap>
+    </div>
+  );
+};
+
+export default SeoulMap;
