@@ -57,7 +57,7 @@ export default function Page() {
       <div className="rounded-lg flex flex-col items-center py-3 border-black border-[3px] bg-white">
         {/* 제목 */}
         <div className="text-xl sm:text-2xl lg:text-3xl font-bold px-3 py-1 text-left w-full">
-          피부 질환 진단 결과
+          피부 질환 진단
         </div>
 
         {/* 이미지 업로드 */}
@@ -110,7 +110,9 @@ export default function Page() {
       {diagnosis && (
         <div className="rounded-lg flex flex-col items-center">
           <div className="flex flex-col gap-y-3 px-3 py-3 rounded-lg border-black border-[3px] bg-white w-full">
-            <h3 className="text-xl sm:text-2xl font-bold">의심 피부질환</h3>
+            <h3 className="px-2 text-xl sm:text-2xl font-bold">
+              피부 질환 진단 결과
+            </h3>
 
             {/* 질병명 */}
             <div className="flex items-center gap-x-2 text-base sm:text-lg border-[2px] border-[#DEDCE1] py-2 px-2 rounded-lg">
@@ -138,24 +140,42 @@ export default function Page() {
             </div>
 
             {/* 이미지 + 치료법 */}
-            <div className="flex flex-col lg:flex-row gap-y-4 lg:gap-x-4 border-[2px] border-[#DEDCE1] py-2 px-2 rounded-lg">
-              <Image
-                src={diagnosis.imageUrl}
-                alt="의심 질환 예시 이미지"
-                width={500}
-                height={500}
-                className="rounded-lg w-full lg:w-[50%] h-auto object-cover"
-              />
-              <div className="flex flex-col justify-center w-full lg:w-[50%]">
-                <p className="font-bold text-lg mb-2">🩺 치료법</p>
-                <ul className="list-disc list-inside space-y-1">
-                  {diagnosis.treatment
-                    .split(". ")
-                    .filter((sentence) => sentence.trim() !== "")
-                    .map((sentence, index) => (
-                      <li key={index}>{sentence}.</li>
-                    ))}
-                </ul>
+            <div className="text-base sm:text-lg flex flex-col lg:flex-col gap-y-4 lg:gap-x-4 border-[2px] border-[#DEDCE1] py-2 px-2 rounded-lg">
+              <div className="flex flex-row items-center gap-x-2">
+                <Image
+                  src="/images/질병아이콘.png"
+                  alt="의심 질환 아이콘"
+                  width={30}
+                  height={30}
+                />
+                <p> 의심질환 증상과 치료방법</p>
+              </div>
+              <div className="flex flex-col justify-start gap-y-5">
+                <div className="flex justify-center  border-[2px] border-[#DEDCE1] py-5 px-5 rounded-lg">
+                  <Image
+                    src={diagnosis.imageUrl}
+                    alt="의심 질환 예시 이미지"
+                    width={100}
+                    height={500}
+                    className="rounded-lg w-full lg:w-[50%] h-auto object-cover"
+                  />
+                </div>
+                <div className="border-[2px] border-[#DEDCE1] py-5 px-5 rounded-lg flex flex-col justify-center w-full">
+                  <p className="flex items-center justify-between font-bold text-2xl mb-2 pl-1 pb-2 border-b">
+                    <span>🩺 치료법</span>
+                    <span className="text-sm text-gray font-bold">
+                      ※ {` `}본 치료법은 어쩌구 저쩌구
+                    </span>
+                  </p>
+                  <ul className=" list-disc list-inside space-y-1">
+                    {diagnosis.treatment
+                      .split(". ")
+                      .filter((sentence) => sentence.trim() !== "")
+                      .map((sentence, index) => (
+                        <li key={index}>{sentence}.</li>
+                      ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
