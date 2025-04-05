@@ -39,7 +39,7 @@ export default function ModalUse({
         }
       },
       customClass: {
-        container: "",
+        container: "flex flex-row",
         popup: "!rounded-3xl !w-[45%]", // 모달 창 테두리를 더 크게 둥글게
       },
     };

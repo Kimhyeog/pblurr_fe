@@ -14,7 +14,7 @@ const SeoulMap = () => {
   const mapRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className=" flex flex-col items-center space-y-4 xl:flex-row">
+    <div className=" flex flex-col items-center space-y-4 xl:flex-row xl:justify-center xl:items-center">
       <div className="relative w-full max-w-2xl" ref={mapRef}>
         <ComposableMap
           projection="geoMercator"
@@ -24,7 +24,7 @@ const SeoulMap = () => {
           }}
           width={200}
           height={200}
-          style={{ width: "100%", height: "auto" }}
+          style={{ flex: 1, width: "100%", height: "auto" }}
         >
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
