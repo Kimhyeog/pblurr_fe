@@ -14,7 +14,7 @@ const SeoulMap = () => {
   const mapRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className=" flex flex-col items-center space-y-4 xl:flex-row xl:justify-center xl:items-center">
+    <div className=" flex flex-col items-center space-y-4 ">
       <div className="relative w-full max-w-2xl" ref={mapRef}>
         <ComposableMap
           projection="geoMercator"
@@ -83,7 +83,7 @@ const SeoulMap = () => {
 
         {hoveredDistrict && (
           <div
-            className="absolute bg-[#7FC5E0] text-white text-lg font-bold px-3 py-2 rounded-md shadow-xl  animate-fade pointer-events-none z-50"
+            className="absolute max-w-2xl bg-[#7FC5E0] text-white text-lg font-bold px-3 py-2 rounded-md shadow-xl  animate-fade pointer-events-none z-50"
             style={{
               top: tooltipPosition.y,
               left: tooltipPosition.x,

@@ -42,10 +42,10 @@ function HospitalRecommendComponent(props: Props) {
           <table className="min-w-full bg-white rounded-xl shadow-md">
             <thead>
               <tr className="bg-blue-100 text-blue-700">
-                <th className="py-3 px-6 text-left text-sm font-bold uppercase">
+                <th className="py-3 px-6 text-left text-md font-bold uppercase">
                   병원명
                 </th>
-                <th className="py-3 px-6 text-left text-sm font-bold uppercase">
+                <th className="py-3 px-6 text-left text-md font-bold uppercase">
                   링크
                 </th>
               </tr>

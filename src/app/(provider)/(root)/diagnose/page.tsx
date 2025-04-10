@@ -190,7 +190,7 @@ export default function Page() {
       )}
 
       {/* 병원 추천 컴포넌트 */}
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-full px-10">
         <ModalUse buttonText="내 주변 병원찾기">
           {(closeModal) => (
             <>
