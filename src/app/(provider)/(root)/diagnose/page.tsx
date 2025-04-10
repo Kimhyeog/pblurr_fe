@@ -7,10 +7,11 @@ import ProbabilityBar from "./components/ProbabilityBar";
 import ModalUse from "@/components/Modal/ModalUse";
 import SeoulMap from "../test/page";
 import DieasesBox from "./components/DieasesBox";
+import DiagnoseBox from "./components/DiagnoseBox";
 
 export default function Page() {
   const [image, setImage] = useState<File | null>(null);
-  const [imageSrc, setImageSrc] = useState<string>("");
+  const [imageSrc, setImageSrc] = useState<string | null>("");
   const [diagnosis, setDiagnosis] = useState<DiagnosisResult | null>(null); // 진단 결과 상태 추가
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,51 +60,7 @@ export default function Page() {
         <div className="text-xl sm:text-2xl lg:text-3xl font-bold px-3 py-1 text-left w-full">
           피부 질환 진단하기
         </div>
-
-        {/* 이미지 업로드 */}
-        {!image && (
-          <div className="flex flex-col items-center justify-center relative w-full">
-            <input
-              id="fileUpload"
-              type="file"
-              accept="image/*"
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-              onChange={handleImageUpload}
-            />
-            <label
-              htmlFor="fileUpload"
-              className="flex items-center justify-center w-[80%] sm:w-[300px] h-[300px] border-4 border-[#939498f9] border-dotted rounded-3xl cursor-pointer"
-            >
-              <span className="bg-[#5CA7C8] text-white px-4 py-2 font-bold rounded-lg">
-                사진 업로드
-              </span>
-            </label>
-          </div>
-        )}
-
-        {/* 업로드된 이미지 */}
-        {image && (
-          <div className="flex flex-col items-center justify-center relative mt-2">
-            <Image
-              src={imageSrc as string}
-              alt="업로드된 이미지"
-              width={300}
-              height={300}
-              className="rounded-lg"
-            />
-          </div>
-        )}
-
-        {/* 진단 버튼 */}
-        {image && (
-          <button
-            className="mt-4 w-[80%] sm:w-[300px] bg-[#7FC5E0] text-xl sm:text-2xl text-white px-4 py-2 font-bold rounded-lg
-          hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer"
-            onClick={handleDiagnosis}
-          >
-            진단 요청
-          </button>
-        )}
+        <DiagnoseBox setImage={setImageSrc} setDiagnose={setDiagnosis} />
       </div>
       {/* 병명 설명 */}
       {!diagnosis && <DieasesBox />}
