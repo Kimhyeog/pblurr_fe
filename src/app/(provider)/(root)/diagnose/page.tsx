@@ -57,13 +57,22 @@ export default function Page() {
       {/* 진단 결과 창 */}
       <div className="rounded-lg flex flex-col items-center px-3 py-5 border-0 bg-white">
         {/* 제목 */}
-        <div className="text-xl sm:text-2xl lg:text-3xl font-bold px-3 py-1 text-left w-full">
-          피부 질환 진단하기
+        <div className="text-2xl sm:text-2xl lg:text-3xl font-bold px-3 py-1 text-left w-full">
+          💉 피부 질환 진단하기
         </div>
-        <DiagnoseBox setImage={setImageSrc} setDiagnose={setDiagnosis} />
+        <div className="w-full p-5 ">
+          <DiagnoseBox setImage={setImageSrc} setDiagnose={setDiagnosis} />
+        </div>
       </div>
       {/* 병명 설명 */}
-      {!diagnosis && <DieasesBox />}
+      {!diagnosis && (
+        <div>
+          <div className="text-md sm:text-2xl lg:text-3xl font-bold px-3 py-1 text-left w-full">
+            🤒{`'`}피부르르{`'`}가 제공하는 피부질환 목록
+          </div>
+          <DieasesBox />
+        </div>
+      )}
       {/* 진단 결과 */}
       {diagnosis && (
         <div className="rounded-lg flex flex-col items-center">

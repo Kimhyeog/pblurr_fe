@@ -14,7 +14,7 @@ const SeoulMap = () => {
 
   return (
     <div>
-      <div ref={mapRef} className="relative w-[500px] h-[500px]">
+      <div ref={mapRef} className="relative w-[500px] h-[500px] ">
         <ComposableMap
           projection="geoMercator"
           projectionConfig={{

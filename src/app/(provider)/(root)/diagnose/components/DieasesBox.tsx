@@ -1,4 +1,5 @@
 import { data } from "@/data/disease";
+import Image from "next/image";
 
 function DieasesBox() {
   return (
@@ -8,9 +9,11 @@ function DieasesBox() {
           key={index}
           className="flex flex-row items-center bg-gray-100 rounded-2xl p-6 w-full max-w-3xl shadow-md"
         >
-          <img
+          <Image
             src={item.imgSrc}
             alt={item.title}
+            width={150}
+            height={150}
             className="w-32 h-32 object-cover rounded-xl mr-6"
           />
           <div className="flex flex-col">

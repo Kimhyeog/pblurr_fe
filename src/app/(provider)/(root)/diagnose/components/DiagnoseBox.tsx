@@ -100,7 +100,7 @@ function DiagnoseBox(props: Props) {
   }, [controls]);
 
   return (
-    <div className="relative w-full h-[500px] overflow-hidden bg-blue-50 p-3">
+    <div className="relative w-full h-[500px] overflow-hidden bg-blue-50 p-3 border-4 border-[#5CA7C8] rounded-3xl shadow-xl">
       {/* 움직이는 뒷배경 이미지들 */}
       <motion.div
         className="absolute top-1/2 left-0 flex gap-4 w-max"
@@ -112,7 +112,7 @@ function DiagnoseBox(props: Props) {
             key={index}
             src={src}
             alt={`slide-${index}`}
-            width={100}
+            width={150}
             height={130}
             className="rounded-xl object-cover shadow-lg"
           />
