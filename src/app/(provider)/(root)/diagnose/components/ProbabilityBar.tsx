@@ -39,6 +39,9 @@ function ProbabilityBar({ percent }: ProbabilityBarProps) {
   const [currentPercent, setCurrentPercent] = useState(0);
 
   useEffect(() => {
+    const duration = 2000; // 총 2초
+    const stepTime = duration / targetPercent; // 한 번 업데이트할 때마다 걸리는 시간
+
     const interval = setInterval(() => {
       setCurrentPercent((prev) => {
         if (prev < targetPercent) {
@@ -48,7 +51,7 @@ function ProbabilityBar({ percent }: ProbabilityBarProps) {
           return targetPercent;
         }
       });
-    }, 10);
+    }, stepTime);
 
     return () => clearInterval(interval);
   }, [targetPercent]);
