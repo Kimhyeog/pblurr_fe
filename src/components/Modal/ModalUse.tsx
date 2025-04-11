@@ -39,7 +39,8 @@ export default function ModalUse({
         );
       },
       customClass: {
-        popup: "!rounded-3xl !p-0 !overflow-visible", // padding 없애고 overflow visible 줘야 꼬이지 않아
+        popup:
+          "!rounded-3xl !p-0 !overflow-visible !border-10 !border-[#bfdbfe]", // padding 없애고 overflow visible 줘야 꼬이지 않아
       },
       backdrop: true,
     };

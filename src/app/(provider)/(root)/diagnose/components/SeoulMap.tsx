@@ -94,12 +94,13 @@ const SeoulMap = () => {
           </div>
         )}
       </div>
-
-      {selectedDistrict && (
-        <div className="text-lg font-semibold text-blue-600 animate-fade-in-up">
-          나의 주변 병원들: {selectedDistrict}
-        </div>
-      )}
+      <div>
+        {selectedDistrict && (
+          <div className="text-lg font-semibold text-blue-600 animate-fade-in-up">
+            나의 주변 병원들: {selectedDistrict}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
