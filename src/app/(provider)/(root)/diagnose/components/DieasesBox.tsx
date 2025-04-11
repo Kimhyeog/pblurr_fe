@@ -3,7 +3,10 @@ import Image from "next/image";
 
 function DieasesBox() {
   return (
-    <div className="bg-white flex flex-col items-center p-8 gap-6">
+    <div className="bg-white flex flex-col items-center p-8 gap-6 rounded-2xl">
+      <div className="text-md sm:text-2xl lg:text-2xl font-bold px-3 py-1 text-left w-full">
+        {`'`}피부르르{`'`}가 제공하는 피부질환 목록
+      </div>
       {data.map((item, index) => (
         <div
           key={index}

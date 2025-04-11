@@ -18,13 +18,12 @@ function MainSkinDiagnose() {
         />
       </div>
       <div className="flex flex-col gap-y-4 items-center">
-        <h1 className="text-2xl font-extrabold">너의 피부는 안더럽니?</h1>
+        <h1 className="text-2xl font-extrabold">피부 미용 분석</h1>
         <div>
           <p className="text-md text-center whitespace-nowrap">
-            {`"`}피부르르{`"`}는 당신의 피부 피부 사진을 업로드하면, 나의
-          </p>
-          <p className="text-md text-center whitespace-nowrap">
-            피부 질환이 있는지 진단을 할 수 있습니다.
+            {`"`}피부르르{`"`}는 당신의 얼굴 사진을 업로드하면,
+            <br />
+            부위별 피부 미용 점수를 간편하게 분석할 수 있습니다.
           </p>
         </div>
         <button
@@ -34,7 +33,7 @@ function MainSkinDiagnose() {
           className="bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg text-lg
               hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer"
         >
-          진단하기
+          분석하기
         </button>
       </div>
     </div>

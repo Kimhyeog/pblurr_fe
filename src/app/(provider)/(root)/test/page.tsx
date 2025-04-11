@@ -22,8 +22,8 @@ const SeoulMap = () => {
             scale: 20000,
             center: [126.978, 37.5665],
           }}
-          width={200}
-          height={200}
+          width={150}
+          height={150}
           style={{ flex: 1, width: "100%", height: "auto" }}
         >
           <Geographies geography={geoUrl}>

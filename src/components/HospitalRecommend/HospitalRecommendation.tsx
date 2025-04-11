@@ -35,17 +35,17 @@ function HospitalRecommendComponent(props: Props) {
       <div className="mb-4 text-xl font-bold text-blue-600">
         선택된 위치 : {props.selectedDistrict}
       </div>
-      <h2 className="text-2xl font-semibold mb-6">병원 추천</h2>
+      <h2 className="text-2xl font-semibold mb-6">병원 찾기</h2>
 
       {hospitals ? (
-        <div className="overflow-x-auto">
+        <div className="">
           <table className="min-w-full bg-white rounded-xl shadow-md">
             <thead>
-              <tr className="bg-blue-100 text-blue-700">
-                <th className="py-3 px-6 text-left text-md font-bold uppercase">
+              <tr className="bg-blue-100 text-blue-600">
+                <th className="py-3 px-6  text-center text-md font-bold uppercase">
                   병원명
                 </th>
-                <th className="py-3 px-6 text-left text-md font-bold uppercase">
+                <th className="py-3 px-6 text-center text-md font-bold uppercase">
                   링크
                 </th>
               </tr>
@@ -79,8 +79,8 @@ function HospitalRecommendComponent(props: Props) {
           </table>
         </div>
       ) : (
-        <div className="text-gray-500 whitespace-nowrap">
-          내 위치 주변 병원 정보를 검색해보세요.
+        <div className="text-gray-500 px-3 py-25 whitespace-nowrap">
+          내 위치의 지역구를 클릭하세요.
         </div>
       )}
     </div>

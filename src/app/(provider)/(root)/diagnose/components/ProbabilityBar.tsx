@@ -56,11 +56,11 @@ function ProbabilityBar({ percent }: ProbabilityBarProps) {
     return () => clearInterval(interval);
   }, [targetPercent]);
 
-  let backgroundColor = "skyblue";
+  let backgroundColor = "#85e4ed";
   if (currentPercent > 70) {
-    backgroundColor = "red";
+    backgroundColor = "#ed5656";
   } else if (currentPercent > 30) {
-    backgroundColor = "yellow";
+    backgroundColor = "#bef257";
   }
 
   return (

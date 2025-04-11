@@ -29,7 +29,6 @@ function DiagnoseBox(props: Props) {
 
   const [image, setImage] = useState<File | null>(null);
   const [imageSrc, setImageSrc] = useState<string>("");
-  const [diagnosis, setDiagnosis] = useState<DiagnosisResult | null>(null); // 진단 결과 상태 추가
 
   const IMAGE_WIDTH = 100 + 16; // 이미지 가로 100 + gap 16px (tailwind flex gap-4 = 1rem = 16px)
 
@@ -39,7 +38,7 @@ function DiagnoseBox(props: Props) {
     }
     setImage(null); // 이미지 초기화
     setImageSrc(""); // 이미지 URL 초기화
-    setDiagnosis(null); // 진단 결과 초기화 (필요하면)
+    props.setDiagnose(null); // 진단 결과 초기화 (필요하면)
   };
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,8 +68,6 @@ function DiagnoseBox(props: Props) {
     props.setImage(imageSrcResult);
     props.setDiagnose(result);
   };
-
-  console.log(diagnosis);
 
   useEffect(() => {
     console.log("imageSrc 상태 변경:", imageSrc);
@@ -114,7 +111,7 @@ function DiagnoseBox(props: Props) {
             alt={`slide-${index}`}
             width={150}
             height={130}
-            className="rounded-xl object-cover shadow-lg"
+            className="rounded-2xl object-cover shadow-2xl"
           />
         ))}
       </motion.div>
@@ -163,9 +160,9 @@ function DiagnoseBox(props: Props) {
                 재업로드
               </button>
               <button
-                className="bg-red-500 text-white px-4 py-2 font-bold rounded-lg cursor-pointer 
+                className="bg-[#f25c5c] text-white px-4 py-2 font-bold rounded-lg cursor-pointer 
                hover:bg-red-400
-               focus:bg-red-600 transition
+               focus:bg-[#e76565] transition
                "
                 onClick={() => {
                   handleDiagnosis();

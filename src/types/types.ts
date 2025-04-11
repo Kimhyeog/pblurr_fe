@@ -1,3 +1,4 @@
+// 회원 타입입
 export interface User {
   userName: string;
   userId: string;
@@ -30,4 +31,38 @@ export interface HospitalRecommendation {
   hospital2Link: string; // 추천 병원 2 링크
   hospital3: string; // 추천 병원 3
   hospital3Link: string; // 추천 병원 3 링크
+}
+
+// 피부미용
+
+// 화장품 타입
+
+interface ProductRecommendation {
+  category: string;
+  score: string;
+  brand1: string;
+  product1: string;
+  product1Image: string;
+  product1Price: number;
+  product1Link: string;
+  brand2: string;
+  product2: string;
+  product2Image: string;
+  product2Price: number;
+  product2Link: string;
+  brand3: string;
+  product3: string;
+  product3Image: string;
+  product3Price: number;
+  product3Link: string;
+  brand4: string;
+  product4: string;
+  product4Image: string;
+  product4Price: number;
+  product4Link: string;
+  brand5: string;
+  product5: string;
+  product5Image: string;
+  product5Price: number;
+  product5Link: string;
 }
