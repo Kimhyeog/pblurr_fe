@@ -1,3 +1,4 @@
+//ModalUse.tsx
 "use client";
 
 import { JSX, ReactNode } from "react";
@@ -19,7 +20,7 @@ export default function ModalUse({
 
     const options: SweetAlertOptions = {
       html: container, // html: `<div>...</div>`로 string 만드는 게 아니라 아예 DOM element를 넘긴다
-      width: "40%",
+      width: "50%",
       showCancelButton: false,
       showConfirmButton: false,
       willOpen: () => {

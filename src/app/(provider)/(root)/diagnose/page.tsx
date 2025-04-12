@@ -1,3 +1,4 @@
+//diagnose/page.tsx
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -7,6 +8,7 @@ import ModalUse from "@/components/Modal/ModalUse";
 import DieasesBox from "./components/DieasesBox";
 import DiagnoseBox from "./components/DiagnoseBox";
 import SeoulMap from "./components/SeoulMap";
+import HospitalRecommendComponent from "@/components/HospitalRecommend/HospitalRecommendation";
 
 export default function Page() {
   const [imageSrc, setImageSrc] = useState<string | null>("");
