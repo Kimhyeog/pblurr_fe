@@ -1,17 +1,26 @@
 "use client";
 
-import { ComposableMap, Geographies, Geography } from "react-simple-maps";
-import { useState, useRef, useEffect } from "react";
-import HospitalRecommendation from "@/components/HospitalRecommend/HospitalRecommendation";
+import { motion, useAnimation } from "framer-motion";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
 
-const geoUrl = "/assets/seoul-districts-geo.json";
+const images = [
+  "/images/곰팡이감염.jpg",
+  "/images/건선편평태선.jpg",
+  "/images/기저세포암.jpg",
+  "/images/멜라닌세포모반.jpg",
+  "/images/사마귀전염성연속증.jpg",
+  "/images/아토피피부염.jpg",
+  "/images/지루각화증.jpg",
+  "/images/흑색종.jpg",
+  "/images/습진.jpg",
+];
 
-const SeoulMap = () => {
-  const [selectedDistrict, setSelectedDistrict] = useState<string | null>(null);
-  const [hoveredDistrict, setHoveredDistrict] = useState<string | null>(null);
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+export default function ImageCarousel() {
+  const controls = useAnimation();
+  const x = useRef(0); // 현재 위치 기억
 
-  const mapRef = useRef<HTMLDivElement>(null);
+  const IMAGE_WIDTH = 100 + 16; // 이미지 가로 100 + gap 16px (tailwind flex gap-4 = 1rem = 16px)
 
   return (
     <div className=" flex flex-col items-center space-y-4 ">
@@ -33,71 +42,50 @@ const SeoulMap = () => {
                 const isSelected = selectedDistrict === districtName;
                 const isHovered = hoveredDistrict === districtName;
 
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    onClick={() => {
-                      console.log(districtName);
-                      setSelectedDistrict(districtName);
-                    }}
-                    {...({
-                      onMouseEnter: () => setHoveredDistrict(districtName),
-                      onMouseLeave: () => setHoveredDistrict(null),
-                      onMouseMove: (event: React.MouseEvent) => {
-                        const bounds = mapRef.current?.getBoundingClientRect();
-                        if (bounds) {
-                          setTooltipPosition({
-                            x: event.clientX - bounds.left + 12,
-                            y: event.clientY - bounds.top + 12,
-                          });
-                        }
-                      },
-                    } as any)}
-                    style={{
-                      default: {
-                        fill: isSelected ? "#7FC5E0" : "#E5E7EB",
-                        stroke: "#D1D5DB", // 전체 구 경계선
-                        strokeWidth: 0.8,
-                        outline: "none",
-                        transition: "all 0.3s ease",
-                      },
-                      hover: {
-                        fill: "#E5E7EB",
-                        strokeWidth: 1.2,
-                        outline: "none",
-                        transition: "all 0.3s ease",
-                        filter: "drop-shadow(0px 1px 5px rgba(0, 0, 0, 0.4))",
-                      },
-                      pressed: {
-                        fill: "#7FC5E0",
-                        outline: "none",
-                      },
-                    }}
-                  />
-                );
-              })
-            }
-          </Geographies>
-        </ComposableMap>
+      // 너무 왼쪽으로 이동하면 위치 초기화
+      if (x.current <= -(IMAGE_WIDTH * images.length)) {
+        x.current = 0;
+      }
 
-        {hoveredDistrict && (
-          <div
-            className="absolute max-w-2xl bg-[#7FC5E0] text-white text-lg font-bold px-3 py-2 rounded-md shadow-xl  animate-fade pointer-events-none z-50"
-            style={{
-              top: tooltipPosition.y,
-              left: tooltipPosition.x,
-              whiteSpace: "nowrap",
-            }}
-          >
-            {hoveredDistrict}
-          </div>
-        )}
+      controls.start({
+        x: x.current,
+        transition: { duration: 0.03, ease: "linear" },
+      });
+    }, 30); // 조금 더 부드럽게 빠르게
+
+    return () => clearInterval(interval);
+  }, [controls]);
+
+  return (
+    <div className="relative w-full h-[500px] overflow-hidden bg-white">
+      {/* 움직이는 뒷배경 이미지들 */}
+      <motion.div
+        className="absolute top-1/2 left-0 flex gap-4 w-max"
+        style={{ translateY: "-50%" }} // y축 중앙 정렬
+        animate={controls}
+      >
+        {images.concat(images).map((src, index) => (
+          <Image
+            key={index}
+            src={src}
+            alt={`slide-${index}`}
+            width={100}
+            height={130}
+            className="rounded-xl object-cover shadow-lg"
+          />
+        ))}
+      </motion.div>
+
+      {/* 가운데 고정 박스 */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 p-6 bg-white rounded-2xl shadow-2xl w-[300px] h-[400px] flex items-center justify-center">
+        <Image
+          src="/images/facecheck.jpg"
+          alt="center"
+          width={250}
+          height={350}
+          className="rounded-lg object-contain"
+        />
       </div>
-
-      <HospitalRecommendation selectedDistrict={selectedDistrict} />
     </div>
   );
-};
-
-export default SeoulMap;
+}
