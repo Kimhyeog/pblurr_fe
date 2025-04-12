@@ -13,8 +13,8 @@ const SeoulMap = () => {
   const mapRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div>
-      <div ref={mapRef} className="relative w-[500px] h-[500px]">
+    <div className="flex items-center">
+      <div ref={mapRef} className="relative  ">
         <ComposableMap
           projection="geoMercator"
           projectionConfig={{
@@ -94,12 +94,13 @@ const SeoulMap = () => {
           </div>
         )}
       </div>
-
-      {selectedDistrict && (
-        <div className="text-lg font-semibold text-blue-600 animate-fade-in-up">
-          나의 주변 병원들: {selectedDistrict}
-        </div>
-      )}
+      <div>
+        {selectedDistrict && (
+          <div className="text-lg font-semibold text-blue-600 animate-fade-in-up">
+            나의 주변 병원들: {selectedDistrict}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -22,9 +22,25 @@ export default function ImageCarousel() {
 
   const IMAGE_WIDTH = 100 + 16; // 이미지 가로 100 + gap 16px (tailwind flex gap-4 = 1rem = 16px)
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      x.current -= 1; // 1px씩 이동
+  return (
+    <div className=" flex flex-col items-center space-y-4 ">
+      <div className="relative w-full max-w-2xl" ref={mapRef}>
+        <ComposableMap
+          projection="geoMercator"
+          projectionConfig={{
+            scale: 20000,
+            center: [126.978, 37.5665],
+          }}
+          width={150}
+          height={150}
+          style={{ flex: 1, width: "100%", height: "auto" }}
+        >
+          <Geographies geography={geoUrl}>
+            {({ geographies }) =>
+              geographies.map((geo) => {
+                const districtName = geo.properties.name;
+                const isSelected = selectedDistrict === districtName;
+                const isHovered = hoveredDistrict === districtName;
 
       // 너무 왼쪽으로 이동하면 위치 초기화
       if (x.current <= -(IMAGE_WIDTH * images.length)) {

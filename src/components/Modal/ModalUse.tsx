@@ -1,6 +1,6 @@
 "use client";
 
-import { JSX, ReactNode, useEffect } from "react";
+import { JSX, ReactNode } from "react";
 import ReactDOM from "react-dom/client";
 import Swal, { SweetAlertOptions } from "sweetalert2";
 
@@ -14,34 +14,25 @@ export default function ModalUse({
   buttonText,
 }: ModalProps): JSX.Element {
   const onClickOpenModal = async (): Promise<void> => {
-    const closeModal = () => Swal.close(); // 모달 닫기 함수
+    const container = document.createElement("div"); // div 따로 만듦
+    container.id = "modal-container";
 
     const options: SweetAlertOptions = {
-      html: `<div id='modal-root'></div>`,
-      width: "50vw", // width는 여기
+      html: container, // html: `<div>...</div>`로 string 만드는 게 아니라 아예 DOM element를 넘긴다
+      width: "40%",
       showCancelButton: false,
       showConfirmButton: false,
-      didOpen: (): void => {
-        const modalRoot = document.getElementById("modal-root");
-
-        if (modalRoot) {
-          ReactDOM.createRoot(modalRoot).render(
-            <div className="relative">
-              <button
-                className="cursor-pointer absolute top-[10px] right-[10px] text-3xl"
-                onClick={closeModal} // 모달을 닫는 함수
-              >
-                ×
-              </button>
-              {children(closeModal)}
-            </div>
-          );
-        }
+      willOpen: () => {
+        // willOpen에서 직접 React 렌더링
+        ReactDOM.createRoot(container).render(
+          <div className="relative">{children(() => Swal.close())}</div>
+        );
       },
       customClass: {
-        container: "flex flex-row",
-        popup: "!rounded-3xl !w-[45%]", // 모달 창 테두리를 더 크게 둥글게
+        popup:
+          "!rounded-3xl !p-5 !overflow-visible !border-10 !border-[#bfdbfe]", // padding 없애고 overflow visible 줘야 꼬이지 않아
       },
+      backdrop: true,
     };
 
     await Swal.fire(options);
