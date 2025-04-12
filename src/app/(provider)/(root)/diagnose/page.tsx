@@ -4,9 +4,9 @@ import React, { useEffect, useState } from "react";
 import { DiagnosisResult } from "@/types/types";
 import ProbabilityBar from "./components/ProbabilityBar";
 import ModalUse from "@/components/Modal/ModalUse";
-import SeoulMap from "../test/page";
 import DieasesBox from "./components/DieasesBox";
 import DiagnoseBox from "./components/DiagnoseBox";
+import SeoulMap from "./components/SeoulMap";
 
 export default function Page() {
   const [imageSrc, setImageSrc] = useState<string | null>("");

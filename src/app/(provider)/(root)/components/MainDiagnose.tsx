@@ -10,7 +10,7 @@ function MainDiagnose() {
   return (
     <div className="px-20 py-15 flex justify-center items-center gap-x-15 bg-white">
       <div className="flex flex-col gap-y-4 items-center">
-        <h1 className="border-4 border-blue-200 px-2 py-1 text-2xl font-extrabold rounded-2xl">
+        <h1 className=" px-2 py-1 text-2xl font-extrabold rounded-2xl">
           피부 질환 진단
         </h1>
         <div>
