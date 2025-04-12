@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Input from "./Input";
 import { checkPassword, updatePassword } from "@/api/auth/index"; // 위에서 만든 메소드 import
+import Swal from "sweetalert2";
 
 type Props = {
   onCLickClose: () => void;
@@ -55,7 +56,7 @@ export default function ChangePwBox(props: Props) {
         ? "비밀번호가 성공적으로 변경되었습니다."
         : "비밀번호 변경에 실패했습니다."
     );
-    alert("비밀번호가 성공적으로 변경되었습니다.");
+    Swal.fire("변경 완료", "비밀번호가 성공적으로 변경되었습니다.", "success");
     setPasswordMatch(null);
     props.onCLickClose();
   };
