@@ -8,7 +8,6 @@ import ModalUse from "@/components/Modal/ModalUse";
 import DieasesBox from "./components/DieasesBox";
 import DiagnoseBox from "./components/DiagnoseBox";
 import SeoulMap from "./components/SeoulMap";
-import HospitalRecommendComponent from "@/components/HospitalRecommend/HospitalRecommendation";
 
 export default function Page() {
   const [imageSrc, setImageSrc] = useState<string | null>("");
@@ -104,10 +103,6 @@ export default function Page() {
                 <div className="border-[2px] border-[#DEDCE1] py-5 px-5 rounded-lg flex flex-col gap-y-4 justify-center w-full">
                   <p className="flex items-center justify-between font-bold text-2xl mb-2 pl-1 pb-2 border-b">
                     <span className="whitespace-nowrap">🩺 치료법</span>
-                    <span className="text-sm text-gray font-bold">
-                      ※ {` `}대한피부과학회에서 제공된 정보입니다. 보다 정확한
-                      진단과 치료를 위해 가까운 병원에 방문하세요.
-                    </span>
                   </p>
                   <ul className="list-disc pl-5 space-y-1 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                     {diagnosis.treatment
@@ -119,29 +114,35 @@ export default function Page() {
                         </li>
                       ))}
                   </ul>
+                  <span className="text-sm text-[#e85959] text-gray font-extrabold">
+                    ※ {` `}
+                    <span>{diagnosis.source}</span>
+                    에서 제공된 정보입니다. 보다 정확한 진단과 치료를 위해
+                    가까운 병원에 방문하세요.
+                  </span>
                 </div>
               </div>
             </div>
+          </div>
+          <div className="relative w-full h-full">
+            <ModalUse buttonText="내 주변 병원찾기">
+              {(closeModal) => (
+                <>
+                  <SeoulMap />
+                  <button
+                    className="font-bold  cursor-pointer absolute top-[10px] right-[10px] text-3xl"
+                    onClick={closeModal} // 모달을 닫는 함수
+                  >
+                    ×
+                  </button>
+                </>
+              )}
+            </ModalUse>
           </div>
         </div>
       )}
 
       {/* 병원 추천 컴포넌트 */}
-      <div className="relative w-full h-full">
-        <ModalUse buttonText="내 주변 병원찾기">
-          {(closeModal) => (
-            <>
-              <SeoulMap />
-              <button
-                className="font-bold  cursor-pointer absolute top-[10px] right-[10px] text-3xl"
-                onClick={closeModal} // 모달을 닫는 함수
-              >
-                ×
-              </button>
-            </>
-          )}
-        </ModalUse>
-      </div>
     </div>
   );
 }
