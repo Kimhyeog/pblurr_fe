@@ -80,10 +80,10 @@ export default function UserInfoModal({
 
   return (
     <div
-      className="absolute right-30 top-full mt-2 w-lg mx-auto bg-white rounded-2xl border-[1px] border-gray-300 shadow-md p-6
+      className="absolute right-30 top-full mt-2 w-lg mx-auto bg-white rounded-2xl border-[1px] border-gray-300  shadow-md p-6
         flex flex-col gap-y-2
       "
-      style={{ zIndex: 10 }}
+      style={{ zIndex: 30 }}
     >
       <h3 className="text-xl font-bold mb-4">
         {userInformation.userName}님 회원 정보
