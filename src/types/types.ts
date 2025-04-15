@@ -35,34 +35,30 @@ export interface HospitalRecommendation {
 
 // 피부미용
 
-// 화장품 타입
+// types.ts
+export interface ProductItem {
+  brand: string;
+  product: string;
+  productImage: string;
+  productPrice: number;
+  productLink: string;
+}
 
-interface ProductRecommendation {
+// 인덱스 서명을 사용하여 동적 키를 허용
+export interface ProductItem {
+  brand: string;
+  product: string;
+  productImage: string;
+  productPrice: number;
+  productLink: string; // productLink는 string 타입으로 명확히 정의
+}
+
+export interface ProductRecommendation {
   category: string;
-  score: string;
-  brand1: string;
-  product1: string;
-  product1Image: string;
-  product1Price: number;
-  product1Link: string;
-  brand2: string;
-  product2: string;
-  product2Image: string;
-  product2Price: number;
-  product2Link: string;
-  brand3: string;
-  product3: string;
-  product3Image: string;
-  product3Price: number;
-  product3Link: string;
-  brand4: string;
-  product4: string;
-  product4Image: string;
-  product4Price: number;
-  product4Link: string;
-  brand5: string;
-  product5: string;
-  product5Image: string;
-  product5Price: number;
-  product5Link: string;
+  score: "high" | "low";
+  products: ProductItem[];
+  // 아래와 같이 `productLink`와 같은 필드를 명확하게 정의
+  productLink?: string; // 필요한 경우 명시적으로 선언
+  // 동적으로 추가되는 다른 속성들
+  [key: string]: string | number | ProductItem[] | undefined;
 }
