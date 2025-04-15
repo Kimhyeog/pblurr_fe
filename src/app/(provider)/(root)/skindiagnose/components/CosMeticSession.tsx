@@ -5,6 +5,8 @@ import { ProductRecommendation } from "@/types/types";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import CosMeticCategorieBox from "./CosMeticItem";
+import CosMeticItem from "./CosMeticItem";
 
 type Props = {
   wrinkleScore: number;
@@ -23,7 +25,11 @@ function CosMeticSession(props: Props) {
   const [direction, setDirection] = useState<"next" | "prev">("next");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  const [transitionType, setTransitionType] = useState<"x" | "y">("x");
+
   const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
   useEffect(() => {
     const fetchRecommendations = async () => {
@@ -53,6 +59,7 @@ function CosMeticSession(props: Props) {
 
   const showNext = () => {
     setDirection("next");
+    setTransitionType("x");
     if (selectedTab && visibleIndex < selectedTab.products.length - 1) {
       setVisibleIndex((prev) => prev + 1);
     }
@@ -60,29 +67,53 @@ function CosMeticSession(props: Props) {
 
   const showPrev = () => {
     setDirection("prev");
+    setTransitionType("x");
     if (visibleIndex > 0) {
       setVisibleIndex((prev) => prev - 1);
     }
   };
 
   const variants = {
-    hidden: (direction: "next" | "prev") => ({
-      x: direction === "next" ? 300 : -300,
-      opacity: 0,
-      scale: 0.9,
-    }),
+    hidden: ({
+      direction,
+      transitionType,
+    }: {
+      direction: "next" | "prev";
+      transitionType: "x" | "y";
+    }) => {
+      const offset = direction === "next" ? 300 : -300;
+      return {
+        x: transitionType === "x" ? offset : 0,
+        y: transitionType === "y" ? offset : 0,
+        opacity: 0,
+        scale: 0.9,
+      };
+    },
+
     visible: {
       x: 0,
+      y: 0,
       opacity: 1,
       scale: 1,
       transition: { duration: 0.3 },
     },
-    exit: (direction: "next" | "prev") => ({
-      x: direction === "next" ? -300 : 300,
-      opacity: 0,
-      scale: 0.9,
-      transition: { duration: 0.3 },
-    }),
+
+    exit: ({
+      direction,
+      transitionType,
+    }: {
+      direction: "next" | "prev";
+      transitionType: "x" | "y";
+    }) => {
+      const offset = direction === "next" ? -300 : 300;
+      return {
+        x: transitionType === "x" ? offset : 0,
+        y: transitionType === "y" ? offset : 0,
+        opacity: 0,
+        scale: 0.9,
+        transition: { duration: 0.3 },
+      };
+    },
   };
 
   if (loading) return <p className="text-center">로딩 중...</p>;
@@ -97,14 +128,11 @@ function CosMeticSession(props: Props) {
         {recommendations.map((item) => (
           <li
             key={item.category}
-            className={`cursor-pointer px-4 py-2 border-b-2 ${
-              item === selectedTab
-                ? "border-black font-bold"
-                : "border-transparent"
-            }`}
+            className={`cursor-pointer px-4 py-2 `}
             onClick={() => {
               setSelectedTab(item);
               setVisibleIndex(0);
+              setTransitionType("y"); // 위아래 모션
             }}
           >
             {item.category}
@@ -122,7 +150,7 @@ function CosMeticSession(props: Props) {
       {/* 슬라이더 */}
       <div className="relative">
         <motion.div className="relative h-[300px] flex items-center justify-center overflow-hidden">
-          <AnimatePresence custom={direction}>
+          <AnimatePresence custom={{ direction, transitionType }}>
             {selectedTab.products.length > 0 && (
               <motion.div
                 key={selectedTab.products[visibleIndex].productLink}
@@ -131,7 +159,7 @@ function CosMeticSession(props: Props) {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                custom={direction}
+                custom={{ direction, transitionType }}
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.5}
@@ -140,7 +168,11 @@ function CosMeticSession(props: Props) {
                   else if (info.offset.x > 100) showPrev();
                 }}
               >
-                <Link
+                <CosMeticItem
+                  key={visibleIndex}
+                  product={selectedTab.products[visibleIndex]}
+                />
+                {/* <Link
                   href={selectedTab.products[visibleIndex].productLink}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -162,7 +194,7 @@ function CosMeticSession(props: Props) {
                     ].productPrice.toLocaleString()}
                     원
                   </p>
-                </Link>
+                </Link> */}
               </motion.div>
             )}
           </AnimatePresence>
