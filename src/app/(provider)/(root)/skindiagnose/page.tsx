@@ -13,7 +13,7 @@ export default function Page() {
         <div className="text-xl sm:text-2xl lg:text-3xl font-bold pl-4 py-1 text-left w-full">
           피부 미용 분석 페이지
         </div>
-        <CosMeticSession {...scores} />
+        {/* <CosMeticSession {...scores} /> */}
       </div>
     </div>
   );

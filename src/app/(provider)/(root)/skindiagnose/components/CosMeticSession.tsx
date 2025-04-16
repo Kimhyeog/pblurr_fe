@@ -1,9 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { getCosmeticRecommendations } from "@/api/skinDiagnose";
+import { getCosmeticRecommendations } from "@/api/skinDiagnose/cosmetic";
 import { ProductRecommendation } from "@/types/types";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import CosMeticItem from "./CosMeticItem";
 import Link from "next/link";
 
@@ -22,6 +22,7 @@ function CosMeticSession(props: Props) {
   }>({});
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const carouselRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   useEffect(() => {
     const fetchRecommendations = async () => {
@@ -52,6 +53,39 @@ function CosMeticSession(props: Props) {
 
     fetchRecommendations();
   }, [props]);
+
+  useEffect(() => {
+    const entries = Object.entries(carouselRefs.current);
+    const timeouts: { [key: string]: NodeJS.Timeout } = {};
+
+    entries.forEach(([category, el]) => {
+      if (!el) return;
+
+      const onWheel = (e: WheelEvent) => {
+        e.preventDefault();
+
+        if (timeouts[category]) return; // 쿨타임 중이면 무시
+
+        if (e.deltaY > 0) {
+          showNext(category);
+        } else if (e.deltaY < 0) {
+          showPrev(category);
+        }
+
+        // 쿨타임 설정 (250ms)
+        timeouts[category] = setTimeout(() => {
+          delete timeouts[category];
+        }, 250);
+      };
+
+      el.addEventListener("wheel", onWheel, { passive: false });
+
+      // ✅ cleanup은 전체 effect return 안에 한 번만!
+      return () => {
+        el.removeEventListener("wheel", onWheel);
+      };
+    });
+  }, [recommendations]);
 
   const showNext = (category: string) => {
     if (!recommendations) return;
@@ -109,28 +143,35 @@ function CosMeticSession(props: Props) {
             key={item.category}
             className="border-4 rounded-3xl border-[#7FC5E0] bg-[#E3F2FD] shadow-md"
           >
-            <h2 className="text-lg font-bold text-center mb-4 text-black">
-              {item.category}
-            </h2>
-
             {/* 캐러셀 영역 */}
             <motion.div
-              className="relative h-[320px] w-full flex items-center justify-center overflow-hidden"
+              className="relative h-[400px] w-full flex items-center justify-center overflow-hidden"
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
               onDragEnd={(event, info) => {
-                const threshold = 100; // 드래그 인식 임계값
+                const threshold = 100;
                 if (info.offset.x > threshold) {
                   showPrev(item.category);
                 } else if (info.offset.x < -threshold) {
                   showNext(item.category);
                 }
               }}
+              onWheel={(e) => {
+                if (e.deltaY < 0) {
+                  showNext(item.category);
+                } else if (e.deltaY > 0) {
+                  showPrev(item.category);
+                }
+              }}
+              ref={(el) => {
+                carouselRefs.current[item.category] = el;
+              }}
             >
               <div className="relative w-full h-full flex items-center justify-center">
                 {visibleProducts.map((product, i) => {
                   const position = i - (index > 1 ? 2 : index);
                   const zIndex = 10 - Math.abs(position);
+                  const isCenter = position === 0;
 
                   return (
                     <motion.div
@@ -141,14 +182,14 @@ function CosMeticSession(props: Props) {
                         opacity: 1,
                         scale: getScale(position),
                         x: position * 150,
-                        y: 30,
+                        y: isCenter ? 30 : 70,
                         zIndex: zIndex,
                       }}
                       whileHover={{ scale: 1.25 }}
                       exit={{ opacity: 0, scale: 0.5 }}
                       transition={{
                         type: "spring",
-                        stiffness: 300,
+                        stiffness: 200,
                         damping: 30,
                       }}
                       style={{
@@ -158,7 +199,7 @@ function CosMeticSession(props: Props) {
                         margin: "0 8px",
                       }}
                     >
-                      <CosMeticItem product={product} />
+                      <CosMeticItem product={product} isCenter={isCenter} />
                     </motion.div>
                   );
                 })}
