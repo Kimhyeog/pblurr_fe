@@ -62,3 +62,24 @@ export interface ProductRecommendation {
   // 동적으로 추가되는 다른 속성들
   [key: string]: string | number | ProductItem[] | undefined;
 }
+
+// 분석 결과 조회
+export interface SkinAnalysisResult {
+  imageUrls: string[];
+  skinAge: number;
+  foreheadWrinkle: number;
+  foreheadPigmentation: number;
+  glabellaWrinkle: number;
+  lefteyeWrinkle: number;
+  righteyeWrinkle: number;
+  leftcheekPigmentation: number;
+  leftcheekPore: number;
+  rightcheekPigmentation: number;
+  rightcheekPore: number;
+  lipDryness: number;
+  jawlineSagging: number;
+  totalWrinkle: number;
+  totalPigmentation: number;
+  totalPore: number;
+  createdAt: string;
+}
