@@ -8,10 +8,8 @@ interface CosMeticItemProps {
 
 function CosMeticItem({ product }: CosMeticItemProps) {
   return (
-    <Link
-      className="flex flex-col p-3 border-2 rounded-2xl"
-      href={product.productLink}
-      target="_blank"
+    <div
+      className="flex flex-col gap-y-1 items-center p-3 border-2 border-[#7FC5E0] bg-white rounded-2xl shadow hover:shadow-lg transition duration-300 ease-in-out w-[200px]  sm:w-full"
       rel="noopener noreferrer"
       style={{ marginBottom: "20px" }}
     >
@@ -20,11 +18,24 @@ function CosMeticItem({ product }: CosMeticItemProps) {
         alt={product.product}
         width={100}
         height={100}
+        className="rounded mb-2"
       />
-      <p>브랜드: {product.brand}</p>
-      <p>제품명: {product.product}</p>
-      <p>가격: {product.productPrice.toLocaleString()} 원</p>
-    </Link>
+      <p className="text-sm text-gray-800">{product.brand}</p>
+      <p className="text-sm text-center text-gray-800 font-semibold">
+        {product.product}
+      </p>
+      <p className="text-sm text-gray-800">
+        ￦ {product.productPrice.toLocaleString()} 원
+      </p>
+      <div className="w-full flex items-center justify-center">
+        <Link
+          href={product.productLink}
+          className="px-3 py-1 border-2 text-sm text-[#FFFFFF] bg-[#7FC5E0] rounded-2xl hover:bg-blue-500 transition"
+        >
+          구매 링크
+        </Link>
+      </div>
+    </div>
   );
 }
 

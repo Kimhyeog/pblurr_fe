@@ -5,6 +5,7 @@ import { getCosmeticRecommendations } from "@/api/skinDiagnose";
 import { ProductRecommendation } from "@/types/types";
 import { useEffect, useState } from "react";
 import CosMeticItem from "./CosMeticItem";
+import Link from "next/link";
 
 type Props = {
   wrinkleScore: number;
@@ -95,7 +96,7 @@ function CosMeticSession(props: Props) {
   if (!recommendations || recommendations.length === 0) return null;
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full px-4 max-w-4xl mx-auto flex flex-col gap-y-10">
       {recommendations.map((item) => {
         const index = visibleIndexes[item.category] || 0;
         const visibleProducts = item.products.slice(
@@ -104,14 +105,31 @@ function CosMeticSession(props: Props) {
         );
 
         return (
-          <div key={item.category} className="mb-10 border-4 rounded-3xl">
-            <h2 className="text-lg font-bold text-center mb-4">
+          <div
+            key={item.category}
+            className="border-4 rounded-3xl border-[#7FC5E0] bg-[#E3F2FD] shadow-md"
+          >
+            <h2 className="text-lg font-bold text-center mb-4 text-black">
               {item.category}
             </h2>
-            <div className="relative h-[320px] flex items-center justify-center overflow-hidden">
+
+            {/* 캐러셀 영역 */}
+            <motion.div
+              className="relative h-[320px] w-full flex items-center justify-center overflow-hidden"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              onDragEnd={(event, info) => {
+                const threshold = 100; // 드래그 인식 임계값
+                if (info.offset.x > threshold) {
+                  showPrev(item.category);
+                } else if (info.offset.x < -threshold) {
+                  showNext(item.category);
+                }
+              }}
+            >
               <div className="relative w-full h-full flex items-center justify-center">
                 {visibleProducts.map((product, i) => {
-                  const position = i - (index > 1 ? 2 : index); // 중앙 정렬 보정
+                  const position = i - (index > 1 ? 2 : index);
                   const zIndex = 10 - Math.abs(position);
 
                   return (
@@ -122,42 +140,30 @@ function CosMeticSession(props: Props) {
                       animate={{
                         opacity: 1,
                         scale: getScale(position),
-                        x: position * 200,
+                        x: position * 150,
                         y: 30,
                         zIndex: zIndex,
                       }}
+                      whileHover={{ scale: 1.25 }}
                       exit={{ opacity: 0, scale: 0.5 }}
                       transition={{
                         type: "spring",
                         stiffness: 300,
                         damping: 30,
                       }}
-                      style={{ width: 200, height: 300, zIndex }}
+                      style={{
+                        width: 200,
+                        height: 300,
+                        zIndex,
+                        margin: "0 8px",
+                      }}
                     >
                       <CosMeticItem product={product} />
                     </motion.div>
                   );
                 })}
               </div>
-              <div className="absolute top-1/2 -translate-y-1/2 left-4 z-20">
-                <button
-                  onClick={() => showPrev(item.category)}
-                  disabled={index === 0}
-                  className="px-3 py-1 border rounded disabled:opacity-30"
-                >
-                  ◀
-                </button>
-              </div>
-              <div className="absolute top-1/2 -translate-y-1/2 right-4 z-20">
-                <button
-                  onClick={() => showNext(item.category)}
-                  disabled={index === item.products.length - 1}
-                  className="px-3 py-1 border rounded disabled:opacity-30"
-                >
-                  ▶
-                </button>
-              </div>
-            </div>
+            </motion.div>
           </div>
         );
       })}
