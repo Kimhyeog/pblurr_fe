@@ -36,11 +36,11 @@ export default function Page() {
   return (
     <div
       className="
-    mx-auto mt-[18%]
+    mx-auto mt-[40%] md:mt-[20%] 
     flex flex-col justify-center items-center 
     bg-white rounded-3xl shadow-lg
     
-    sm:max-w-screen-sm
+    w-full
     md:max-w-screen-sm
     lg:max-w-screen-sm
     xl:max-w-screen-sm
@@ -48,22 +48,28 @@ export default function Page() {
     py-20
   "
     >
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center w-full">
         <Link href={"/"}>
           <Image
             src="/images/loginLogo.png"
             alt="로그인 로고"
             width={400}
             height={200}
-            className="mb-4 "
+            layout="intrinsic"
+            className="mb-4 w-full min-w-[300px]"
           />
         </Link>
-        <div className="flex flex-row items-center mb-5 text-sm sm:text-base md:text-lg">
-          <p>회원이 아니신가요?</p>
+        <div
+          className="flex flex-col md:flex-row items-center mb-5 text-sm sm:text-base md:text-lg
+          
+        "
+        >
+          <p className="whitespace-nowrap">회원이 아니신가요?</p>
           <nav className="text-[#7FC5E0] px-2 sm:px-3 py-1 rounded-md">
             <Link
               href="/signup"
-              className="font-bold text-[#7FC5E0] hover:underline"
+              className="font-bold text-[#7FC5E0] hover:underline
+              whitespace-nowrap"
             >
               회원가입
             </Link>
@@ -105,6 +111,7 @@ export default function Page() {
         w-full bg-[#7FC5E0] text-white font-bold 
         text-base sm:text-lg p-2 rounded-lg 
         hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition
+        
       "
         >
           로그인

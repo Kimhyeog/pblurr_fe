@@ -10,10 +10,8 @@ function MainDiagnose() {
   return (
     <div
       className="
-        w-full
-        sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg
-        mx-auto
-        px-6 sm:px-8 md:px-12 lg:px-20 py-6 sm:py-8 md:py-10 flex justify-center items-center gap-x-6 sm:gap-x-10 lg:gap-x-15 bg-white
+        w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto
+    px-20 py-15 flex justify-center items-center gap-x-15 bg-white
       "
     >
       <div className="flex flex-col gap-y-4 items-center">
@@ -37,7 +35,7 @@ function MainDiagnose() {
       </div>
       <div>
         <Image
-          className="rounded-2xl sm:hidden md:block"
+          className="rounded-2xl hidden md:visible md:block"
           src="/images/MainDiagnose.png"
           alt="의심 질환 아이콘"
           width={350}

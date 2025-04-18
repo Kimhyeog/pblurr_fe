@@ -96,6 +96,7 @@ export default function Page() {
               alt="로그인 로고"
               width={500}
               height={200}
+              className="min-w-[300px]"
             />
           </Link>
           <div className="w-full flex flex-col gap-3 mt-4">
