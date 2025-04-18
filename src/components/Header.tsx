@@ -73,7 +73,11 @@ export default function Header() {
 
   return (
     <>
-      <div className="w-full bg-white shadow-md px-10 py-4 flex justify-between items-center">
+      <div
+        className="
+        w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto
+      bg-white shadow-md px-10 py-4 flex justify-between items-center"
+      >
         <div>
           <Link href="/">
             <Image

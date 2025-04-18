@@ -7,13 +7,17 @@ function MainSkinDiagnose() {
   const router = useRouter();
 
   return (
-    <div className="px-20 py-15 flex justify-center items-center gap-x-15">
+    <div
+      className="
+    w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto
+    px-20 py-15 flex justify-center items-center gap-x-15"
+    >
       <div>
         <Image
-          className="rounded-2xl"
+          className="rounded-2xl sm:hidden md:block"
           src="/images/MainSkinDiagnose.png"
           alt="의심짛환아이콘콘"
-          width={450}
+          width={350}
           height={250}
         />
       </div>
