@@ -24,11 +24,21 @@ export default function Page() {
   useEffect(() => {}, [diagnosis]);
 
   return (
-    <div className="mx-auto w-full max-w-[900px] min-h-screen flex flex-col mt-5 gap-y-3 px-4">
+    <div
+      className="
+    max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto
+   min-h-screen flex flex-col mt-5 gap-y-3"
+    >
       {/* 진단 결과 창 */}
       <div className="rounded-2xl flex flex-col items-center px-3 py-5 border-0 bg-white">
         {/* 제목 */}
-        <div className="text-xl sm:text-2xl lg:text-3xl font-bold pl-4 py-1 text-left w-full">
+        <div
+          className="
+         lg:text-3xl font-bold pl-4 py-1 w-full
+        text-center sm:text-left
+        text-2xl sm:text-2xl
+        "
+        >
           피부 질환 진단하기
         </div>
         <div className="w-full p-5 ">
@@ -45,7 +55,12 @@ export default function Page() {
       {diagnosis && (
         <div className="rounded-2xl flex flex-col items-center">
           <div className="flex flex-col gap-y-3 px-3 py-5 rounded-lg border-0  bg-white w-full">
-            <h3 className="px-2 text-xl sm:text-2xl font-bold">
+            <h3
+              className="px-2 
+            text-center sm:text-left
+        text-xl sm:text-2xl
+            font-bold"
+            >
               피부 질환 진단 결과
             </h3>
 

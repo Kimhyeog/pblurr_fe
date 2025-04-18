@@ -34,20 +34,32 @@ function HospitalRecommendComponent(props: Props) {
 
   return (
     <div className="p-6 bg-gray-50 rounded-2xl shadow-lg animate-fade-in-up">
-      <div className="mb-4 text-xl font-bold text-blue-600">
+      <div className="mb-4 text-lg sm:text-xl font-bold text-blue-600">
         선택된 위치 : {props.selectedDistrict}
       </div>
-      <h2 className="text-2xl font-semibold mb-6">병원 추천</h2>
+      <h2 className="text-md sm:text-2xl font-semibold mb-6">병원 추천</h2>
 
       {hospitals ? (
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white rounded-xl shadow-md">
+          <table
+            className="min-w-full bg-white rounded-xl shadow-md
+          "
+          >
             <thead>
               <tr className="bg-blue-100 text-blue-700">
-                <th className="py-3 px-6 text-left text-sm font-bold uppercase">
+                <th
+                  className="py-3 px-6 
+                text-center sm:text-left  
+                text-sm sm:text-md font-bold uppercase"
+                >
                   병원명
                 </th>
-                <th className="py-3 px-6 text-left text-sm font-bold uppercase">
+                <th
+                  className="py-3 px-6 
+                text-center sm:text-left
+                text-sm sm:text-md 
+                font-bold uppercase"
+                >
                   링크
                 </th>
               </tr>
@@ -62,7 +74,11 @@ function HospitalRecommendComponent(props: Props) {
                   key={index}
                   className="whitespace-nowrap border-b hover:bg-gray-100 transition-colors"
                 >
-                  <td className="whitespace-nowrap py-4 px-6 text-gray-800">
+                  <td
+                    className="
+                  text-md sm:text-lg
+                  whitespace-nowrap py-4 px-6 text-gray-800"
+                  >
                     {hospital.name}
                   </td>
                   <td className="whitespace-nowrap py-4 px-6">
