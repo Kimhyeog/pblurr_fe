@@ -3,8 +3,8 @@
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { diagnoseSkinDisease } from "@/api/diease";
-import { DiagnosisResult } from "@/types/types";
+import { diagnoseSkinDisease, getSkinDiseaseDetail } from "@/api/diease";
+import { DetailDieaseInfo, DiagnosisResult } from "@/types/types";
 
 const images = [
   "/images/곰팡이감염.jpg",
@@ -21,6 +21,7 @@ const images = [
 interface Props {
   setImage: (imagesrc: string | null) => void;
   setDiagnose: (diagnose: DiagnosisResult | null) => void;
+  setDetailInfo: (resultDiease: DetailDieaseInfo | null) => void;
 }
 
 function DiagnoseBox(props: Props) {
@@ -62,6 +63,10 @@ function DiagnoseBox(props: Props) {
       return;
     }
     const result = await diagnoseSkinDisease(image);
+    if (result?.disease) {
+      const detail = await getSkinDiseaseDetail(result.disease);
+      props.setDetailInfo(detail);
+    }
     const imageSrcResult = URL.createObjectURL(image);
 
     setImageSrc(imageSrcResult); // 이미지 URL 설정
@@ -111,26 +116,42 @@ function DiagnoseBox(props: Props) {
             alt={`slide-${index}`}
             width={150}
             height={130}
-            className="rounded-2xl object-cover shadow-2xl"
+            className="rounded-2xl object-cover shadow-2xl
+            w-15 sm:w-45
+            h-15 sm:h-45
+            "
           />
         ))}
       </motion.div>
 
       {/* 가운데 고정 박스 */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 bg-white rounded-2xl shadow-2xl w-[330px] h-[auto] flex items-center justify-center border-4 border-[#5CA7C8]">
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 bg-white rounded-2xl shadow-2xl
+        
+        flex items-center justify-center border-4 border-[#5CA7C8]
+        w-[200px] h-[auto]
+        sm:w-[300px] sm:h-[300px]
+      "
+      >
         {/* 이미지 업로드 */}
         {!image && (
-          <div className="flex flex-col items-center justify-center relative w-full p-3">
+          <div className="flex flex-col items-center justify-center relative  p-3">
             <input
               id="fileUpload"
               type="file"
               accept="image/*"
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              className="absolute inset-0 opacity-0 
+              w-[180px] h-[180px]
+              md:w-[300px] md:h-[300px]
+              cursor-pointer"
               onChange={handleImageUpload}
             />
             <label
               htmlFor="fileUpload"
-              className="flex items-center justify-center w-[300px] h-[300px] border-4 border-[#939498f9] border-dotted rounded-3xl cursor-pointer"
+              className="flex items-center justify-center 
+              w-[170px] h-[170px]
+              sm:w-[250px] sm:h-[250px]
+              border-4 border-[#939498f9] border-dotted rounded-3xl cursor-pointer"
             >
               <span className="bg-[#5CA7C8] text-white px-4 py-2 font-bold rounded-lg">
                 사진 업로드
@@ -149,7 +170,11 @@ function DiagnoseBox(props: Props) {
               height={300}
               className="rounded-lg"
             />
-            <div className="w-full flex flex-row justify-between">
+            <div
+              className="w-full 
+            flex flex-col gap-y-1
+            sm:flex sm:flex-row justify-between"
+            >
               <button
                 className="bg-[#5CA7C8] text-white px-4 py-2 font-bold rounded-lg cursor-pointer 
                 hover:bg-blue-300

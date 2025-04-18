@@ -73,7 +73,14 @@ export default function Header() {
 
   return (
     <>
-      <div className="w-full bg-white shadow-md px-10 py-4 flex justify-between items-center">
+      <div
+        className="
+    max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto
+    bg-white shadow-md px-10 py-4 
+    flex flex-col justify-center items-center
+    md:flex-row md:justify-between
+  "
+      >
         <div>
           <Link href="/">
             <Image
@@ -81,6 +88,7 @@ export default function Header() {
               alt="로그인 로고"
               width={250}
               height={100}
+              className="min-w-[300px]"
             />
           </Link>
         </div>

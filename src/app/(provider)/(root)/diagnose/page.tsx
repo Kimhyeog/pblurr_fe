@@ -1,17 +1,30 @@
-//diagnose/page.tsx
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { DiagnosisResult } from "@/types/types";
+import { DetailDieaseInfo, DiagnosisResult } from "@/types/types";
 import ProbabilityBar from "./components/ProbabilityBar";
 import ModalUse from "@/components/Modal/ModalUse";
 import DieasesBox from "./components/DieasesBox";
 import DiagnoseBox from "./components/DiagnoseBox";
 import SeoulMap from "./components/SeoulMap";
+import { motion, AnimatePresence } from "framer-motion";
+import DieaseDetail from "./components/DieaseDetail";
 
 export default function Page() {
   const [imageSrc, setImageSrc] = useState<string | null>("");
-  const [diagnosis, setDiagnosis] = useState<DiagnosisResult | null>(null); // 진단 결과 상태 추가
+  const [diagnosis, setDiagnosis] = useState<DiagnosisResult | null>(null);
+  const [detailInfo, setDetailInfo] = useState<DetailDieaseInfo | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+
+  const listVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 },
+  };
 
   useEffect(() => {
     if (!imageSrc) setDiagnosis(null);
@@ -21,31 +34,48 @@ export default function Page() {
       }
     };
   }, [imageSrc]);
-  useEffect(() => {}, [diagnosis]);
 
   return (
-    <div className="mx-auto w-full max-w-[900px] min-h-screen flex flex-col mt-5 gap-y-3 px-4">
-      {/* 진단 결과 창 */}
-      <div className="rounded-2xl flex flex-col items-center px-3 py-5 border-0 bg-white">
+    <div className="max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen flex flex-col mt-5 gap-y-3">
+      <motion.ul
+        variants={listVariants}
+        initial="hidden"
+        animate="visible"
+        className="flex flex-col gap-5"
+      >
         {/* 제목 */}
-        <div className="text-xl sm:text-2xl lg:text-3xl font-bold pl-4 py-1 text-left w-full">
-          피부 질환 진단하기
+        <div className="rounded-2xl flex flex-col items-center px-3 py-5 border-0 bg-white">
+          <motion.li variants={itemVariants} className="w-full">
+            <div className="lg:text-3xl font-bold pl-4 py-1 w-full text-center sm:text-left text-2xl">
+              피부 질환 진단하기
+            </div>
+          </motion.li>
+
+          {/* 진단 업로드 박스 */}
+          <motion.li variants={itemVariants} className="w-full">
+            <div className="w-full p-5">
+              <DiagnoseBox
+                setImage={setImageSrc}
+                setDiagnose={setDiagnosis}
+                setDetailInfo={setDetailInfo}
+              />
+            </div>
+          </motion.li>
         </div>
-        <div className="w-full p-5 ">
-          <DiagnoseBox setImage={setImageSrc} setDiagnose={setDiagnosis} />
-        </div>
-      </div>
-      {/* 병명 설명 */}
+      </motion.ul>
+
+      {/* 병명 설명 (진단 결과 없을 때) */}
       {!diagnosis && (
         <div>
           <DieasesBox />
         </div>
       )}
-      {/* 진단 결과 */}
+
+      {/* 진단 결과 영역 */}
       {diagnosis && (
         <div className="rounded-2xl flex flex-col items-center">
-          <div className="flex flex-col gap-y-3 px-3 py-5 rounded-lg border-0  bg-white w-full">
-            <h3 className="px-2 text-xl sm:text-2xl font-bold">
+          <div className="flex flex-col gap-y-3 px-3 py-5 rounded-lg border-0 bg-white w-full">
+            <h3 className="px-2 text-center sm:text-left text-xl sm:text-2xl font-bold">
               피부 질환 진단 결과
             </h3>
 
@@ -88,17 +118,51 @@ export default function Page() {
                   width={32}
                   height={32}
                 />
-                <p className="font-bold text-xl"> 의심질환 증상과 치료방법</p>
+                <p className="w-full font-bold text-xl flex items-center justify-between">
+                  <div>의심질환 증상과 치료방법</div>
+                  <div className="mr-3">
+                    <button
+                      className="px-3 py-2 bg-[#e85959] text-white hover:bg-[#e85959b7] rounded-2xl"
+                      onClick={() => {
+                        if (detailOpen) {
+                          setDetailOpen(false);
+                        } else {
+                          setDetailOpen(true);
+                        }
+                      }}
+                    >
+                      질횐 상세 보기
+                    </button>
+                  </div>
+                </p>
               </div>
-              <div className="flex flex-col justify-start gap-y-5">
-                <div className="flex justify-center  border-[2px] border-[#DEDCE1] py-5 px-5 rounded-lg">
-                  <Image
-                    src={diagnosis.imageUrl}
-                    alt="의심 질환 예시 이미지"
-                    width={400}
-                    height={400}
-                    className="rounded-2xl"
-                  />
+              <div className="flex flex-col gap-y-5">
+                <div className="flex flex-col items-center justify-center border-[2px] border-[#DEDCE1] py-5 px-5 rounded-lg">
+                  <div>
+                    <Image
+                      src={diagnosis.imageUrl}
+                      alt="의심 질환 예시 이미지"
+                      width={400}
+                      height={400}
+                      className="rounded-2xl"
+                    />
+                  </div>
+                  {detailInfo && (
+                    <AnimatePresence initial={false}>
+                      {detailOpen && (
+                        <motion.div
+                          key="expanded-content"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="overflow-hidden mt-2 text-sm text-gray-700"
+                        >
+                          <DieaseDetail detailInfo={detailInfo} />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  )}
                 </div>
                 <div className="border-[2px] border-[#DEDCE1] py-5 px-5 rounded-lg flex flex-col gap-y-4 justify-center w-full">
                   <p className="flex items-center justify-between font-bold text-2xl mb-2 pl-1 pb-2 border-b">
@@ -114,24 +178,24 @@ export default function Page() {
                         </li>
                       ))}
                   </ul>
-                  <span className="text-sm text-[#e85959] text-gray font-extrabold">
-                    ※ {` `}
-                    <span>{diagnosis.source}</span>
-                    에서 제공된 정보입니다. 보다 정확한 진단과 치료를 위해
-                    가까운 병원에 방문하세요.
+                  <span className="text-sm text-[#e85959] font-extrabold">
+                    ※ {diagnosis.source}에서 제공된 정보입니다. 보다 정확한
+                    진단과 치료를 위해 가까운 병원에 방문하세요.
                   </span>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* 모달 (내 주변 병원 찾기) */}
           <div className="relative w-full h-full">
             <ModalUse buttonText="내 주변 병원찾기">
               {(closeModal) => (
                 <>
                   <SeoulMap />
                   <button
-                    className="font-bold  cursor-pointer absolute top-[10px] right-[10px] text-3xl"
-                    onClick={closeModal} // 모달을 닫는 함수
+                    className="font-bold cursor-pointer absolute top-[10px] right-[10px] text-3xl"
+                    onClick={closeModal}
                   >
                     ×
                   </button>
@@ -141,8 +205,6 @@ export default function Page() {
           </div>
         </div>
       )}
-
-      {/* 병원 추천 컴포넌트 */}
     </div>
   );
 }

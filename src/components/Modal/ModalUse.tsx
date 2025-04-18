@@ -15,23 +15,32 @@ export default function ModalUse({
   buttonText,
 }: ModalProps): JSX.Element {
   const onClickOpenModal = async (): Promise<void> => {
-    const container = document.createElement("div"); // div 따로 만듦
+    const container = document.createElement("div");
     container.id = "modal-container";
 
+    // 화면 크기에 따라 모달 width 조절
+    const screenWidth = window.innerWidth;
+    let modalWidth = "1000px"; // 기본 데스크탑
+
+    if (screenWidth <= 480) {
+      modalWidth = "100%"; // 모바일
+    } else if (screenWidth <= 768) {
+      modalWidth = "700px"; // 태블릿
+    }
+
     const options: SweetAlertOptions = {
-      html: container, // html: `<div>...</div>`로 string 만드는 게 아니라 아예 DOM element를 넘긴다
-      width: "50%",
+      html: container,
+      width: modalWidth,
       showCancelButton: false,
       showConfirmButton: false,
       willOpen: () => {
-        // willOpen에서 직접 React 렌더링
         ReactDOM.createRoot(container).render(
-          <div className="relative">{children(() => Swal.close())}</div>
+          <div className="w-full mx-auto">{children(() => Swal.close())}</div>
         );
       },
       customClass: {
         popup:
-          "!rounded-3xl !p-5 !overflow-visible !border-10 !border-[#bfdbfe]", // padding 없애고 overflow visible 줘야 꼬이지 않아
+          "!rounded-3xl !p-5 !overflow-visible !border-10 !border-[#bfdbfe] w-full",
       },
       backdrop: true,
     };

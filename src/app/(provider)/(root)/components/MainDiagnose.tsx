@@ -8,13 +8,16 @@ function MainDiagnose() {
   const router = useRouter();
 
   return (
-    <div className="px-20 py-15 flex justify-center items-center gap-x-15 bg-white">
+    <div
+      className="
+        w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto
+    px-20 py-15 flex justify-center items-center gap-x-15 bg-white
+      "
+    >
       <div className="flex flex-col gap-y-4 items-center">
-        <h1 className=" px-2 py-1 text-2xl font-extrabold rounded-2xl">
-          피부 질환 진단
-        </h1>
+        <h1 className="text-2xl font-extrabold">피부 질환 진단</h1>
         <div>
-          <p className="text-md text-center whitespace-nowrap">
+          <p className="text-sm sm:text-md text-center whitespace-nowrap">
             {`"`}피부르르{`"`}는 당신의 피부 질환 의심 사진을 업로드하면,
             <br />
             피부 질환 확률을 간편하게 진단할 수 있습니다.
@@ -32,10 +35,10 @@ function MainDiagnose() {
       </div>
       <div>
         <Image
-          className="rounded-2xl"
+          className="rounded-2xl hidden md:visible md:block"
           src="/images/MainDiagnose.png"
-          alt="의심짛환아이콘콘"
-          width={450}
+          alt="의심 질환 아이콘"
+          width={350}
           height={250}
         />
       </div>
