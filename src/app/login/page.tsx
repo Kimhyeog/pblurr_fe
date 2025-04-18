@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Input from "@/components/LoginAndSignUp/Input";
 import Swal from "sweetalert2";
+import { motion } from "framer-motion";
 
 export default function Page() {
   const [userId, setUserId] = useState("");
@@ -34,8 +35,18 @@ export default function Page() {
   };
 
   return (
-    <div
-      className="
+    <motion.div
+      className="box"
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 0.8,
+        delay: 0.5,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+    >
+      <div
+        className="
     mx-auto mt-[40%] md:mt-[20%] 
     flex flex-col justify-center items-center 
     bg-white rounded-3xl shadow-lg
@@ -47,76 +58,77 @@ export default function Page() {
     px-20
     py-20
   "
-    >
-      <div className="flex flex-col items-center justify-center w-full">
-        <Link href={"/"}>
-          <Image
-            src="/images/loginLogo.png"
-            alt="로그인 로고"
-            width={400}
-            height={200}
-            layout="intrinsic"
-            className="mb-4 w-full min-w-[300px]"
-          />
-        </Link>
-        <div
-          className="flex flex-col md:flex-row items-center mb-5 text-sm sm:text-base md:text-lg
+      >
+        <div className="flex flex-col items-center justify-center w-full">
+          <Link href={"/"}>
+            <Image
+              src="/images/loginLogo.png"
+              alt="로그인 로고"
+              width={400}
+              height={200}
+              layout="intrinsic"
+              className="mb-4 w-full min-w-[300px]"
+            />
+          </Link>
+          <div
+            className="flex flex-col md:flex-row items-center mb-5 text-sm sm:text-base md:text-lg
           
         "
-        >
-          <p className="whitespace-nowrap">회원이 아니신가요?</p>
-          <nav className="text-[#7FC5E0] px-2 sm:px-3 py-1 rounded-md">
-            <Link
-              href="/signup"
-              className="font-bold text-[#7FC5E0] hover:underline
+          >
+            <p className="whitespace-nowrap">회원이 아니신가요?</p>
+            <nav className="text-[#7FC5E0] px-2 sm:px-3 py-1 rounded-md">
+              <Link
+                href="/signup"
+                className="font-bold text-[#7FC5E0] hover:underline
               whitespace-nowrap"
-            >
-              회원가입
-            </Link>
-          </nav>
+              >
+                회원가입
+              </Link>
+            </nav>
+          </div>
         </div>
-      </div>
 
-      <div
-        className="flex flex-col gap-y-3 
+        <div
+          className="flex flex-col gap-y-3 
         w-[270px]
         "
-      >
-        <Input
-          type="text"
-          placeholder="아이디"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          className="text-sm sm:text-base px-3 py-2 border border-gray-300 rounded-lg w-full"
-        />
-        <Input
-          type="password"
-          placeholder="비밀번호"
-          value={userPassword}
-          onChange={(e) => setUserPassword(e.target.value)}
-          className="text-sm sm:text-base px-3 py-2 border border-gray-300 rounded-lg w-full"
-        />
-        {loginCheck !== null && (
-          <p
-            className={`text-sm ${
-              loginCheck ? "text-green-500" : "text-red-500"
-            } pl-3`}
-          >
-            {!loginCheck && `${failReasonMessage}`}
-          </p>
-        )}
-        <button
-          onClick={handleLogin}
-          className="
+        >
+          <Input
+            type="text"
+            placeholder="아이디"
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
+            className="text-sm sm:text-base px-3 py-2 border border-gray-300 rounded-lg w-full"
+          />
+          <Input
+            type="password"
+            placeholder="비밀번호"
+            value={userPassword}
+            onChange={(e) => setUserPassword(e.target.value)}
+            className="text-sm sm:text-base px-3 py-2 border border-gray-300 rounded-lg w-full"
+          />
+          {loginCheck !== null && (
+            <p
+              className={`text-sm ${
+                loginCheck ? "text-green-500" : "text-red-500"
+              } pl-3`}
+            >
+              {!loginCheck && `${failReasonMessage}`}
+            </p>
+          )}
+          <button
+            onClick={handleLogin}
+            className="
         w-full bg-[#7FC5E0] text-white font-bold 
         text-base sm:text-lg p-2 rounded-lg 
         hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition
         
       "
-        >
-          로그인
-        </button>
+          >
+            로그인
+          </button>
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
