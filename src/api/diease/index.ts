@@ -1,3 +1,4 @@
+import { DetailDieaseInfo } from "@/types/types";
 import axios, { AxiosResponse } from "axios";
 
 const BASE_URL = "https://capstone-backend-1234-ab6179e289b1.herokuapp.com";
@@ -61,4 +62,38 @@ const getHospitalRecommendations = async (location: string) => {
   }
 };
 
-export { diagnoseSkinDisease, getHospitalRecommendations };
+/**
+ * 피부 질환 상세 정보 조회 API 호출
+ * @param {string} disease - 질환 이름
+ * @returns {Promise<{
+ *   disease: string;
+ *   imageUrls: string[];
+ *   definition: string;
+ *   cause: string;
+ *   symptom: string;
+ *   source: string;
+ * } | null>}
+ */
+const getSkinDiseaseDetail = async (disease: string) => {
+  try {
+    const response: AxiosResponse<DetailDieaseInfo> = await axios.get(
+      `${BASE_URL}/skin-diagnosis/detail`,
+      {
+        params: { disease },
+        withCredentials: true,
+      }
+    );
+
+    console.log("질환 상세 정보:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("피부 질환 상세 정보 API 호출 중 오류 발생:", error);
+    return null;
+  }
+};
+
+export {
+  diagnoseSkinDisease,
+  getHospitalRecommendations,
+  getSkinDiseaseDetail,
+};

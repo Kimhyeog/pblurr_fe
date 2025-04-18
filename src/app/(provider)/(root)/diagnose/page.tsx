@@ -1,17 +1,20 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { DiagnosisResult } from "@/types/types";
+import { DetailDieaseInfo, DiagnosisResult } from "@/types/types";
 import ProbabilityBar from "./components/ProbabilityBar";
 import ModalUse from "@/components/Modal/ModalUse";
 import DieasesBox from "./components/DieasesBox";
 import DiagnoseBox from "./components/DiagnoseBox";
 import SeoulMap from "./components/SeoulMap";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import DieaseDetail from "./components/DieaseDetail";
 
 export default function Page() {
   const [imageSrc, setImageSrc] = useState<string | null>("");
   const [diagnosis, setDiagnosis] = useState<DiagnosisResult | null>(null);
+  const [detailInfo, setDetailInfo] = useState<DetailDieaseInfo | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
 
   const listVariants = {
     hidden: { opacity: 0 },
@@ -51,7 +54,11 @@ export default function Page() {
           {/* 진단 업로드 박스 */}
           <motion.li variants={itemVariants} className="w-full">
             <div className="w-full p-5">
-              <DiagnoseBox setImage={setImageSrc} setDiagnose={setDiagnosis} />
+              <DiagnoseBox
+                setImage={setImageSrc}
+                setDiagnose={setDiagnosis}
+                setDetailInfo={setDetailInfo}
+              />
             </div>
           </motion.li>
         </div>
@@ -111,17 +118,51 @@ export default function Page() {
                   width={32}
                   height={32}
                 />
-                <p className="font-bold text-xl"> 의심질환 증상과 치료방법</p>
+                <p className="w-full font-bold text-xl flex items-center justify-between">
+                  <div>의심질환 증상과 치료방법</div>
+                  <div className="mr-3">
+                    <button
+                      className="px-3 py-2 bg-[#e85959] text-white hover:bg-[#e85959b7] rounded-2xl"
+                      onClick={() => {
+                        if (detailOpen) {
+                          setDetailOpen(false);
+                        } else {
+                          setDetailOpen(true);
+                        }
+                      }}
+                    >
+                      질횐 상세 보기
+                    </button>
+                  </div>
+                </p>
               </div>
-              <div className="flex flex-col justify-start gap-y-5">
-                <div className="flex justify-center border-[2px] border-[#DEDCE1] py-5 px-5 rounded-lg">
-                  <Image
-                    src={diagnosis.imageUrl}
-                    alt="의심 질환 예시 이미지"
-                    width={400}
-                    height={400}
-                    className="rounded-2xl"
-                  />
+              <div className="flex flex-col gap-y-5">
+                <div className="flex flex-col items-center justify-center border-[2px] border-[#DEDCE1] py-5 px-5 rounded-lg">
+                  <div>
+                    <Image
+                      src={diagnosis.imageUrl}
+                      alt="의심 질환 예시 이미지"
+                      width={400}
+                      height={400}
+                      className="rounded-2xl"
+                    />
+                  </div>
+                  {detailInfo && (
+                    <AnimatePresence initial={false}>
+                      {detailOpen && (
+                        <motion.div
+                          key="expanded-content"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="overflow-hidden mt-2 text-sm text-gray-700"
+                        >
+                          <DieaseDetail detailInfo={detailInfo} />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  )}
                 </div>
                 <div className="border-[2px] border-[#DEDCE1] py-5 px-5 rounded-lg flex flex-col gap-y-4 justify-center w-full">
                   <p className="flex items-center justify-between font-bold text-2xl mb-2 pl-1 pb-2 border-b">

@@ -9,9 +9,13 @@ export default function Page() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-[900px] min-h-screen flex flex-col mt-5 gap-y-3 px-4">
+    <div className="max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen mt-5 gap-y-3 ">
       <div className="rounded-2xl flex flex-col items-center px-3 py-5 border-0 bg-white">
-        <div className="text-xl sm:text-2xl lg:text-3xl font-bold pl-4 py-1 text-left w-full">
+        <div
+          className="
+        text-center sm:text-left
+        text-xl sm:text-2xl lg:text-3xl font-bold pl-4 py-1 w-full"
+        >
           피부 타입 및 피부질환 분석 결과
         </div>
         <SkinAnalysis />

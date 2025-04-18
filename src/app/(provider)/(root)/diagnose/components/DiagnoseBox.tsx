@@ -3,8 +3,8 @@
 import { motion, useAnimation } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { diagnoseSkinDisease } from "@/api/diease";
-import { DiagnosisResult } from "@/types/types";
+import { diagnoseSkinDisease, getSkinDiseaseDetail } from "@/api/diease";
+import { DetailDieaseInfo, DiagnosisResult } from "@/types/types";
 
 const images = [
   "/images/곰팡이감염.jpg",
@@ -21,6 +21,7 @@ const images = [
 interface Props {
   setImage: (imagesrc: string | null) => void;
   setDiagnose: (diagnose: DiagnosisResult | null) => void;
+  setDetailInfo: (resultDiease: DetailDieaseInfo | null) => void;
 }
 
 function DiagnoseBox(props: Props) {
@@ -62,6 +63,10 @@ function DiagnoseBox(props: Props) {
       return;
     }
     const result = await diagnoseSkinDisease(image);
+    if (result?.disease) {
+      const detail = await getSkinDiseaseDetail(result.disease);
+      props.setDetailInfo(detail);
+    }
     const imageSrcResult = URL.createObjectURL(image);
 
     setImageSrc(imageSrcResult); // 이미지 URL 설정
@@ -125,7 +130,7 @@ function DiagnoseBox(props: Props) {
         
         flex items-center justify-center border-4 border-[#5CA7C8]
         w-[200px] h-[auto]
-              sm:w-[300px] sm:h-[300px]
+        sm:w-[300px] sm:h-[300px]
       "
       >
         {/* 이미지 업로드 */}
@@ -145,7 +150,7 @@ function DiagnoseBox(props: Props) {
               htmlFor="fileUpload"
               className="flex items-center justify-center 
               w-[170px] h-[170px]
-              sm:w-[300px] sm:h-[300px]
+              sm:w-[250px] sm:h-[250px]
               border-4 border-[#939498f9] border-dotted rounded-3xl cursor-pointer"
             >
               <span className="bg-[#5CA7C8] text-white px-4 py-2 font-bold rounded-lg">

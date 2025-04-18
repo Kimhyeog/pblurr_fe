@@ -20,6 +20,16 @@ export interface DiagnosisResult {
   imageUrl: string; // 분석된 이미지 URL
 }
 
+// 피부질환 상세 정보
+export interface DetailDieaseInfo {
+  disease: string;
+  imageUrls: string[];
+  definition: string;
+  cause: string;
+  symptom: string;
+  source: string;
+}
+
 /**
  * 병원 추천 API 호출 결과 타입 정의
  */
