@@ -36,20 +36,19 @@ export default function Page() {
   return (
     <div
       className="
-    w-full mx-auto mt-[15%]
+    mx-auto mt-[18%]
     flex flex-col justify-center items-center 
     bg-white rounded-3xl shadow-lg
-
-    sm:w-[90%] sm:mt-[15%] sm:px-3 sm:py-15
-
-    md:w-[70%] md:mt-[15%] md:px-3
-
-    lg:w-[50%] lg:mt-[15%]
-
-    xl:w-[25%]
+    
+    sm:max-w-screen-sm
+    md:max-w-screen-sm
+    lg:max-w-screen-sm
+    xl:max-w-screen-sm
+    px-20
+    py-20
   "
     >
-      <div className="flex flex-col items-center justify-center ">
+      <div className="flex flex-col items-center justify-center">
         <Link href={"/"}>
           <Image
             src="/images/loginLogo.png"
@@ -72,7 +71,11 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-y-3 w-full sm:w-[80%] md:w-[80%] lg:w-[45%]">
+      <div
+        className="flex flex-col gap-y-3 
+        w-[270px]
+        "
+      >
         <Input
           type="text"
           placeholder="아이디"
