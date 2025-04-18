@@ -15,14 +15,6 @@ function DieasesBox() {
 
   return (
     <div className="bg-white flex flex-col items-center p-8 gap-6 rounded-2xl">
-      <div
-        className="lg:text-2xl font-bold px-3 py-1 w-full
-        text-center sm:text-left
-        text-2xl sm:text-lg
-      "
-      >
-        {`'`}피부르르{`'`}가 제공하는 피부질환 목록
-      </div>
       <div className="w-full flex flex-col gap-y-5">
         <motion.ul
           variants={listVariants}
@@ -30,6 +22,14 @@ function DieasesBox() {
           animate="visible"
           className="flex flex-col gap-5"
         >
+          <div
+            className="lg:text-2xl font-bold px-3 py-1 w-full
+        text-center sm:text-left
+        text-2xl sm:text-lg
+      "
+          >
+            {`'`}피부르르{`'`}가 제공하는 피부질환 목록
+          </div>
           {data.map((item, index) => (
             <motion.li key={index} variants={itemVariants} className="w-full">
               <div className="flex flex-col md:flex-row items-center bg-gray-100 rounded-2xl p-6 w-full shadow-md">
