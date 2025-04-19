@@ -9,6 +9,7 @@ import DiagnoseBox from "./components/DiagnoseBox";
 import SeoulMap from "./components/SeoulMap";
 import { motion, AnimatePresence } from "framer-motion";
 import DieaseDetail from "./components/DieaseDetail";
+import Swal from "sweetalert2";
 
 export default function Page() {
   const [imageSrc, setImageSrc] = useState<string | null>("");
@@ -80,17 +81,35 @@ export default function Page() {
             </h3>
 
             {/* 질병명 */}
-            <div className="flex items-center gap-x-4 px-4 text-base sm:text-lg border-[2px] border-[#DEDCE1] py-2 rounded-lg">
-              <Image
-                src="/images/질병아이콘.png"
-                alt="의심 질환 아이콘"
-                width={32}
-                height={32}
-              />
-              <p className="font-bold text-xl">
-                질병 :{" "}
-                <span className="text-[#e85959]">{diagnosis.disease}</span>
-              </p>
+            <div className="flex justify-between items-center gap-x-4 px-4 text-base sm:text-lg border-[2px] border-[#DEDCE1] py-2 rounded-lg">
+              <div className="flex items-center gap-x-4">
+                <Image
+                  src="/images/질병아이콘.png"
+                  alt="의심 질환 아이콘"
+                  width={32}
+                  height={32}
+                />
+                <p className="font-bold text-xl">
+                  질병 :{" "}
+                  <span className="text-[#e85959]">{diagnosis.disease}</span>
+                </p>
+              </div>
+              <div className="mr-3">
+                <button
+                  className="px-3 py-2 bg-[#e85959] text-white hover:bg-[#e85959b7] rounded-2xl"
+                  onClick={() => {
+                    if (detailOpen) {
+                      setDetailOpen(false);
+                    } else {
+                      Swal.fire("경고", "징그러움", "warning").then(() => {
+                        setDetailOpen(true);
+                      });
+                    }
+                  }}
+                >
+                  질횐 상세 보기
+                </button>
+              </div>
             </div>
 
             {/* 확률 */}
@@ -120,20 +139,6 @@ export default function Page() {
                 />
                 <p className="w-full font-bold text-xl flex items-center justify-between">
                   <div>의심질환 증상과 치료방법</div>
-                  <div className="mr-3">
-                    <button
-                      className="px-3 py-2 bg-[#e85959] text-white hover:bg-[#e85959b7] rounded-2xl"
-                      onClick={() => {
-                        if (detailOpen) {
-                          setDetailOpen(false);
-                        } else {
-                          setDetailOpen(true);
-                        }
-                      }}
-                    >
-                      질횐 상세 보기
-                    </button>
-                  </div>
                 </p>
               </div>
               <div className="flex flex-col gap-y-5">

@@ -108,25 +108,6 @@ const SkinAnalysis = () => {
 
   return (
     <div className="max-w-3xl mx-auto mt-10 px-4">
-      <h1 className="text-xl font-bold mb-4">피부 분석</h1>
-
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4"
-        encType="multipart/form-data"
-      >
-        <input type="file" name="front" accept="image/*" required />
-        <input type="file" name="left" accept="image/*" required />
-        <input type="file" name="right" accept="image/*" required />
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-          disabled={loading}
-        >
-          {loading ? "분석 중..." : "제출"}
-        </button>
-      </form>
-
       {result && (
         <motion.div
           ref={resultRef}
