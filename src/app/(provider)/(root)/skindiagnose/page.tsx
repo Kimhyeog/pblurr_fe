@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import SkinAnalysis from "./components/SkinAnalysis";
+import SkinAnalysis from "./components/SkinAnalysis/SkinAnalysis";
 import InfoNav from "./components/Info/InfoNav";
 import { SkinAnalysisResult } from "@/types/types";
 import * as htmlToImage from "html-to-image";
@@ -106,7 +106,7 @@ export default function Page() {
             setLoading={setLoading}
           />
         </div>
-        <SkinAnalysis />
+        <div>{result && <SkinAnalysis result={result} />}</div>
         {/* <CosMeticSession {...scores} /> */}
       </div>
     </div>

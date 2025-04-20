@@ -21,25 +21,13 @@ import ScoreCard from "./ScoreCard";
 
 const COLORS = ["#60A5FA", "#F87171", "#34D399"];
 
-const SkinAnalysis = () => {
-  const [result, setResult] = useState<SkinAnalysisResult | null>(null);
-  const [loading, setLoading] = useState(false);
-  const resultRef = useRef<HTMLDivElement>(null);
+interface Props {
+  result: SkinAnalysisResult;
+}
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    setLoading(true);
-    try {
-      const id = await submitSkinAnalysis(formData);
-      const data = await getSkinAnalysisResult(id);
-      setResult(data);
-    } catch (err) {
-      console.error("분석 실패:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+const SkinAnalysis = (props: Props) => {
+  const { result } = props;
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const handleSaveImage = async () => {
     if (!resultRef.current) return;

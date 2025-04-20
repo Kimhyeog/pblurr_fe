@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface Props {
   onClose: () => void;
@@ -10,9 +10,27 @@ interface Props {
 }
 
 function SubmitLeftFace(props: Props) {
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string>("/images/left-30.png");
+  const [togglePreview, setTogglePreview] = useState<boolean>(false);
   const [uploaded, setUploaded] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+
+    if (!uploaded) {
+      interval = setInterval(() => {
+        setTogglePreview((prev) => !prev);
+      }, 1000);
+    } else {
+      if (interval) clearInterval(interval);
+      setTogglePreview(false);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [uploaded]);
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -20,23 +38,27 @@ function SubmitLeftFace(props: Props) {
       const url = URL.createObjectURL(file);
       setPreviewUrl(url);
       setUploaded(true);
-      props.onFileSelect(file); // ⬅️ 파일 전달
+      props.onFileSelect(file);
     }
   };
 
   const handleReupload = () => {
-    setPreviewUrl(null);
+    setPreviewUrl("/images/left-30.png");
     setUploaded(false);
     fileInputRef.current!.value = "";
   };
 
+  const imageToShow = !uploaded
+    ? togglePreview
+      ? "/images/기본.png"
+      : "/images/좌측싸대기.png"
+    : previewUrl;
+
   return (
-    <div className="bg-white rounded-2xl  p-4 w-full max-w-md mx-auto my-6">
+    <div className="bg-white rounded-2xl p-4 w-full max-w-md mx-auto my-6">
       <div className="border-2 border-[#5CA7C8] rounded-xl p-2">
         <Image
-          src={
-            previewUrl ?? "/38cb03db-cbf0-43be-9952-fa3cf2c3858d.png" // 너가 올려준 이미지 경로
-          }
+          src={imageToShow}
           alt="얼굴 좌30도 가이드"
           className="w-full rounded-md"
           width={300}
@@ -65,15 +87,13 @@ function SubmitLeftFace(props: Props) {
         )}
 
         {uploaded && (
-          <>
-            <button
-              type="button"
-              onClick={handleReupload}
-              className="bg-[#e85959] text-white font-bold py-2 px-4 rounded-lg"
-            >
-              재업로드
-            </button>
-          </>
+          <button
+            type="button"
+            onClick={handleReupload}
+            className="bg-[#e85959] text-white font-bold py-2 px-4 rounded-lg"
+          >
+            재업로드
+          </button>
         )}
       </div>
 

@@ -10,7 +10,7 @@ interface Props {
 }
 
 function SubmitRightFace(props: Props) {
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string>("/images/right-30.png");
   const [uploaded, setUploaded] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -25,7 +25,7 @@ function SubmitRightFace(props: Props) {
   };
 
   const handleReupload = () => {
-    setPreviewUrl(null);
+    setPreviewUrl("/images/right-30.png");
     setUploaded(false);
     fileInputRef.current!.value = "";
   };
@@ -34,9 +34,7 @@ function SubmitRightFace(props: Props) {
     <div className="bg-white rounded-2xl  p-4 w-full max-w-md mx-auto my-6">
       <div className="border-2 border-[#5CA7C8] rounded-xl p-2">
         <Image
-          src={
-            previewUrl ?? "/38cb03db-cbf0-43be-9952-fa3cf2c3858d.png" // 너가 올려준 이미지 경로
-          }
+          src={previewUrl}
           alt="얼굴 좌30도 가이드"
           className="w-full rounded-md"
           width={300}
@@ -45,7 +43,7 @@ function SubmitRightFace(props: Props) {
       </div>
 
       <p className="text-center text-[#333] font-semibold mt-4">
-        얼굴 좌측 30도 사진을 업로드하세요.
+        얼굴 우측 30도 사진을 업로드하세요.
       </p>
 
       <div className="flex justify-center gap-4 mt-4">
