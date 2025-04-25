@@ -175,21 +175,6 @@ const SkinAnalysis = (props: Props) => {
               </PieChart>
             </ResponsiveContainer>
           </div>
-
-          <div className="flex gap-4 mt-4">
-            <button
-              onClick={handleSaveImage}
-              className="bg-green-500 text-white px-4 py-2 rounded"
-            >
-              결과 저장
-            </button>
-            <button
-              onClick={handleCopyLink}
-              className="bg-gray-500 text-white px-4 py-2 rounded"
-            >
-              링크 복사
-            </button>
-          </div>
         </motion.div>
       )}
     </div>

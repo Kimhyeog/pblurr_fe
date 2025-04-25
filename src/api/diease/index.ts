@@ -26,11 +26,14 @@ const diagnoseSkinDisease = async (image: File) => {
       withCredentials: true,
     });
 
-    console.log("진단 결과:", response.data);
     return response.data;
-  } catch (error) {
-    console.error("피부 질환 진단 API 호출 중 오류 발생:", error);
-    return null;
+  } catch (error: any) {
+    if (error.response?.status === 400) {
+      throw new Error(
+        error.response.data?.message || "알 수 없는 오류가 발생했습니다."
+      );
+    }
+    throw new Error("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
   }
 };
 

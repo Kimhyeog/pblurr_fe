@@ -23,9 +23,10 @@ function DieasesBox() {
           className="flex flex-col gap-5"
         >
           <div
-            className="lg:text-2xl font-bold px-3 py-1 w-full
-        text-center sm:text-left
-        text-2xl sm:text-lg
+            className="
+            
+            text-center text-2xl font-bold 
+            md:text-left
       "
           >
             {`'`}피부르르{`'`}가 제공하는 피부질환 목록

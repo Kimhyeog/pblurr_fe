@@ -51,7 +51,7 @@ export default function Page() {
     flex flex-col justify-center items-center 
     bg-white rounded-3xl shadow-lg
     
-    w-full
+    
     md:max-w-screen-sm
     lg:max-w-screen-sm
     xl:max-w-screen-sm

@@ -4,18 +4,19 @@ import React, { useEffect, useState } from "react";
 import { DetailDieaseInfo, DiagnosisResult } from "@/types/types";
 import ProbabilityBar from "./components/ProbabilityBar";
 import ModalUse from "@/components/Modal/ModalUse";
-import DieasesBox from "./components/DieasesBox";
 import DiagnoseBox from "./components/DiagnoseBox";
 import SeoulMap from "./components/SeoulMap";
 import { motion, AnimatePresence } from "framer-motion";
 import DieaseDetail from "./components/DieaseDetail";
 import Swal from "sweetalert2";
+import DiagnoseMainBox from "./components/DiagnoseMainBox";
 
 export default function Page() {
   const [imageSrc, setImageSrc] = useState<string | null>("");
   const [diagnosis, setDiagnosis] = useState<DiagnosisResult | null>(null);
   const [detailInfo, setDetailInfo] = useState<DetailDieaseInfo | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const listVariants = {
     hidden: { opacity: 0 },
@@ -59,6 +60,7 @@ export default function Page() {
                 setImage={setImageSrc}
                 setDiagnose={setDiagnosis}
                 setDetailInfo={setDetailInfo}
+                setErrorMessage={setErrorMessage}
               />
             </div>
           </motion.li>
@@ -66,11 +68,7 @@ export default function Page() {
       </motion.ul>
 
       {/* 병명 설명 (진단 결과 없을 때) */}
-      {!diagnosis && (
-        <div>
-          <DieasesBox />
-        </div>
-      )}
+      {!diagnosis && <DiagnoseMainBox />}
 
       {/* 진단 결과 영역 */}
       {diagnosis && (
@@ -90,25 +88,9 @@ export default function Page() {
                   height={32}
                 />
                 <p className="font-bold text-xl">
-                  질병 :{" "}
+                  질환 :{" "}
                   <span className="text-[#e85959]">{diagnosis.disease}</span>
                 </p>
-              </div>
-              <div className="mr-3">
-                <button
-                  className="px-3 py-2 bg-[#e85959] text-white hover:bg-[#e85959b7] rounded-2xl"
-                  onClick={() => {
-                    if (detailOpen) {
-                      setDetailOpen(false);
-                    } else {
-                      Swal.fire("경고", "징그러움", "warning").then(() => {
-                        setDetailOpen(true);
-                      });
-                    }
-                  }}
-                >
-                  질횐 상세 보기
-                </button>
               </div>
             </div>
 
@@ -128,22 +110,38 @@ export default function Page() {
               <ProbabilityBar percent={diagnosis.probability.toFixed(2)} />
             </div>
 
-            {/* 이미지 + 치료법 */}
-            <div className="text-base sm:text-lg flex flex-col lg:flex-col gap-y-4 lg:gap-x-4 border-[2px] border-[#DEDCE1] py-2 px-2 rounded-lg">
-              <div className="flex flex-row items-center gap-x-4 px-2">
-                <Image
-                  src="/images/질병아이콘.png"
-                  alt="의심 질환 아이콘"
-                  width={32}
-                  height={32}
-                />
-                <p className="w-full font-bold text-xl flex items-center justify-between">
-                  <div>의심질환 증상과 치료방법</div>
-                </p>
-              </div>
-              <div className="flex flex-col gap-y-5">
-                <div className="flex flex-col items-center justify-center border-[2px] border-[#DEDCE1] py-5 px-5 rounded-lg">
-                  <div>
+            {/* 질병 상세보가 */}
+            {detailInfo && (
+              <div className="text-base sm:text-lg border-[2px] border-[#DEDCE1] py-2 px-2 rounded-lg">
+                <div className="flex  items-center gap-x-4 px-2 pb-2 justify-between">
+                  <div className="flex items-center gap-x-4">
+                    <Image
+                      src="/images/질병아이콘.png"
+                      alt="의심 질환 아이콘"
+                      width={32}
+                      height={32}
+                    />
+                    <p className="font-bold text-xl">질환 상세정보</p>
+                  </div>
+                  <div className="mr-3">
+                    <button
+                      className="px-3 py-2 bg-[#e85959] text-white hover:bg-[#e85959b7] rounded-2xl"
+                      onClick={() => {
+                        if (detailOpen) {
+                          setDetailOpen(false);
+                        } else {
+                          Swal.fire("경고", "징그러움", "warning").then(() => {
+                            setDetailOpen(true);
+                          });
+                        }
+                      }}
+                    >
+                      질횐 상세 보기
+                    </button>
+                  </div>
+                </div>
+                <div className="flex flex-col items-center justify-center border-[2px] border-[#DEDCE1]  rounded-lg">
+                  <div className="py-5 px-5 rounded-lg">
                     <Image
                       src={diagnosis.imageUrl}
                       alt="의심 질환 예시 이미지"
@@ -152,23 +150,28 @@ export default function Page() {
                       className="rounded-2xl"
                     />
                   </div>
-                  {detailInfo && (
-                    <AnimatePresence initial={false}>
-                      {detailOpen && (
-                        <motion.div
-                          key="expanded-content"
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden mt-2 text-sm text-gray-700"
-                        >
-                          <DieaseDetail detailInfo={detailInfo} />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  )}
+                  <span className="w-full border-[2px] border-[#DEDCE1]" />
+                  <AnimatePresence initial={false}>
+                    {detailOpen && (
+                      <motion.div
+                        key="expanded-content"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden mt-2 text-sm text-gray-700"
+                      >
+                        <DieaseDetail detailInfo={detailInfo} />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
+              </div>
+            )}
+
+            {/* 이미지 + 치료법 */}
+            <div className="text-base sm:text-lg flex flex-col lg:flex-col gap-y-4 lg:gap-x-4 border-[2px] border-[#DEDCE1] py-2 px-2 rounded-lg">
+              <div className="flex flex-col gap-y-5">
                 <div className="border-[2px] border-[#DEDCE1] py-5 px-5 rounded-lg flex flex-col gap-y-4 justify-center w-full">
                   <p className="flex items-center justify-between font-bold text-2xl mb-2 pl-1 pb-2 border-b">
                     <span className="whitespace-nowrap">🩺 치료법</span>

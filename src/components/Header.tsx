@@ -23,9 +23,9 @@ export default function Header() {
 
       if (!isLoggedIn) {
         // 현재 경로가 '/'가 아니라면 로그인 페이지로 리디렉션
-        if (pathname === "/") return;
+        if (pathname === "/" || pathname === "/test") return;
         else {
-          Swal.fire("경고", "로그인이 필요합니다.", "info").then(() => {
+          Swal.fire("로그인이 필요합니다.", "", "info").then(() => {
             router.push("/login");
           });
         }

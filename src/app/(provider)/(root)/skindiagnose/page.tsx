@@ -11,26 +11,6 @@ export default function Page() {
   const [loading, setLoading] = useState(false);
   const resultRef = useRef<HTMLDivElement>(null);
 
-  // 업로드 후의 이미지 저장 핸들러
-  const handleSaveImage = async () => {
-    if (!resultRef.current) return;
-    const blob = await htmlToImage.toBlob(resultRef.current);
-    if (blob) {
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "skin-analysis-result.png";
-      link.click();
-    }
-  };
-
-  //분석 결과를 링크 복사 핸들러러
-  const handleCopyLink = () => {
-    const url = window.location.href;
-    navigator.clipboard.writeText(url).then(() => {
-      alert("링크가 복사되었습니다!");
-    });
-  };
-
   const scores = {
     wrinkleScore: 3,
     pigmentationScore: 5,

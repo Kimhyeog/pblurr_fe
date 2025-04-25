@@ -5,23 +5,25 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { diagnoseSkinDisease, getSkinDiseaseDetail } from "@/api/diease";
 import { DetailDieaseInfo, DiagnosisResult } from "@/types/types";
+import Swal from "sweetalert2";
 
 const images = [
-  "/images/곰팡이감염.jpg",
-  "/images/건선편평태선.jpg",
-  "/images/기저세포암.jpg",
-  "/images/멜라닌세포모반.jpg",
-  "/images/사마귀전염성연속증.jpg",
-  "/images/아토피피부염.jpg",
-  "/images/지루각화증.jpg",
-  "/images/흑색종.jpg",
-  "/images/습진.jpg",
+  "/images/Characteries/백선.jpg",
+  "/images/Characteries/건선.jpg",
+  "/images/Characteries/기저세포암.jpg",
+  "/images/Characteries/멜라닌세포.jpg",
+  "/images/Characteries/사마귀.jpg",
+  "/images/Characteries/아토피.jpg",
+  "/images/Characteries/지루각화증.jpg",
+  "/images/Characteries/흑색종.jpg",
+  "/images/Characteries/습진.jpg",
 ];
 
 interface Props {
   setImage: (imagesrc: string | null) => void;
   setDiagnose: (diagnose: DiagnosisResult | null) => void;
   setDetailInfo: (resultDiease: DetailDieaseInfo | null) => void;
+  setErrorMessage: (message: string) => void;
 }
 
 function DiagnoseBox(props: Props) {
@@ -62,16 +64,26 @@ function DiagnoseBox(props: Props) {
       alert("이미지를 업로드하세요.");
       return;
     }
-    const result = await diagnoseSkinDisease(image);
-    if (result?.disease) {
-      const detail = await getSkinDiseaseDetail(result.disease);
-      props.setDetailInfo(detail);
-    }
-    const imageSrcResult = URL.createObjectURL(image);
 
-    setImageSrc(imageSrcResult); // 이미지 URL 설정
-    props.setImage(imageSrcResult);
-    props.setDiagnose(result);
+    try {
+      const result = await diagnoseSkinDisease(image);
+
+      if (result?.disease) {
+        const detail = await getSkinDiseaseDetail(result.disease);
+        props.setDetailInfo(detail);
+      }
+
+      const imageSrcResult = URL.createObjectURL(image);
+      setImageSrc(imageSrcResult); // 이미지 URL 설정
+      props.setImage(imageSrcResult);
+      props.setDiagnose(result);
+      props.setErrorMessage(""); // 에러 초기화
+    } catch (error: any) {
+      props.setErrorMessage(error.message);
+      Swal.fire("Error", error.message, "warning").then(() => {
+        setImage(null);
+      });
+    }
   };
 
   useEffect(() => {
@@ -106,22 +118,44 @@ function DiagnoseBox(props: Props) {
       {/* 움직이는 뒷배경 이미지들 */}
       <motion.div
         className="absolute top-1/2 left-0 flex gap-4 w-max"
-        style={{ translateY: "-50%" }} // y축 중앙 정렬
+        style={{ translateY: "-50%" }}
         animate={controls}
       >
-        {images.concat(images).map((src, index) => (
-          <Image
-            key={index}
-            src={src}
-            alt={`slide-${index}`}
-            width={150}
-            height={130}
-            className="rounded-2xl object-cover shadow-2xl
-            w-15 sm:w-45
-            h-15 sm:h-45
-            "
-          />
-        ))}
+        {images.concat(images).map((src, index) => {
+          const names = [
+            "백선",
+            "건선",
+            "기저세포암",
+            "멜라닌세포모반",
+            "사마귀",
+            "아토피피부염",
+            "지루각화증",
+            "흑색종",
+            "습진",
+          ];
+          const name = names[index % names.length];
+
+          return (
+            <div
+              key={index}
+              className="flex flex-col items-center gap-1 w-[150px] sm:w-[150px]"
+            >
+              <Image
+                src={src}
+                alt={`slide-${index}`}
+                width={150}
+                height={130}
+                className="rounded-2xl object-cover shadow-2xl"
+              />
+              <p
+                className="text-[10px] sm:text-sm text-white  
+             bg-[#5CA7C8] rounded-full px-3 py-1 border-2 border-white shadow-md"
+              >
+                {name}
+              </p>
+            </div>
+          );
+        })}
       </motion.div>
 
       {/* 가운데 고정 박스 */}
