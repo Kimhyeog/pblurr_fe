@@ -1,11 +1,10 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { getCosmeticRecommendations } from "@/api/skinDiagnose/cosmetic";
 import { ProductRecommendation } from "@/types/types";
 import { useEffect, useState, useRef } from "react";
 import CosMeticItem from "./CosMeticItem";
-import Link from "next/link";
 
 type Props = {
   wrinkleScore: number;
@@ -137,7 +136,6 @@ function CosMeticSession(props: Props) {
           Math.max(index - 2, 0),
           Math.min(index + 3, item.products.length)
         );
-
         return (
           <div
             key={item.category}

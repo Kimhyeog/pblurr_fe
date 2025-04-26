@@ -10,6 +10,7 @@ import SubmitRightFace from "./SubmitRightFace";
 import SubmitFrontFace from "./SubmitFrontFace";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Swal from "sweetalert2";
 
 interface Props {
   setLoading: (isLoading: boolean) => void;
@@ -52,8 +53,8 @@ function UploadFaceBox(props: Props) {
       const data = await getSkinAnalysisResult(id);
       console.log("data", data);
       setResult(data);
-    } catch (err) {
-      console.error("분석 실패:", err);
+    } catch (err: any) {
+      Swal.fire("오류", err.message, "warning");
     } finally {
       setLoading(false);
     }
@@ -131,7 +132,7 @@ function UploadFaceBox(props: Props) {
                 triggerSubmit={async () => {
                   if (formRef.current) {
                     await handleSubmit(formRef.current);
-                    onClose(); // handleSubmit 끝난 후 모달 닫기
+                    onClose();
                   }
                 }}
               />

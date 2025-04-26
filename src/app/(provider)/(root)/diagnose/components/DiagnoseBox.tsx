@@ -23,7 +23,6 @@ interface Props {
   setImage: (imagesrc: string | null) => void;
   setDiagnose: (diagnose: DiagnosisResult | null) => void;
   setDetailInfo: (resultDiease: DetailDieaseInfo | null) => void;
-  setErrorMessage: (message: string) => void;
 }
 
 function DiagnoseBox(props: Props) {
@@ -77,9 +76,7 @@ function DiagnoseBox(props: Props) {
       setImageSrc(imageSrcResult); // 이미지 URL 설정
       props.setImage(imageSrcResult);
       props.setDiagnose(result);
-      props.setErrorMessage(""); // 에러 초기화
     } catch (error: any) {
-      props.setErrorMessage(error.message);
       Swal.fire("Error", error.message, "warning").then(() => {
         setImage(null);
       });

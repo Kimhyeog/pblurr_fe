@@ -48,11 +48,7 @@ function SubmitLeftFace(props: Props) {
     fileInputRef.current!.value = "";
   };
 
-  const imageToShow = !uploaded
-    ? togglePreview
-      ? "/images/기본.png"
-      : "/images/좌측싸대기.png"
-    : previewUrl;
+  const imageToShow = !uploaded ? "/images/left-30.png" : previewUrl;
 
   return (
     <div className="bg-white rounded-2xl p-4 w-full max-w-md mx-auto my-6">

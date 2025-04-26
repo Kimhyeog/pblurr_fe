@@ -1,3 +1,5 @@
+import { SkinAnalysisResult } from "@/types/types";
+
 type SkinAnalysisResultByRegion = {
   images: string[];
   skinAge: number;
@@ -75,4 +77,54 @@ const mockSkinAnalysisByRegion: SkinAnalysisResultByRegion = {
     pigmentation: 12,
     pore: 8,
   },
+};
+
+// 정상적인 피부 미용 분석 결과 예시
+export const mockSkinAnalysisResult: SkinAnalysisResult = {
+  imageUrls: [
+    "/images/left-face.png",
+    "/images/front-face.png",
+    "/images/right-face.png",
+  ],
+  skinAge: 30,
+  foreheadWrinkle: 6,
+  foreheadPigmentation: 3,
+  glabellaWrinkle: 4,
+  lefteyeWrinkle: 3,
+  righteyeWrinkle: 4,
+  leftcheekPigmentation: 2,
+  leftcheekPore: 4,
+  rightcheekPigmentation: 3,
+  rightcheekPore: 5,
+  lipDryness: 1,
+  jawlineSagging: 2,
+  totalWrinkle: 15,
+  totalPigmentation: 8,
+  totalPore: 6,
+  createdAt: "2025-04-26T15:00:00Z",
+};
+
+// 피부 미용 데이터가 없는 경우 (skinAge: -1)
+export const mockEmptySkinAnalysisResult: SkinAnalysisResult = {
+  imageUrls: [
+    "/images/left-face.png",
+    "/images/front-face.png",
+    "/images/right-face.png",
+  ],
+  skinAge: -1,
+  foreheadWrinkle: 0,
+  foreheadPigmentation: 0,
+  glabellaWrinkle: 0,
+  lefteyeWrinkle: 0,
+  righteyeWrinkle: 0,
+  leftcheekPigmentation: 0,
+  leftcheekPore: 0,
+  rightcheekPigmentation: 0,
+  rightcheekPore: 0,
+  lipDryness: 0,
+  jawlineSagging: 0,
+  totalWrinkle: 0,
+  totalPigmentation: 0,
+  totalPore: 0,
+  createdAt: "2025-04-26T15:00:00Z",
 };

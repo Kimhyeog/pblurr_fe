@@ -16,7 +16,6 @@ export default function Page() {
   const [diagnosis, setDiagnosis] = useState<DiagnosisResult | null>(null);
   const [detailInfo, setDetailInfo] = useState<DetailDieaseInfo | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
 
   const listVariants = {
     hidden: { opacity: 0 },
@@ -60,7 +59,6 @@ export default function Page() {
                 setImage={setImageSrc}
                 setDiagnose={setDiagnosis}
                 setDetailInfo={setDetailInfo}
-                setErrorMessage={setErrorMessage}
               />
             </div>
           </motion.li>

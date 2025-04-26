@@ -34,7 +34,7 @@ function MainSkinDiagnose() {
         </div>
         <button
           onClick={() => {
-            router.push("/skindiagnose");
+            router.push("/skinAnalysis");
           }}
           className="bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg text-lg
               hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer"
