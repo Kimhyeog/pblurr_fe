@@ -1,4 +1,6 @@
-import React, { useRef, useEffect } from "react";
+// src/app/(provider)/(root)/skinAnalysis/components/SkinAnalysis/SkinAnalysis.tsx
+
+import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -7,6 +9,7 @@ import SkinResultAge from "./SkinResultAge";
 import TotalScoreBox from "./TotalScoreBox";
 import SwalComponent from "@/components/Modal/SwalComponent";
 import { SkinAnalysisResult } from "@/types/types";
+import FaceAreaSelector from "./FaceAreaSelector"; // 추가된 컴포넌트 import
 
 interface Props {
   result: SkinAnalysisResult;
@@ -14,6 +17,7 @@ interface Props {
 
 const SkinAnalysis = ({ result }: Props) => {
   const resultRef = useRef<HTMLDivElement>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>("전체");
 
   useEffect(() => {
     if (result.skinAge === -1) {
@@ -89,6 +93,14 @@ const SkinAnalysis = ({ result }: Props) => {
     return percentage > 50 ? "Good" : "Bad";
   }
 
+  // 선택된 카테고리 필터링
+  const filteredData =
+    selectedCategory === "전체"
+      ? categorizedData
+      : categorizedData.filter(
+          (section) => section.category === selectedCategory
+        );
+
   return (
     <div className="w-full mx-auto px-4">
       {result && (
@@ -109,13 +121,21 @@ const SkinAnalysis = ({ result }: Props) => {
               skinAge={result.skinAge}
             />
           </div>
+
+          {/* FaceAreaSelector 컴포넌트 추가 */}
+          <FaceAreaSelector
+            categories={["전체", "이마", "눈가", "볼", "면상 하부"]}
+            onSelect={setSelectedCategory}
+            selectedCategory={selectedCategory}
+          />
+
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             <div className="col-span-full">
               <div className="text-3xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] mb-5">
                 📊 세부 항목별 점수
               </div>
               <div className="flex flex-col gap-8">
-                {categorizedData.map((section, sectionIndex) => (
+                {filteredData.map((section, sectionIndex) => (
                   <div
                     key={sectionIndex}
                     className="flex flex-col gap-2 border border-[#DEDCE1] rounded-2xl shadow-sm p-4 mb-3"
