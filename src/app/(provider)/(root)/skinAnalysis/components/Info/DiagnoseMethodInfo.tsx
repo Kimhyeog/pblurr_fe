@@ -21,10 +21,14 @@ function DiagnoseMethodInfo() {
           <h3 className="text-lg font-semibold text-[#5CA7C8]">
             사진 업로드 방법
           </h3>
-          <p className="mt-2">
-            좌측 30도, 정면, 우측 30도의 순서로{" "}
-            <strong>총 3장의 얼굴 사진</strong>을 업로드해주세요. 각도에 맞춰
-            사진을 정확하게 촬영하면 분석 정확도가 높아집니다!
+          <p className="flex flex-col gap-y-2 mt-2">
+            <li>
+              좌측 30도, 정면, 우측 30도의 순서로{" "}
+              <strong>총 3장의 얼굴 사진</strong>을 업로드해주세요.
+            </li>
+            <li>
+              각도에 맞춰 사진을 정확하게 촬영하면 분석 정확도가 높아집니다!
+            </li>
           </p>
         </section>
 
@@ -32,10 +36,17 @@ function DiagnoseMethodInfo() {
           <h3 className="text-lg font-semibold text-[#e85959]">
             촬영 시 주의사항
           </h3>
-          <p className="mt-2">
-            밝은 환경에서 촬영해주세요.
-            <br />
-            <strong> 일정 수준 이상의 선명도</strong>가 필요합니다.
+          <p className="flex flex-col gap-y-2 mt-2">
+            <li>
+              <strong>밝은 조명에서 초점이 선명</strong>
+              하며, <strong>얼굴이 중앙에 위치</strong>
+              하고 화면을 가득 채운 사진
+            </li>
+            <li>단색 배경의 사진</li>
+            <li>
+              <strong>일정 수준 이상의 선명도</strong>가 필요합니다.
+            </li>
+            <li>머리카락이나 모자로 얼굴이 가려지지 않은 사진</li>
           </p>
         </section>
 

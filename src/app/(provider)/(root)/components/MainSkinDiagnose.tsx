@@ -9,13 +9,14 @@ function MainSkinDiagnose() {
   return (
     <div
       className="
-    w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto
-    px-20 py-15 flex justify-center items-center gap-x-15"
+        w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg 
+        mx-auto flex flex-col sm:flex-row
+    px-20 py-15  justify-center items-center gap-x-15 
+      "
     >
       <div>
         <Image
           className="rounded-2xl hidden md:visible md:block
-          min-w-[300px]
           "
           src="/images/MainSkinDiagnose.png"
           alt="의심짛환아이콘"
@@ -23,7 +24,7 @@ function MainSkinDiagnose() {
           height={250}
         />
       </div>
-      <div className="flex flex-col gap-y-4 justify-center items-center  mr-[120px] sm:mr-0">
+      <div className="flex flex-col gap-y-4 justify-center items-center sm:mr-0">
         <h1 className="text-2xl font-extrabold">피부 미용 분석</h1>
         <div>
           <p className="text-md text-center whitespace-nowrap">

@@ -26,9 +26,9 @@ function DiagnoseStartInfo(props: Props) {
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
         {/* 내용1 */}
-        <h2 className="text-2xl font-bold text-[#5CA7C8] mb-4">
+        <h2 className="text-center hidden md:block text-2xl font-bold text-[#5CA7C8] mb-4">
           <strong className="text-[#5CA7C8]">
-            그럼 이제 피부 타입 분석받고 존나 예뻐지러 가볼까?
+            그럼 이제 피부 미용 분석받고 존나 예뻐지러 가볼까?
           </strong>{" "}
           🧴✨
         </h2>
@@ -37,7 +37,7 @@ function DiagnoseStartInfo(props: Props) {
         <div className="bg-white p-4 rounded-lg shadow-sm mb-4">
           <Image
             src="/images/PhotosThatLeadToAnalysis.png" // 예시 이미지를 public/images 경로에 넣어주세요
-            alt="피부 타입 진단 요약 이미지"
+            alt="피부 미용 진단 요약 이미지"
             width={600}
             height={300}
             className="rounded-md mx-auto"

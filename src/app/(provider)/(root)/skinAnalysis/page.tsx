@@ -11,7 +11,9 @@ import {
 import CosMeticSession from "./components/Cosmetics/CosMeticSession";
 
 export default function Page() {
-  const [result, setResult] = useState<SkinAnalysisResult | null>(null);
+  const [result, setResult] = useState<SkinAnalysisResult | null>(
+    mockSkinAnalysisResult
+  );
   const [loading, setLoading] = useState(false);
   const [showCosmetic, setShowCosmetic] = useState(false); // ★ 추가: 화장품 추천 버튼 눌렀는지 여부
 
@@ -48,7 +50,7 @@ export default function Page() {
         // 화장품 추천 화면
         <div className="rounded-2xl flex flex-col gap-y-4 items-center px-10 py-5 border-0 bg-white">
           <div className="text-center sm:text-left text-xl sm:text-2xl lg:text-3xl font-bold pl-1 py-1 w-full">
-            피부 타입 분석 기반 화장품 추천
+            피부 미용 분석 기반 화장품 추천
           </div>
           <div className="w-full border-4 border-[#5CA7C8] rounded-2xl shadow-xl bg-white">
             <CosMeticSession
@@ -63,7 +65,7 @@ export default function Page() {
         <div className="rounded-2xl flex flex-col gap-y-4 items-center px-10 py-5 border-0 bg-white">
           <div className="w-full flex">
             <div className="flex-1 text-center sm:text-left text-xl sm:text-2xl lg:text-3xl font-bold pl-1 py-1 w-full mb-2">
-              피부 타입 분석 결과
+              피부 미용 분석 결과
             </div>
             <div>
               <button

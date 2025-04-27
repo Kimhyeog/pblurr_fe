@@ -22,7 +22,7 @@ export default function Home() {
   };
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col justify-center">
       <motion.ul variants={list} initial="hidden" animate="visible">
         <motion.li variants={item}>
           <MainDiagnose />

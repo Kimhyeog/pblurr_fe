@@ -4,24 +4,25 @@ interface ScoreCardProps {
   label: string;
   score: number;
   percentage: number;
-  status: "Normal" | "Good" | "Bad";
+  status: "Good" | "Bad"; // "Normal" 제거하고 Good, Bad만 사용
+  max: number;
 }
 
 function ScoreCard(props: ScoreCardProps) {
-  const { label, score, percentage, status } = props;
+  const { label, score, percentage, status, max } = props;
 
+  // 상태별 스타일 설정
   const statusStyle = {
-    Good: "bg-[#7FC5E0] text-white",
-    Normal: "bg-[#DEDCE1] text-gray-800",
-    Bad: "bg-[#F87171] text-white",
+    Good: "bg-[#bef257] text-white", // Good 상태 색상
+    Bad: "bg-[#ed5656] text-white", // Bad 상태 색상
   };
 
-  const labelTextColor = status === "Bad" ? "text-[#F87171]" : "text-[#3B6F82]";
+  const labelTextColor = status === "Bad" ? "text-[#ed5656]" : "text-[#3B6F82]";
 
+  // 바 색상 설정
   const barColor = {
-    Good: "#7FC5E0",
-    Normal: "#7FC5E0",
-    Bad: "#F87171",
+    Good: "#bef257", // Good 상태 바 색상
+    Bad: "#ed5656", // Bad 상태 바 색상
   };
 
   return (
@@ -35,8 +36,9 @@ function ScoreCard(props: ScoreCardProps) {
         </span>
       </div>
 
-      <div className="flex text-4xl font-bold text-[#3B6F82] text-center">
-        {score}점
+      <div className="flex text-4xl items-end font-bold text-[#3B6F82] text-center">
+        <p>{score}점</p>
+        <span className="text-black text-lg">&nbsp;/ {max}점</span>
       </div>
 
       <div className="w-full bg-[#DEDCE1] rounded-full h-4 overflow-hidden">

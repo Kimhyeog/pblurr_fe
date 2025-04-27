@@ -43,7 +43,7 @@ function InfoNav(props: Props) {
   };
 
   return (
-    <div className="w-full p-4 border-4 border-[#5CA7C8] rounded-2xl shadow-xl bg-white">
+    <div className="w-full  md:w-auto  p-4 border-4 border-[#5CA7C8] rounded-2xl shadow-xl bg-white">
       <LayoutGroup>
         <nav className="inline-flex space-x-2 bg-[#f0f9fc] p-2 rounded-full relative">
           {tabItems.map((tab) => (
@@ -51,7 +51,7 @@ function InfoNav(props: Props) {
               key={tab.value}
               value={tab.value}
               onClick={onClickDiagnoseInfoToggle}
-              className={`relative z-10 px-4 py-2 rounded-full text-lg font-medium transition-colors duration-200 ${
+              className={`text-lg relative z-10 px-4 py-2 rounded-full font-medium transition-colors duration-200 ${
                 diagnoseInfoValue === tab.value
                   ? "text-[#5CA7C8] font-extrabold"
                   : "text-blue-100 hover:text-[#5CA7C8]"

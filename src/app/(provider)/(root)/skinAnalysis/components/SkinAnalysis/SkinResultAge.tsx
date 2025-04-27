@@ -11,23 +11,28 @@ function SkinResultAge(props: Props) {
   const imagesAlt = ["좌 30도", "정면", "우 30도"];
 
   return (
-    <div>
+    <div className="w-full">
       <div className="w-full bg-white rounded-xl shadow-md p-6 space-y-6">
         {/* 이미지 + 설명 텍스트, 모바일에서는 숨김 */}
-        <div className="items-center gap-4 sm:flex">
+        <div className="flex items-center gap-4 sm:flex">
           {imageUrls.map((url, idx) => (
-            <div
-              key={idx}
-              className="w-[250px] h-[270px] overflow-hidden rounded-lg shadow-md mx-auto text-center"
-            >
-              <Image
-                width={300}
-                height={450}
-                src={url}
-                alt={imagesAlt[idx] || `분석 이미지 ${idx}`}
-                className="rounded-lg shadow-md object-cover w-full h-full"
-              />
-              <p className="text-sm text-gray-600 mt-2">{imagesAlt[idx]}</p>
+            <div key={idx} className="text-center">
+              <div
+                className="
+                sm:w-auto sm:h-auto
+              overflow-hidden rounded-lg shadow-md mx-auto"
+              >
+                <Image
+                  width={300}
+                  height={450}
+                  src={url}
+                  alt={imagesAlt[idx] || `분석 이미지 ${idx}`}
+                  className="rounded-lg shadow-md object-cover w-full h-full"
+                />
+              </div>
+              <p className="min-w-[50px] inline-block rounded-2xl bg-[#5CA7C8] px-2 py-1 text-sm text-white mt-4">
+                {imagesAlt[idx]}
+              </p>
             </div>
           ))}
         </div>

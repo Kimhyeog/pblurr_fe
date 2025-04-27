@@ -1,14 +1,12 @@
-"use client";
-
-import { SkinAnalysisResult } from "@/types/types";
-import Image from "next/image";
 import React, { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 import ScoreCard from "./ScoreCard";
 import SkinResultAge from "./SkinResultAge";
-import Swal from "sweetalert2";
 import TotalScoreBox from "./TotalScoreBox";
+import SwalComponent from "@/components/Modal/SwalComponent";
+import { SkinAnalysisResult } from "@/types/types";
 
 interface Props {
   result: SkinAnalysisResult;
@@ -19,11 +17,18 @@ const SkinAnalysis = ({ result }: Props) => {
 
   useEffect(() => {
     if (result.skinAge === -1) {
-      Swal.fire(
-        "오류",
-        "정확한 진단을 위해 촬영 방법 확인 후 다시 업로드 해주세요.",
-        "warning"
-      );
+      SwalComponent({
+        title: "오류",
+        content: (
+          <div className="flex flex-col gap-y-3">
+            <p className="text-center">
+              정확한 진단을 위해 <strong>촬영 방법</strong> 확인 후
+            </p>
+            <p className="text-center">다시 업로드해주세요.</p>
+          </div>
+        ),
+        icon: "warning",
+      });
     }
   }, [result.skinAge]);
 
@@ -80,16 +85,12 @@ const SkinAnalysis = ({ result }: Props) => {
     "턱선 처짐": 6,
   };
 
-  function getStatusFromPercentage(
-    percentage: number
-  ): "Good" | "Normal" | "Bad" {
-    if (percentage <= 30) return "Bad";
-    if (percentage <= 70) return "Normal";
-    return "Good";
+  function getStatusFromPercentage(percentage: number): "Good" | "Bad" {
+    return percentage > 50 ? "Good" : "Bad";
   }
 
   return (
-    <div className="w-full mx-auto  px-4">
+    <div className="w-full mx-auto px-4">
       {result && (
         <motion.div
           ref={resultRef}
@@ -102,14 +103,13 @@ const SkinAnalysis = ({ result }: Props) => {
             📊 피부 나이&nbsp;:{" "}
             <span className="text-[#7FC5E0] font-bold">{result.skinAge}대</span>
           </div>
-          <div className="hidden md:block">
+          <div className="w-full hidden md:block">
             <SkinResultAge
               imageUrls={result.imageUrls}
               skinAge={result.skinAge}
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            {/* 막대 그래프 */}
             <div className="col-span-full">
               <div className="text-3xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] mb-5">
                 📊 세부 항목별 점수
@@ -146,6 +146,7 @@ const SkinAnalysis = ({ result }: Props) => {
                             score={item.value}
                             percentage={percentage}
                             status={status}
+                            max={range}
                           />
                         );
                       })}
@@ -156,7 +157,6 @@ const SkinAnalysis = ({ result }: Props) => {
             </div>
           </div>
 
-          {/* 도넛 차트 */}
           <h3 className="text-3xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] mb-5">
             📊 종합 피부 점수
           </h3>
