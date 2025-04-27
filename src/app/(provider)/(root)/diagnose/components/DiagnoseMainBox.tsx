@@ -27,6 +27,12 @@ function DiagnoseMainBox() {
           <p className="text-center text-lg sm:text-xl text-gray-700 leading-relaxed">
             빠르고 정확하게 분석해드립니다.
           </p>
+          <p className="text-center text-lg sm:text-xl text-gray-700 leading-relaxed">
+            복잡한 절차 없이, 몇 초 만에 내 피부를 진단해보세요!
+          </p>
+          <p className="text-center text-lg sm:text-xl text-gray-700 leading-relaxed">
+            전문 의료 데이터를 기반으로 신뢰할 수 있는 진단 결과를 제공합니다.
+          </p>
         </div>
 
         {/* 주요 질환 안내 박스 */}

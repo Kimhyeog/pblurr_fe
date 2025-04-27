@@ -141,68 +141,70 @@ function CosMeticSession(props: Props) {
             key={item.category}
             className="border-4 rounded-3xl border-[#7FC5E0] bg-[#E3F2FD] shadow-md"
           >
-            {/* 캐러셀 영역 */}
-            <motion.div
-              className="relative h-[400px] w-full flex items-center justify-center overflow-hidden"
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              onDragEnd={(event, info) => {
-                const threshold = 100;
-                if (info.offset.x > threshold) {
-                  showPrev(item.category);
-                } else if (info.offset.x < -threshold) {
-                  showNext(item.category);
-                }
-              }}
-              onWheel={(e) => {
-                if (e.deltaY < 0) {
-                  showNext(item.category);
-                } else if (e.deltaY > 0) {
-                  showPrev(item.category);
-                }
-              }}
-              ref={(el) => {
-                carouselRefs.current[item.category] = el;
-              }}
-            >
-              <div className="relative w-full h-full flex items-center justify-center">
-                {visibleProducts.map((product, i) => {
-                  const position = i - (index > 1 ? 2 : index);
-                  const zIndex = 10 - Math.abs(position);
-                  const isCenter = position === 0;
+            <div>
+              {/* 캐러셀 영역 */}
+              <motion.div
+                className="relative h-[400px] w-full flex items-center justify-center overflow-hidden"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                onDragEnd={(event, info) => {
+                  const threshold = 100;
+                  if (info.offset.x > threshold) {
+                    showPrev(item.category);
+                  } else if (info.offset.x < -threshold) {
+                    showNext(item.category);
+                  }
+                }}
+                onWheel={(e) => {
+                  if (e.deltaY < 0) {
+                    showNext(item.category);
+                  } else if (e.deltaY > 0) {
+                    showPrev(item.category);
+                  }
+                }}
+                ref={(el) => {
+                  carouselRefs.current[item.category] = el;
+                }}
+              >
+                <div className="relative w-full h-full flex items-center justify-center">
+                  {visibleProducts.map((product, i) => {
+                    const position = i - (index > 1 ? 2 : index);
+                    const zIndex = 10 - Math.abs(position);
+                    const isCenter = position === 0;
 
-                  return (
-                    <motion.div
-                      key={product.productLink}
-                      className="absolute"
-                      initial={{ opacity: 0, scale: 0.5, x: 0 }}
-                      animate={{
-                        opacity: 1,
-                        scale: getScale(position),
-                        x: position * 150,
-                        y: isCenter ? 30 : 70,
-                        zIndex: zIndex,
-                      }}
-                      whileHover={{ scale: 1.25 }}
-                      exit={{ opacity: 0, scale: 0.5 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 200,
-                        damping: 30,
-                      }}
-                      style={{
-                        width: 200,
-                        height: 300,
-                        zIndex,
-                        margin: "0 8px",
-                      }}
-                    >
-                      <CosMeticItem product={product} isCenter={isCenter} />
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </motion.div>
+                    return (
+                      <motion.div
+                        key={product.productLink}
+                        className="absolute"
+                        initial={{ opacity: 0, scale: 0.5, x: 0 }}
+                        animate={{
+                          opacity: 1,
+                          scale: getScale(position),
+                          x: position * 150,
+                          y: isCenter ? 30 : 70,
+                          zIndex: zIndex,
+                        }}
+                        whileHover={{ scale: 1.25 }}
+                        exit={{ opacity: 0, scale: 0.5 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 200,
+                          damping: 30,
+                        }}
+                        style={{
+                          width: 200,
+                          height: 300,
+                          zIndex,
+                          margin: "0 8px",
+                        }}
+                      >
+                        <CosMeticItem product={product} isCenter={isCenter} />
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            </div>
           </div>
         );
       })}

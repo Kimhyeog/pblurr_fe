@@ -11,7 +11,7 @@ function DiagnoseResultInfo() {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <h2 className="text-2xl font-bold text-[#5CA7C8] mb-4">
-        피부 타입 진단 결과 안내
+        피부 미용 분석 결과 안내
       </h2>
 
       <div className="space-y-4 text-gray-700">
@@ -88,7 +88,7 @@ function DiagnoseResultInfo() {
             맞춤 화장품 추천
           </h3>
           <p className="mt-2">
-            종합 점수를 기반으로,{" "}
+            통합 점수를 기반으로,{" "}
             <span className="font-bold text-[#5CA7C8]">주름</span>,{" "}
             <span className="font-bold text-[#5CA7C8]">색소침착</span>,{" "}
             <span className="font-bold text-[#5CA7C8]">
@@ -105,7 +105,7 @@ function DiagnoseResultInfo() {
             스킨케어 미션 제공
           </h3>
           <p className="mt-2">
-            점수 데이터와 함께,{" "}
+            <span className="font-bold text-[#e85959]">통합 점수</span>와 함께,{" "}
             <span className="font-bold text-[#e85959]">입술 건조함</span>과{" "}
             <span className="font-bold text-[#e85959]">턱선 처짐</span> 개선을
             위한{" "}

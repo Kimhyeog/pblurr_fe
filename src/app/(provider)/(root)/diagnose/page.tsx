@@ -128,7 +128,13 @@ export default function Page() {
                         if (detailOpen) {
                           setDetailOpen(false);
                         } else {
-                          Swal.fire("경고", "징그러움", "warning").then(() => {
+                          Swal.fire(
+                            "경고",
+                            `해당 질환의 상세 정보에는 피부 질환의 실제 예시 이미지가 포함되어 있습니다.
+피부 질환 이미지 특성상 다소 불편하게 느껴질 수 있으니,
+이미지 확인을 원하시는 경우에만 진행해 주세요.`,
+                            "warning"
+                          ).then(() => {
                             setDetailOpen(true);
                           });
                         }

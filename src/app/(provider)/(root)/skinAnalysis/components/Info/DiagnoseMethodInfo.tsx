@@ -13,7 +13,7 @@ function DiagnoseMethodInfo() {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <h2 className="text-2xl font-bold text-[#5CA7C8] mb-4">
-        피부 타입 진단 방법 안내
+        피부 미용 분석 방법 안내
       </h2>
 
       <div className="space-y-4 text-gray-700">
@@ -33,8 +33,8 @@ function DiagnoseMethodInfo() {
             촬영 시 주의사항
           </h3>
           <p className="mt-2">
-            밝은 환경에서 촬영해주세요. 해상도 기준은 아직 정확히 결정되지
-            않았지만,
+            밝은 환경에서 촬영해주세요.
+            <br />
             <strong> 일정 수준 이상의 선명도</strong>가 필요합니다.
           </p>
         </section>

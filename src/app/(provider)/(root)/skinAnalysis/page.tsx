@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import SkinAnalysis from "./components/SkinAnalysis/SkinAnalysis";
 import InfoNav from "./components/Info/InfoNav";
 import { SkinAnalysisResult } from "@/types/types";
-import { mockSkinAnalysisResult } from "@/data/skinAnalysis";
+import {
+  mockEmptySkinAnalysisResult,
+  mockSkinAnalysisResult,
+} from "@/data/skinAnalysis";
 import CosMeticSession from "./components/Cosmetics/CosMeticSession";
 
 export default function Page() {
-  const [result, setResult] = useState<SkinAnalysisResult | null>(
-    mockSkinAnalysisResult
-  );
+  const [result, setResult] = useState<SkinAnalysisResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [showCosmetic, setShowCosmetic] = useState(false); // ★ 추가: 화장품 추천 버튼 눌렀는지 여부
 
@@ -34,7 +35,7 @@ export default function Page() {
         <div className="rounded-2xl flex flex-col gap-y-4 items-center px-10 py-5 border-0 bg-white">
           <div className="w-full">
             <div className="text-center sm:text-left text-xl sm:text-2xl lg:text-3xl font-bold pl-1 py-1 w-full mb-4">
-              피부 타입 분석 안내
+              피부 미용 분석 안내
             </div>
             <InfoNav
               setResult={setResult}
