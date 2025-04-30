@@ -18,10 +18,10 @@ function MainSkinDiagnose() {
         <Image
           className="rounded-2xl hidden md:visible md:block
           "
-          src="/images/MainSkinDiagnose.png"
+          src="/images/PhotosThatLeadToAnalysis.png"
           alt="의심짛환아이콘"
-          width={350}
-          height={250}
+          width={400}
+          height={300}
         />
       </div>
       <div className="flex flex-col gap-y-4 justify-center items-center sm:mr-0">

@@ -70,7 +70,17 @@ const FaceAreaSelectorMobile: React.FC<FaceAreaSelectorMobileProps> = ({
             }`}
             style={{ top: position.top, left: position.left }}
           >
-            {category}
+            {/* "왼쪽 눈가 주름"과 "오른쪽 눈가 주름" 버튼 텍스트 중앙 정렬 */}
+            <span className="block text-center">
+              {category === "왼쪽 눈가 주름" || category === "오른쪽 눈가 주름"
+                ? category.split(" ").map((word, index) => (
+                    <React.Fragment key={index}>
+                      {word}
+                      {index === 0 && <br />} {/* 첫 번째 단어 뒤에만 줄바꿈 */}
+                    </React.Fragment>
+                  ))
+                : category}
+            </span>
           </button>
         );
       })}
