@@ -36,7 +36,7 @@ export default function Page() {
         <div className="rounded-2xl flex flex-col gap-y-4 items-center px-10 py-5 border-0 bg-white">
           <div className="w-full">
             <div className="text-center sm:text-left text-xl sm:text-2xl lg:text-3xl font-bold pl-1 py-1 w-full mb-4">
-              피부 미용 분석 받기기
+              피부 미용 분석 받기
             </div>
             <DiagnoseStartInfo
               setResult={setResult}

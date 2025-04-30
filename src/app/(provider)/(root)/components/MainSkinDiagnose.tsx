@@ -16,7 +16,7 @@ function MainSkinDiagnose() {
     >
       <div>
         <Image
-          className="rounded-2xl hidden md:visible md:block
+          className="rounded-3xl hidden md:visible md:block border-3 border-[#5CA7C8]
           "
           src="/images/PhotosThatLeadToAnalysis.png"
           alt="의심짛환아이콘"

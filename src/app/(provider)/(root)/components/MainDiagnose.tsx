@@ -36,7 +36,7 @@ function MainDiagnose() {
       </div>
       <div>
         <Image
-          className="rounded-2xl hidden md:visible md:block"
+          className="rounded-2xl hidden md:visible md:block border-3 border-[#5CA7C8]"
           src="/images/MainDiagnose.png"
           alt="의심 질환 아이콘"
           width={350}
