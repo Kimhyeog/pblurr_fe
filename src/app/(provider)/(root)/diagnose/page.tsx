@@ -41,12 +41,7 @@ export default function Page() {
 
   // 피부질환 진단 안내문구 모달 출력력용
   useEffect(() => {
-    const hasSeenNotice = localStorage.getItem("hasSeenSkinDiseaseNotice");
-
-    if (!hasSeenNotice) {
-      setIsModalOpen(true);
-      localStorage.setItem("hasSeenSkinDiseaseNotice", "true");
-    }
+    setIsModalOpen(true); // 항상 모달을 열도록 설정
   }, []);
 
   return (
