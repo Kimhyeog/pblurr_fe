@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { checkLoginStatus, logout, getUserInfo } from "@/api/auth";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import UserInfoModal from "./UserInfoModal";
 import { User } from "@/types/types";
+import Swal from "sweetalert2";
 
 export default function Header() {
   const [isLoginState, setIsLoginState] = useState(false);
@@ -14,14 +15,27 @@ export default function Header() {
   const router = useRouter();
   const [isUserInfoModalOpen, setIsUserInfoModalOpen] = useState(false);
   const [userInfo, setUserInfo] = useState<User | null>(null);
+  const pathname = usePathname(); // ✅ 현재 경로 확인
   // 로그인 상태 확인 함수
   const fetchLoginState = async () => {
     try {
       const isLoggedIn = await checkLoginStatus();
+
+      if (!isLoggedIn) {
+        // 현재 경로가 '/'가 아니라면 로그인 페이지로 리디렉션
+        if (pathname === "/" || pathname === "/test") return;
+        else {
+          Swal.fire("로그인이 필요합니다.", "", "info").then(() => {
+            router.push("/login");
+          });
+        }
+        return; // 로그인 안 됐으므로 아래 코드 실행 안 함
+      }
+
       const response = await getUserInfo();
       setUserInfo(response);
-      setUserName(response.userName); // 직접 userName을 추출
-      setIsLoginState(isLoggedIn);
+      setUserName(response.userName);
+      setIsLoginState(true);
     } catch (error) {
       console.error("로그인 상태 확인 중 오류 발생:", error);
       setIsLoginState(false);
@@ -55,11 +69,18 @@ export default function Header() {
   // 컴포넌트가 마운트될 때 로그인 상태 확인
   useEffect(() => {
     fetchLoginState();
-  }, []);
+  }, [pathname]);
 
   return (
     <>
-      <div className="w-full bg-white shadow-md px-10 py-4 flex justify-between items-center">
+      <div
+        className="
+    max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto
+    bg-white shadow-md px-10 py-4 
+    flex flex-col justify-center items-center
+    md:flex-row md:justify-between
+  "
+      >
         <div>
           <Link href="/">
             <Image
@@ -67,6 +88,7 @@ export default function Header() {
               alt="로그인 로고"
               width={250}
               height={100}
+              className="min-w-[300px]"
             />
           </Link>
         </div>

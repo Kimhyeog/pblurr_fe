@@ -1,0 +1,106 @@
+import { SkinAnalysisResult } from "@/types/types";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+
+interface Props {
+  onClose: () => void;
+  onNext: () => void;
+  onFileSelect: (file: File) => void;
+  triggerSubmit: () => Promise<void>;
+}
+
+function SubmitRightFace(props: Props) {
+  const [previewUrl, setPreviewUrl] = useState<string>("/images/right-30.png");
+  const [uploaded, setUploaded] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+      setUploaded(true);
+      props.onFileSelect(file); // ⬅️ 파일 전달
+    }
+  };
+
+  const handleReupload = () => {
+    setPreviewUrl("/images/right-30.png");
+    setUploaded(false);
+    fileInputRef.current!.value = "";
+  };
+
+  return (
+    <div className="bg-white rounded-2xl  p-4 w-full max-w-md mx-auto my-6">
+      <div className="border-2 border-[#5CA7C8] rounded-xl p-2">
+        <Image
+          src={previewUrl}
+          alt="얼굴 좌30도 가이드"
+          className="w-full rounded-md"
+          width={300}
+          height={300}
+        />
+      </div>
+
+      <p className="text-center text-[#333] font-semibold mt-4">
+        얼굴 우측 30도 사진을 업로드하세요.
+      </p>
+
+      <div className="flex justify-center gap-4 mt-4">
+        {!uploaded && (
+          <label className="bg-[#5CA7C8] text-white font-bold py-2 px-6 rounded-lg cursor-pointer">
+            업로드
+            <input
+              ref={fileInputRef}
+              type="file"
+              name="right"
+              accept="image/*"
+              className="hidden"
+              onChange={handleUpload}
+              required
+            />
+          </label>
+        )}
+
+        {uploaded && (
+          <>
+            <button
+              type="button"
+              onClick={handleReupload}
+              className="bg-[#e85959] text-white font-bold py-2 px-4 rounded-lg"
+            >
+              재업로드
+            </button>
+          </>
+        )}
+      </div>
+
+      <div className="flex justify-between mt-6 px-4">
+        <button
+          type="button"
+          onClick={props.onClose}
+          className="bg-gray-100 text-[#333] font-semibold py-2 px-6 rounded-lg border"
+        >
+          취소
+        </button>
+
+        <button
+          type="button"
+          disabled={!uploaded}
+          onClick={async () => {
+            await props.triggerSubmit(); // ✅ 제출 완료 기다린 후
+            props.onClose(); // ✅ 그 다음 모달 닫기
+          }}
+          className={`py-2 px-6 rounded-lg font-bold ${
+            uploaded
+              ? "bg-[#5CA7C8] text-white cursor-pointer hover:bg-blue-600 transition"
+              : "bg-gray-300 text-gray-500 cursor-not-allowed"
+          }`}
+        >
+          제출
+        </button>
+      </div>
+    </div>
+  );
+}
+export default SubmitRightFace;

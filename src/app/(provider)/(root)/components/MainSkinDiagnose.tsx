@@ -7,17 +7,24 @@ function MainSkinDiagnose() {
   const router = useRouter();
 
   return (
-    <div className="px-20 py-15 flex justify-center items-center gap-x-15">
+    <div
+      className="
+        w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg 
+        mx-auto flex flex-col sm:flex-row
+    px-20 py-15  justify-center items-center gap-x-15 
+      "
+    >
       <div>
         <Image
-          className="rounded-2xl"
+          className="rounded-2xl hidden md:visible md:block
+          "
           src="/images/MainSkinDiagnose.png"
-          alt="의심짛환아이콘콘"
-          width={450}
+          alt="의심짛환아이콘"
+          width={350}
           height={250}
         />
       </div>
-      <div className="flex flex-col gap-y-4 items-center">
+      <div className="flex flex-col gap-y-4 justify-center items-center sm:mr-0">
         <h1 className="text-2xl font-extrabold">피부 미용 분석</h1>
         <div>
           <p className="text-md text-center whitespace-nowrap">
@@ -28,7 +35,7 @@ function MainSkinDiagnose() {
         </div>
         <button
           onClick={() => {
-            router.push("/skindiagnose");
+            router.push("/skinAnalysis");
           }}
           className="bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg text-lg
               hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer"
