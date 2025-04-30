@@ -93,3 +93,18 @@ export interface SkinAnalysisResult {
   totalPore: number;
   createdAt: string;
 }
+
+// 기존 SkinAnalysisResult는 그대로 유지하고
+
+// 피부 분석 결과 날짜 목록 조회 응답 타입
+export interface SkinAnalysisDateListResponse {
+  date: string[];
+}
+
+// 피부 분석 결과 비교 응답 타입
+export interface SkinAnalysisCompareResponse {
+  result1: SkinAnalysisResult;
+  result2: SkinAnalysisResult;
+  result1Average: number;
+  result2Average: number;
+}

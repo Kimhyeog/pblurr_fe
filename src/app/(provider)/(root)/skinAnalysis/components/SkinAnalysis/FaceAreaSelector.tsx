@@ -1,35 +1,81 @@
-// src/app/(provider)/(root)/skinAnalysis/components/FaceAreaSelector.tsx
-
+import Image from "next/image";
 import React from "react";
 
-interface FaceAreaSelectorProps {
-  categories: string[];
+interface FaceAreaSelectorMobileProps {
   onSelect: (category: string) => void;
   selectedCategory: string;
 }
 
-const FaceAreaSelector: React.FC<FaceAreaSelectorProps> = ({
-  categories,
+const areaPositions: { [key: string]: { top: string; left: string } } = {
+  이마: { top: "17%", left: "50%" },
+  "왼쪽 눈가 주름": { top: "35%", left: "24%" },
+  "오른쪽 눈가 주름": { top: "35%", left: "76%" },
+  "왼쪽 볼": { top: "50%", left: "27%" },
+  "오른쪽 볼": { top: "50%", left: "73%" },
+  "면상 하부": { top: "65%", left: "50%" },
+};
+
+const FaceAreaSelectorMobile: React.FC<FaceAreaSelectorMobileProps> = ({
   onSelect,
   selectedCategory,
 }) => {
+  const categories = [
+    "전체",
+    "이마",
+    "왼쪽 눈가 주름",
+    "오른쪽 눈가 주름",
+    "왼쪽 볼",
+    "오른쪽 볼",
+    "면상 하부",
+  ];
+
   return (
-    <div className="flex gap-4 mb-6">
-      {categories.map((category) => (
-        <button
-          key={category}
-          onClick={() => onSelect(category)}
-          className={`px-4 py-2 rounded-full text-white ${
-            selectedCategory === category
-              ? "bg-[#7FC5E0]"
-              : "bg-[#3B6F82] hover:bg-[#7FC5E0]"
-          }`}
-        >
-          {category}
-        </button>
-      ))}
+    <div className="relative w-full max-w-[600px] mx-auto mb-6">
+      {/* 얼굴 이미지 */}
+      <Image
+        src="/images/front-face.png"
+        alt="Face"
+        className="w-full h-full object-cover rounded-lg"
+        width={600}
+        height={600}
+      />
+
+      {/* 얼굴 부위 버튼들 */}
+      {categories.map((category) => {
+        if (category === "전체") return null;
+
+        const position = areaPositions[category];
+        if (!position) return null;
+
+        const isEyeWrinkle =
+          category === "왼쪽 눈가 주름" || category === "오른쪽 눈가 주름";
+        const isCheek = category === "왼쪽 볼" || category === "오른쪽 볼";
+
+        const displayCategory = isEyeWrinkle
+          ? "눈가"
+          : isCheek
+          ? "볼"
+          : category;
+
+        const isSelected = selectedCategory === displayCategory;
+
+        return (
+          <button
+            key={category}
+            onClick={() => onSelect(displayCategory)}
+            className={`absolute px-3 py-1 rounded-full text-2xl transform -translate-x-1/2 -translate-y-1/2 ${
+              isSelected
+                ? "bg-[#7FC5E0] text-white"
+                : "bg-[#3B6F82] text-white hover:bg-[#7FC5E0]"
+            }`}
+            style={{ top: position.top, left: position.left }}
+          >
+            {category}
+          </button>
+        );
+      })}
     </div>
   );
 };
 
-export default FaceAreaSelector;
+export default FaceAreaSelectorMobile;

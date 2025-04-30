@@ -105,8 +105,8 @@ function DiagnoseResultInfo() {
             스킨케어 미션 제공
           </h3>
           <p className="mt-2">
-            <span className="font-bold text-[#e85959]">통합 점수</span>와 함께,{" "}
-            <span className="font-bold text-[#e85959]">입술 건조함</span>과{" "}
+            <span className="font-bold text-[#e85959]">통합 점수</span> ,{" "}
+            <span className="font-bold text-[#e85959]">입술 건조함</span> ,{" "}
             <span className="font-bold text-[#e85959]">턱선 처짐</span>을
             고려하여 피부개선을 위한{" "}
             <span className="font-bold text-[#e85959]">

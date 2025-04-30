@@ -2,11 +2,10 @@ import Image from "next/image";
 
 interface Props {
   imageUrls: string[];
-  skinAge: number;
 }
 
 function SkinResultAge(props: Props) {
-  const { skinAge, imageUrls } = props;
+  const { imageUrls } = props;
 
   const imagesAlt = ["좌 30도", "정면", "우 30도"];
 
@@ -14,14 +13,10 @@ function SkinResultAge(props: Props) {
     <div className="w-full">
       <div className="w-full bg-white rounded-xl shadow-md p-6 space-y-6">
         {/* 이미지 + 설명 텍스트, 모바일에서는 숨김 */}
-        <div className="flex items-center gap-4 sm:flex">
+        <div className="flex flex-row gap-x-3 sm:flex-row justify-between">
           {imageUrls.map((url, idx) => (
-            <div key={idx} className="text-center">
-              <div
-                className="
-                sm:w-auto sm:h-auto
-              overflow-hidden rounded-lg shadow-md mx-auto"
-              >
+            <div key={idx} className="text-center flex-1">
+              <div className="overflow-hidden rounded-lg shadow-md mx-auto">
                 <Image
                   width={300}
                   height={450}

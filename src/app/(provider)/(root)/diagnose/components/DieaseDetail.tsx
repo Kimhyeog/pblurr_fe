@@ -9,14 +9,20 @@ interface Props {
 
 function DieaseDetail({ detailInfo }: Props) {
   const { disease, imageUrls, definition, cause, symptom, source } = detailInfo;
-  const [showMore, setShowMore] = useState(false);
 
   return (
-    <div className="w-full mx-auto p-6 bg-white rounded-xl shadow-md space-y-6">
+    <div
+      className="w-full text-left
+     mx-auto p-6 bg-white rounded-xl shadow-md space-y-6"
+    >
       <h2 className="text-2xl font-bold text-gray-800">{disease}</h2>
 
       {/* 이미지 갤러리 */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div
+        className="
+      flex flex-col items-center justify-center
+      sm:grid sm:items-start  sm:grid-cols-3 gap-4"
+      >
         {imageUrls.map((url, index) => (
           <Image
             key={index}

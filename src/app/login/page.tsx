@@ -47,7 +47,8 @@ export default function Page() {
     >
       <div
         className="
-    mx-auto mt-[40%] md:mt-[20%] 
+    w-[80%]
+        mx-auto mt-[40%] md:mt-[20%] 
     flex flex-col justify-center items-center 
     bg-white rounded-3xl shadow-lg
     

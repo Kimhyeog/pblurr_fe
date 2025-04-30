@@ -10,12 +10,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import DieaseDetail from "./components/DieaseDetail";
 import Swal from "sweetalert2";
 import DiagnoseMainBox from "./components/DiagnoseMainBox";
+import GeneralModal from "@/components/Modal/GeneralModal";
+import SkinDiseaseNotice from "./components/SkinDiseaseNotice";
 
 export default function Page() {
   const [imageSrc, setImageSrc] = useState<string | null>("");
   const [diagnosis, setDiagnosis] = useState<DiagnosisResult | null>(null);
   const [detailInfo, setDetailInfo] = useState<DetailDieaseInfo | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); //안내문구 모달 출력 Boolean
 
   const listVariants = {
     hidden: { opacity: 0 },
@@ -36,8 +39,22 @@ export default function Page() {
     };
   }, [imageSrc]);
 
+  // 피부질환 진단 안내문구 모달 출력력용
+  useEffect(() => {
+    const hasSeenNotice = localStorage.getItem("hasSeenSkinDiseaseNotice");
+
+    if (!hasSeenNotice) {
+      setIsModalOpen(true);
+      localStorage.setItem("hasSeenSkinDiseaseNotice", "true");
+    }
+  }, []);
+
   return (
     <div className="max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen flex flex-col mt-5 gap-y-3">
+      <GeneralModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <SkinDiseaseNotice onClose={() => setIsModalOpen(false)} />
+      </GeneralModal>
+
       <motion.ul
         variants={listVariants}
         initial="hidden"
@@ -119,7 +136,9 @@ export default function Page() {
                       width={32}
                       height={32}
                     />
-                    <p className="font-bold text-xl">질환 상세정보</p>
+                    <p className="text-lg font-bold sm:text-xl">
+                      질환 상세정보
+                    </p>
                   </div>
                   <div className="mr-3">
                     <button
@@ -128,13 +147,15 @@ export default function Page() {
                         if (detailOpen) {
                           setDetailOpen(false);
                         } else {
-                          Swal.fire(
-                            "경고",
-                            `해당 질환의 상세 정보에는 피부 질환의 실제 예시 이미지가 포함되어 있습니다.
-피부 질환 이미지 특성상 다소 불편하게 느껴질 수 있으니,
-이미지 확인을 원하시는 경우에만 진행해 주세요.`,
-                            "warning"
-                          ).then(() => {
+                          Swal.fire({
+                            title: "경고",
+                            html: `<p class="text-xs text-center">
+                              해당 질환의 상세 정보에는 피부 질환의 실제 예시 이미지가 포함되어 있습니다.<br/>
+                              피부 질환 이미지 특성상 다소 불편하게 느껴질 수 있으니,<br/>
+                              이미지 확인을 원하시는 경우에만 진행해 주세요.
+                            </p>`,
+                            icon: "warning",
+                          }).then(() => {
                             setDetailOpen(true);
                           });
                         }
@@ -177,8 +198,8 @@ export default function Page() {
             <div className="text-base sm:text-lg flex flex-col lg:flex-col gap-y-4 lg:gap-x-4 border-[2px] border-[#DEDCE1] py-2 px-2 rounded-lg">
               <div className="flex flex-col gap-y-5">
                 <div className="border-[2px] border-[#DEDCE1] py-5 px-5 rounded-lg flex flex-col gap-y-4 justify-center w-full">
-                  <p className="flex items-center justify-between font-bold text-2xl mb-2 pl-1 pb-2 border-b">
-                    <span className="whitespace-nowrap">🩺 치료법</span>
+                  <p className="flex items-center justify-between font-bold text-xl sm:text-2xl mb-2 pl-1 pb-2 border-b">
+                    <span className="whitespace-nowrap ">🩺 치료법</span>
                   </p>
                   <ul className="list-disc pl-5 space-y-1 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
                     {diagnosis.treatment

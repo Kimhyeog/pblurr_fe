@@ -28,7 +28,7 @@ function DiagnoseStartInfo(props: Props) {
         {/* 내용1 */}
         <h2 className="text-center hidden md:block text-2xl font-bold text-[#5CA7C8] mb-4">
           <strong className="text-[#5CA7C8]">
-            그럼 이제 피부 미용 분석받고 존나 예뻐지러 가볼까?
+            피부 미용 분석받고 예뻐지러 가볼까?
           </strong>{" "}
           🧴✨
         </h2>
@@ -42,10 +42,7 @@ function DiagnoseStartInfo(props: Props) {
             height={300}
             className="rounded-md mx-auto"
           />
-          <p className="text-sm text-gray-600 text-center mt-2">
-            진단 방법, 결과 안내, 그리고 개선된 너의 모습까지! 한눈에 보여줄게요
-            💖
-          </p>
+          <p className="text-sm text-gray-600 text-center mt-2"></p>
         </div>
 
         {/* 내용3 - 분석 시작 버튼 */}

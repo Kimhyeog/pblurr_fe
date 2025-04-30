@@ -10,16 +10,9 @@ import { SkinAnalysisResult } from "@/types/types";
 const tabItems = [
   { label: "분석 방법", value: 0 },
   { label: "분석 결과", value: 1 },
-  { label: "분석 받기", value: 2 },
 ];
 
-interface Props {
-  setResult: (skinAnalysisResult: SkinAnalysisResult | null) => void;
-  loading: boolean;
-  setLoading: (loading: boolean) => void;
-}
-
-function InfoNav(props: Props) {
+function InfoNav() {
   const [diagnoseInfoValue, setDiagnoseInfoValue] = useState(0);
 
   const onClickDiagnoseInfoToggle = (
@@ -35,8 +28,6 @@ function InfoNav(props: Props) {
         return <DiagnoseMethodInfo />;
       case 1:
         return <DiagnoseResultInfo />;
-      case 2:
-        return <DiagnoseStartInfo {...props} />;
       default:
         return null;
     }

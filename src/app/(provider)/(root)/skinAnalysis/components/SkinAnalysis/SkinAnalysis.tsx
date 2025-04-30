@@ -9,7 +9,8 @@ import SkinResultAge from "./SkinResultAge";
 import TotalScoreBox from "./TotalScoreBox";
 import SwalComponent from "@/components/Modal/SwalComponent";
 import { SkinAnalysisResult } from "@/types/types";
-import FaceAreaSelector from "./FaceAreaSelector"; // 추가된 컴포넌트 import
+import FaceAreaSelectorMobile from "./FaceAreaSelectorMobile";
+import FaceAreaSelector from "./FaceAreaSelector";
 
 interface Props {
   result: SkinAnalysisResult;
@@ -17,7 +18,7 @@ interface Props {
 
 const SkinAnalysis = ({ result }: Props) => {
   const resultRef = useRef<HTMLDivElement>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>("전체");
+  const [selectedCategory, setSelectedCategory] = useState<string>("이마");
 
   useEffect(() => {
     if (result.skinAge === -1) {
@@ -116,19 +117,20 @@ const SkinAnalysis = ({ result }: Props) => {
             <span className="text-[#7FC5E0] font-bold">{result.skinAge}대</span>
           </div>
           <div className="w-full hidden md:block">
-            <SkinResultAge
-              imageUrls={result.imageUrls}
-              skinAge={result.skinAge}
-            />
+            <SkinResultAge imageUrls={result.imageUrls} />
           </div>
 
           {/* FaceAreaSelector 컴포넌트 추가 */}
-          <FaceAreaSelector
+          {/* <FaceAreaSelectorMobile
             categories={["전체", "이마", "눈가", "볼", "면상 하부"]}
             onSelect={setSelectedCategory}
             selectedCategory={selectedCategory}
-          />
+          /> */}
 
+          <FaceAreaSelector
+            onSelect={setSelectedCategory}
+            selectedCategory={selectedCategory}
+          />
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             <div className="col-span-full">
               <div className="text-3xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] mb-5">

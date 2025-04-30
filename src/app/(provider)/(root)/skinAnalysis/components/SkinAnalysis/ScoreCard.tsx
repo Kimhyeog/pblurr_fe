@@ -37,8 +37,8 @@ function ScoreCard(props: ScoreCardProps) {
       </div>
 
       <div className="flex text-4xl items-end font-bold text-[#3B6F82] text-center">
-        <p>{score}점</p>
-        <span className="text-black text-lg">&nbsp;/ {max}점</span>
+        <p>{score}</p>
+        <span className="text-black text-lg">&nbsp;/ {max}</span>
       </div>
 
       <div className="w-full bg-[#DEDCE1] rounded-full h-4 overflow-hidden">

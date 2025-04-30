@@ -51,7 +51,7 @@ export default function ModalUse({
   return (
     <div className="w-full">
       <button
-        className="w-full text-2xl font-bold my-7 bg-blue-500 rounded-2xl px-2 py-3 text-white cursor-pointer focus:bg-blue-600 transition"
+        className="w-full  text-2xl font-bold my-7 bg-blue-500 rounded-2xl px-2 py-3 text-white cursor-pointer focus:bg-blue-600 transition"
         onClick={onClickOpenModal}
       >
         {buttonText}
