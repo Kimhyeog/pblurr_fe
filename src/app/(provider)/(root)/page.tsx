@@ -1,6 +1,7 @@
 "use client";
 
 import MainDiagnose from "./components/MainDiagnose";
+import MainSkinCompare from "./components/MainSkinCompare";
 import MainSkinDiagnose from "./components/MainSkinDiagnose";
 import { motion } from "framer-motion";
 
@@ -30,9 +31,10 @@ export default function Home() {
         <motion.li variants={item}>
           <MainSkinDiagnose />
         </motion.li>
-        {/* <motion.li variants={item}>
-        스킨케어미션
+        <motion.li variants={item}>
+          <MainSkinCompare />
         </motion.li>
+        {/*
         <motion.li variants={item}>
         커뮤니티
         </motion.li> */}

@@ -1,11 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion, LayoutGroup } from "framer-motion";
 import DiagnoseMethodInfo from "./DiagnoseMethodInfo";
 import DiagnoseResultInfo from "./DiagnoseResultInfo";
-import DiagnoseStartInfo from "./DiagnoseStartInfo";
-import { SkinAnalysisResult } from "@/types/types";
 
 const tabItems = [
   { label: "분석 방법", value: 0 },

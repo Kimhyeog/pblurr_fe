@@ -8,3 +8,12 @@
   --color-white: #ffffff;
   /* 흰색 추가 */
 }
+
+/* globals.css 또는 AnalysisCalendar.module.css */
+.selected-date {
+  background-color: #3b82f6 !important;
+  /* Tailwind의 bg-blue-500 */
+  color: white !important;
+  border-radius: 9999px;
+  /* rounded-full */
+}

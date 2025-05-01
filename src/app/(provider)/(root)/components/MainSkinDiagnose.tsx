@@ -20,7 +20,7 @@ function MainSkinDiagnose() {
           "
           src="/images/PhotosThatLeadToAnalysis.png"
           alt="의심짛환아이콘"
-          width={400}
+          width={370}
           height={300}
         />
       </div>
