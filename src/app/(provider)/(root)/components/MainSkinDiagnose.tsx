@@ -27,7 +27,7 @@ function MainSkinDiagnose() {
       <div className="flex flex-col gap-y-4 justify-center items-center sm:mr-0">
         <h1 className="text-2xl font-extrabold">피부 미용 분석</h1>
         <div>
-          <p className="text-md text-center whitespace-nowrap">
+          <p className="text-sm sm:text-md text-center whitespace-nowrap">
             {`"`}피부르르{`"`}는 당신의 얼굴 사진을 업로드하면,
             <br />
             부위별 피부 미용 점수를 간편하게 분석할 수 있습니다.
@@ -37,8 +37,9 @@ function MainSkinDiagnose() {
           onClick={() => {
             router.push("/skinAnalysis");
           }}
-          className="bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg text-lg
-              hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer"
+          className="bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg
+              hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer
+              text-md sm:text-lg"
         >
           분석하기
         </button>

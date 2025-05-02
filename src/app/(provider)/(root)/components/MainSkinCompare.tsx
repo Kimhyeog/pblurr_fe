@@ -28,8 +28,10 @@ function MainSkinCompare() {
           onClick={() => {
             router.push("/skinAnalysisCompare");
           }}
-          className="bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg text-lg
-              hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer"
+          className="bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg
+              hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer
+              text-md sm:text-lg 
+              "
         >
           비교하기
         </button>

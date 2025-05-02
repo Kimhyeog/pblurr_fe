@@ -11,7 +11,7 @@ function CompareAnalysisPrintBox({ compareResult }: Props) {
   const { result1, result2, result1Average, result2Average } = compareResult;
 
   return (
-    <div className="mt-6 space-y-10">
+    <div className="w-full border-4 border-[#5CA7C8] bg-[#5CA7C8]/20 rounded-2xl p-4 flex flex-col sm:flex-row gap-y-3 sm:gap-y-0 sm:gap-x-3">
       {/* 첫 번째 Box - 이미지 비교 */}
       <CompareImageBox
         result1_Date={result1.createdAt}

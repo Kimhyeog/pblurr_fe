@@ -11,10 +11,9 @@ interface Props {
 function CompareImageBox(props: Props) {
   const { result1_Date, result2_Date, result1_Images, result2_Images } = props;
 
-  // 날짜 문자열을 YYYY-MM-DD 형식으로 변환
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    if (isNaN(date.getTime())) return dateString; // 유효하지 않은 날짜면 원본 그대로
+    if (isNaN(date.getTime())) return dateString;
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
@@ -22,39 +21,55 @@ function CompareImageBox(props: Props) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md border border-[#DEDCE1]">
-      <h3 className="text-[#3c9fca] font-bold text-lg mb-4">
-        📸 분석 이미지 비교
-      </h3>
-      <div className="grid grid-cols-2 gap-6">
-        {[0, 1, 2].map((idx) => (
-          <React.Fragment key={idx}>
-            <div className="flex flex-col items-center">
-              <span className="text-sm text-[#5CA7C8] font-medium mb-1">
-                {formatDate(result1_Date)} - {labelMap[idx]}
-              </span>
-              <Image
-                src={result1_Images[idx]}
-                alt={`result1-img-${idx}`}
-                width={300}
-                height={200}
-                className="rounded-xl shadow-sm border border-[#DEDCE1]"
-              />
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="text-sm text-[#5CA7C8] font-medium mb-1">
-                {formatDate(result2_Date)} - {labelMap[idx]}
-              </span>
-              <Image
-                src={result2_Images[idx]}
-                alt={`result2-img-${idx}`}
-                width={300}
-                height={200}
-                className="rounded-xl shadow-sm border border-[#DEDCE1]"
-              />
-            </div>
-          </React.Fragment>
-        ))}
+    <div className="flex-1 bg-[#E7F6FA] p-6 rounded-3xl shadow-lg border border-[#BEE6F2]">
+      <div className="w-full text-center sm:text-left py-2 px-4 mb-2 rounded-lg bg-[#FFFFFF] font-bold text-xl text-[#5CA7C8] border-2 border-[#3C9FCA]">
+        분석 이미지 비교
+      </div>
+
+      {/* 모바일에서는 flex-col, sm 이상에서는 grid-cols-2 */}
+      <div className="flex flex-col sm:grid sm:grid-cols-2 sm:gap-6">
+        {[0, 1, 2].map((idx) => {
+          // 모바일에서는 정면(1번)만 보여주고, sm 이상에서 모두 보여줌
+          const isMobileOnly = idx !== 1;
+          return (
+            <React.Fragment key={idx}>
+              <div
+                className={`flex flex-col items-center ${
+                  isMobileOnly ? "hidden sm:flex" : ""
+                }`}
+              >
+                <span className="font-bold text-lg text-[#5CA7C8] mb-1">
+                  {formatDate(result1_Date)} - {labelMap[idx]}
+                </span>
+                <div className="relative w-[200px] h-[150px] sm:w-[150px] sm:h-[150px] bg-white">
+                  <Image
+                    src={result1_Images[idx]}
+                    alt={`result1-img-${idx}`}
+                    fill
+                    className="rounded-xl shadow-sm border border-[#DEDCE1] object-contain"
+                  />
+                </div>
+              </div>
+              <div
+                className={`flex flex-col items-center ${
+                  isMobileOnly ? "hidden sm:flex" : ""
+                }`}
+              >
+                <span className="font-bold text-lg text-[#5CA7C8] mb-1">
+                  {formatDate(result2_Date)} - {labelMap[idx]}
+                </span>
+                <div className="relative w-[200px] h-[150px] sm:w-[150px] sm:h-[150px] bg-white">
+                  <Image
+                    src={result2_Images[idx]}
+                    alt={`result2-img-${idx}`}
+                    fill
+                    className="rounded-xl shadow-sm border border-[#DEDCE1] object-contain"
+                  />
+                </div>
+              </div>
+            </React.Fragment>
+          );
+        })}
       </div>
     </div>
   );

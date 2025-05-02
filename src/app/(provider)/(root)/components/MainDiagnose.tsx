@@ -10,15 +10,24 @@ function MainDiagnose() {
   return (
     <div
       className="
-        w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg 
-        mx-auto flex flex-col sm:flex-row
-    px-20 py-15  justify-center items-center gap-x-15 bg-white
+        w-full 
+        sm:max-w-screen-sm 
+        md:max-w-screen-md 
+        lg:max-w-screen-lg 
+        mx-auto flex flex-col sm:flex-row bg-white
+        px-15 py-10 sm:px-20 sm:py-15 
+        justify-center items-center 
+        gap-x-15
       "
     >
       <div className="flex flex-col gap-y-4 items-center">
         <h1 className="text-2xl font-extrabold">피부 질환 진단</h1>
         <div>
-          <p className="text-sm sm:text-md text-center whitespace-nowrap">
+          <p
+            className="
+          text-center whitespace-nowrap
+          text-sm sm:text-md"
+          >
             {`"`}피부르르{`"`}는 당신의 피부 질환 의심 사진을 업로드하면,
             <br />
             피부 질환 확률을 간편하게 진단할 수 있습니다.
@@ -28,8 +37,10 @@ function MainDiagnose() {
           onClick={() => {
             router.push("/diagnose");
           }}
-          className="bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg text-lg
-              hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer"
+          className="bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg 
+          hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer
+          text-md sm:text-lg 
+          "
         >
           진단하기
         </button>

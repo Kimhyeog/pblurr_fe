@@ -50,7 +50,7 @@ function AnalysisCalendar({
   };
 
   return (
-    <div className="p-4 bg-white rounded-3xl shadow-md border border-[#DEDCE1]">
+    <div className="p-4 bg-white rounded-3xl shadow-md border max-h-[340px] border-[#DEDCE1] w-full sm:w-auto">
       <Calendar
         onClickDay={handleClick}
         tileContent={({ date }) =>
@@ -65,6 +65,10 @@ function AnalysisCalendar({
           const dateStr = formatDate(date);
           return selectedDates.includes(dateStr) ? "selected-date" : "";
         }}
+        tileDisabled={({ date }) => {
+          const dateStr = formatDate(date);
+          return !dateList.includes(dateStr);
+        }}
         onActiveStartDateChange={({ activeStartDate }) => {
           if (activeStartDate) {
             const month = activeStartDate.getMonth() + 1;
@@ -72,7 +76,7 @@ function AnalysisCalendar({
             onMonthChange(month, year);
           }
         }}
-        className="" // 이 부분 추가하여 Calendar의 높이를 부모 div에 맞추기
+        className="w-full text-sm [&_.react-calendar]:w-full [&_.react-calendar]:max-w-full"
       />
     </div>
   );

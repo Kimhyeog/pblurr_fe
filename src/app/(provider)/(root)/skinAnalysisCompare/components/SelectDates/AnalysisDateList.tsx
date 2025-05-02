@@ -72,11 +72,11 @@ function AnalysisDateList(props: Props) {
 
   return (
     <div className="w-full flex flex-col items-center p-4">
-      <div className="w-full flex items-center gap-x-3">
-        <ul className="h-full flex-1 flex flex-col text-center gap-2">
+      <div className="w-full flex flex-col sm:flex-row items-center gap-x-3">
+        {/* 날짜 리스트 - 데스크탑 이상에서만 보임 */}
+        <ul className="hidden sm:flex h-full flex-1 flex-col text-center gap-2">
           <div className="flex justify-between items-center py-2 px-4 mb-2 rounded-lg bg-[#FFFFFF] font-bold text-xl border-2 text-[#5CA7C8] border-[#3C9FCA]">
             <h1>분석 날짜 목록</h1>
-            {/* ✅ 정렬 드롭다운 UI */}
             <select
               value={sortOrder}
               onChange={(e) =>
@@ -88,9 +88,9 @@ function AnalysisDateList(props: Props) {
               <option value="oldest">오래된순</option>
             </select>
           </div>
-          <div className="flex flex-col gap-y-2 max-h-[330px] h-full overflow-y-auto">
+          <div className="flex flex-col gap-y-2 max-h-[340px] h-full overflow-y-auto">
             {sortedDateList.length === 0 ? (
-              <div className="flex items-center justify-center h-full py-10 text-center text-lg bg-white text-gray-500 border border-gray-300 rounded-lg">
+              <div className="flex items-center justify-center h-full py-10 text-center text-lg bg-white text-gray-500 border border-gray-300 rounded-2xl">
                 {currentMonth}월에는 피부 미용 분석을 받은 기록이 없습니다.
               </div>
             ) : (
@@ -99,11 +99,11 @@ function AnalysisDateList(props: Props) {
                   key={date}
                   onClick={() => toggleDate(date)}
                   className={`cursor-pointer px-4 py-2 rounded-lg border transition-colors duration-200
-          ${
-            selectedDates.includes(date)
-              ? "bg-[#5CA7C8] text-white border-[#3C9FCA]"
-              : "bg-white hover:bg-[#f0f9fb] border-gray-300"
-          }`}
+                ${
+                  selectedDates.includes(date)
+                    ? "bg-[#5CA7C8] text-white border-[#3C9FCA]"
+                    : "bg-white hover:bg-[#f0f9fb] border-gray-300"
+                }`}
                 >
                   {date}
                 </li>
@@ -111,11 +111,12 @@ function AnalysisDateList(props: Props) {
             )}
           </div>
         </ul>
-        <div className="h-full">
+
+        {/* ✅ 캘린더 - 모든 해상도에서 보임 */}
+        <div className="w-full sm:w-auto">
           <h1 className="w-full text-center py-2 px-4 mb-2 rounded-lg bg-[#FFFFFF] font-bold text-xl border-2 text-[#5CA7C8] border-[#3C9FCA]">
             캘린더
           </h1>
-
           <AnalysisCalendar
             dateList={dateList}
             selectedDates={selectedDates}
@@ -127,7 +128,20 @@ function AnalysisDateList(props: Props) {
           />
         </div>
       </div>
-      <div className="w-full my-4">
+
+      {/* ✅ 비교하기 버튼 - 모바일에서만 보이도록 설정 */}
+      <div className="w-full my-4 sm:hidden">
+        <button
+          onClick={handleCompare}
+          disabled={selectedDates.length !== 2}
+          className="py-3 w-full bg-[#3C9FCA] text-xl hover:bg-[#338bb2] text-white font-semibold rounded-lg transition disabled:opacity-50"
+        >
+          비교하기
+        </button>
+      </div>
+
+      {/* ✅ 비교 버튼 - 데스크탑에서만 보이도록 원래 위치 유지 */}
+      <div className="w-full my-4 hidden sm:block">
         <button
           onClick={handleCompare}
           disabled={selectedDates.length !== 2}

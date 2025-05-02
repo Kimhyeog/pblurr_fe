@@ -87,18 +87,13 @@ function CompareRarChartGraph(props: Props) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="bg-white p-6 rounded-3xl shadow-md border border-[#DEDCE1] max-w-4xl mx-auto"
+      className="w-full sm:w-auto bg-[#FFFFFF] p-6 rounded-3xl shadow-lg border-4 border-[#C7EAF3] max-w-4xl mx-auto"
     >
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-[#5CA7C8] font-bold text-xl flex items-center gap-2">
-          🎀 피부 항목 비교
-        </h3>
-        <div className="text-sm text-gray-400">
-          <span>📸 좌 30도 / 정면 / 우 30도 기반 분석</span>
-        </div>
+      <div className="w-full text-center text-[#5CA7C8] font-extrabold text-xl sm:text-left items-center py-2 px-4 mb-2 rounded-lg bg-[#FFFFFF]  border-2 border-[#3C9FCA]">
+        비교 차트
       </div>
 
-      <div className="w-full h-[400px]">
+      <div className="w-full h-[350px]">
         <ResponsiveContainer>
           <RadarChart outerRadius="75%" data={radarData}>
             <PolarGrid stroke="#F3F3F3" strokeDasharray="4 4" />
@@ -145,16 +140,28 @@ function CompareRarChartGraph(props: Props) {
         </ResponsiveContainer>
       </div>
 
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8 text-sm sm:text-base">
-        <p className="text-gray-500 font-medium">
-          {formatDate(result1.createdAt)} 평균 점수:{" "}
-          <span className="text-[#3c9fcaa2] font-bold">{result1Average}</span>
-        </p>
-        <span className="text-[#999]">vs</span>
-        <p className="text-gray-500 font-medium">
-          {formatDate(result2.createdAt)} 평균 점수:{" "}
-          <span className="text-[#3c9fcaa2] font-bold">{result2Average}</span>
-        </p>
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mt-8 text-sm sm:text-base bg-[#F0FAFC] px-6 py-6 rounded-2xl border border-[#BEE6F2] shadow-inner">
+        <div className="flex flex-col items-center sm:items-end text-center sm:text-right">
+          <p className="text-[#5CA7C8] font-bold text-lg">
+            {formatDate(result1.createdAt)}
+            <br />
+            <span className="text-[#5CA7C8] font-medium">평균 점수</span>
+          </p>
+          <span className="text-[#3C9FCA] font-extrabold text-xl mt-1">
+            {result1Average}
+          </span>
+        </div>
+
+        <span className=" font-bold text-lg">vs</span>
+
+        <div className="text-[#F9A8D4] flex flex-col items-center sm:items-start text-center sm:text-left">
+          <p className="font-bold text-lg">
+            {formatDate(result2.createdAt)}
+            <br />
+            <span className=" font-medium">평균 점수</span>
+          </p>
+          <span className="font-extrabold text-xl mt-1">{result2Average}</span>
+        </div>
       </div>
     </motion.div>
   );

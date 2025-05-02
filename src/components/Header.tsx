@@ -88,7 +88,7 @@ export default function Header() {
               alt="로그인 로고"
               width={250}
               height={100}
-              className="min-w-[300px]"
+              className="min-w-[500px] sm:min-w-[300px]"
             />
           </Link>
         </div>
@@ -106,9 +106,11 @@ export default function Header() {
             <button
               onClick={handleLogout}
               className="
-              bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg text-lg
+              bg-[#7FC5E0] text-white font-bold rounded-lg
               hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer
-            "
+              px-4 py-2
+              text-md sm:text-lg
+              "
             >
               로그아웃
             </button>
@@ -122,8 +124,11 @@ export default function Header() {
         ) : (
           <button
             onClick={onClickLogin}
-            className="bg-[#7FC5E0] text-white font-bold px-4 py-2 rounded-lg
-            hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer"
+            className="bg-[#7FC5E0] text-white font-bold  rounded-lg
+            hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer
+            px-6 py-2
+            text-md sm:text-lg
+            "
           >
             로그인
           </button>

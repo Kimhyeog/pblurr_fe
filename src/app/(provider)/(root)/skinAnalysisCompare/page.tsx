@@ -5,9 +5,8 @@ import { useEffect, useState } from "react";
 import { getSkinAnalysisDateList } from "@/api/skinAnalysisCompare";
 import { useRouter } from "next/navigation";
 import { SkinAnalysisCompareResponse } from "@/types/types";
-import AnalysisDateList from "./components/AnalysisDateList";
+import AnalysisDateList from "./components/SelectDates/AnalysisDateList";
 import CompareAnalysisPrintBox from "./components/CompareAnalysisPrintBox";
-import AnalysisCalendar from "./components/AnalysisCalendar";
 
 const SkinAnalysisHistoryPage = () => {
   // 고객이 피부 미용 진단 받은 날짜 데이터들
@@ -32,7 +31,7 @@ const SkinAnalysisHistoryPage = () => {
         } else {
           setDateList(dates);
         }
-      } catch (error: any) {
+      } catch (error) {
         // getSkinAnalysisDateList에서 400 처리 포함되어 있으므로 여기서는 기본 오류 처리만
 
         router.push("/skinAnalysis");
@@ -43,9 +42,9 @@ const SkinAnalysisHistoryPage = () => {
   }, [router]);
 
   return (
-    <div className="max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen mt-5 gap-y-3,">
+    <div className="max-w-full flex flex-col gap-y-5 sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen mt-5 gap-y-3,">
       <div className="w-full  md:w-auto  p-5  rounded-2xl shadow-xl bg-white">
-        <h2 className="w-full p-4 rounded-2xl text-2xl text-left font-bold mb-2">
+        <h2 className="w-full p-4 rounded-2xl text-2xl text-center sm:text-left font-bold mb-2">
           피부 분석 날짜 선택
         </h2>
         <div className="w-full border-4 border-[#5CA7C8] bg-[#5CA7C8]/20 rounded-2xl flex flex-row">
@@ -59,10 +58,17 @@ const SkinAnalysisHistoryPage = () => {
             setCompareResult={setCompareResult}
           />
         </div>
-        {compareResult && (
-          <CompareAnalysisPrintBox compareResult={compareResult} />
-        )}
       </div>
+      {compareResult && (
+        <div className="w-full  md:w-auto  p-5  rounded-2xl shadow-xl bg-white">
+          <h2 className="w-full p-4 rounded-2xl text-2xl text-center sm:text-left font-bold mb-2">
+            분석 비교 결과
+          </h2>
+          <div>
+            <CompareAnalysisPrintBox compareResult={compareResult} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
