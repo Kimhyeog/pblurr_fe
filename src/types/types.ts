@@ -115,3 +115,11 @@ export interface DailyMission {
   mission: string;
   checked: boolean;
 }
+
+// 스킨 케어 미션 점수
+
+export interface MissionScore {
+  startDate: string; // 시작 날짜 (예: "2025-04-20")
+  endDate: string; // 종료 날짜 (예: "2025-04-22")
+  averageScore: number; // 평균 점수 (0 이상 정수)
+}

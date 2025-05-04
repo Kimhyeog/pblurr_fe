@@ -1,9 +1,11 @@
 // src/api/skinCareMission/index.ts
 
-import { DailyMission } from "@/types/types";
+import { DailyMission, MissionScore } from "@/types/types";
 import axios from "axios";
 
 const BASE_URL = "https://capstone-backend-1234-ab6179e289b1.herokuapp.com";
+
+// 스킨 케어 미션 GET API 함수수
 
 export const fetchDailyMissions = async (): Promise<DailyMission[]> => {
   try {
@@ -23,6 +25,7 @@ export const fetchDailyMissions = async (): Promise<DailyMission[]> => {
   }
 };
 
+// 스킨 케어 미션 생성 API
 export const createSkinCareMission = async (): Promise<string> => {
   try {
     const response = await axios.post<{ message: string }>(
@@ -42,6 +45,7 @@ export const createSkinCareMission = async (): Promise<string> => {
   }
 };
 
+// 스킨 케어 미션 현황 업데이트 API
 export const saveTodayMissionCheck = async (
   missions: boolean[]
 ): Promise<string> => {
@@ -67,6 +71,26 @@ export const saveTodayMissionCheck = async (
       throw new Error(error.response.data.message);
     } else {
       throw new Error("미션 체크 저장 중 문제가 발생했습니다.");
+    }
+  }
+};
+
+// 스킨 케어 미션을 기반으로 한 미션 점수 책정 API
+
+export const fetchMissionScore = async (): Promise<MissionScore> => {
+  try {
+    const response = await axios.get<MissionScore>(
+      `${BASE_URL}/care-mission/score`,
+      {
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.data?.message) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw new Error("미션 점수를 불러오는 중 문제가 발생했습니다.");
     }
   }
 };

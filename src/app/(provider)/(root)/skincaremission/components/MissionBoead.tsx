@@ -30,7 +30,7 @@ function MissionBoead(props: Props) {
       checked: missionStates[index],
     }));
 
-    console.log("🛰️ 저장할 미션 상태:", result);
+    console.log("🛰️ x저장할 미션 상태:", result);
 
     // 상위 상태 업데이트
     setMissions(result); // ✅ 이 줄 추가!
@@ -38,6 +38,7 @@ function MissionBoead(props: Props) {
     try {
       const responseMessage = await saveTodayMissionCheck(missionStates);
       alert(responseMessage); // 예: "미션 체크 저장이 완료되었습니다."
+      window.location.reload();
     } catch (error: any) {
       alert(error.message || "미션 저장 중 오류가 발생했습니다.");
     }
@@ -80,7 +81,7 @@ function MissionBoead(props: Props) {
       <div className="flex justify-center">
         <button
           onClick={handleSave}
-          className="bg-[#58A399] text-white font-semibold py-2 px-6 rounded-lg shadow hover:bg-[#4e947d] transition"
+          className="bg-[#7FC5E0] text-white hover:bg-[#5CA7C8] active:bg-[#4A8FBF] font-semibold py-2 px-6 rounded-lg shadow cursor-pointer transition"
         >
           저장
         </button>
