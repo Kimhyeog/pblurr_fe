@@ -17,7 +17,7 @@ export default function Page() {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [userCheckPassword, setUserCheckPassword] = useState("");
-  const [userBirthday, setUserBirthday] = useState("");
+  const [userBirthday, setUserBirthday] = useState("1996-12-10");
   const [userGender, setUserGender] = useState("male");
   const [isIdAvailable, setIsIdAvailable] = useState<boolean | null>(null);
   const [isPWAvailable, setIsPWAvailable] = useState<boolean | null>(null);
@@ -177,6 +177,7 @@ export default function Page() {
                 value={userBirthday}
                 onChange={(e) => setUserBirthday(e.target.value)}
                 className="w-full p-2 border rounded"
+                placeholder="생년월일"
               />
 
               <select

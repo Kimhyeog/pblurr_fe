@@ -77,7 +77,7 @@ function DiagnoseBox(props: Props) {
       props.setImage(imageSrcResult);
       props.setDiagnose(result);
     } catch (error: any) {
-      Swal.fire("Error", error.message, "warning").then(() => {
+      Swal.fire("이상 감지", error.message, "warning").then(() => {
         setImage(null);
       });
     }
@@ -194,17 +194,20 @@ function DiagnoseBox(props: Props) {
         {/* 업로드된 이미지 */}
         {image && (
           <div className="flex flex-col items-center justify-center relative p-10 mt-2 gap-y-5">
-            <Image
-              src={imageSrc as string}
-              alt="업로드된 이미지"
-              width={300}
-              height={300}
-              className="rounded-lg"
-            />
+            {/* 업로드 시, 사진 크기 조정 */}
+            <div className="w-[150px] h-[150px] bg-[#FFFFFF] overflow-hidden">
+              <Image
+                src={imageSrc as string}
+                alt="업로드된 이미지"
+                width={300}
+                height={300}
+                className="rounded-lg"
+              />
+            </div>
             <div
               className="w-full 
             flex flex-col gap-y-1
-            sm:flex sm:flex-row justify-between"
+            sm:flex sm:flex-row sm:gap-x-3 justify-between"
             >
               <button
                 className="bg-[#5CA7C8] text-white px-4 py-2 font-bold rounded-lg cursor-pointer 

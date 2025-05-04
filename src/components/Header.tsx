@@ -94,7 +94,15 @@ export default function Header() {
         </div>
         {isLoginState ? (
           <div className="flex items-center gap-5 relative">
-            <div className="flex flex-row gap-x-0">
+            <div className="flex flex-row gap-x-3">
+              <button
+                onClick={() => {
+                  router.push("/skincaremission");
+                }}
+                className="font-bold text-sm text-gray-500 hover:underline cursor-pointer"
+              >
+                스킨 케어 미션
+              </button>
               <p
                 onClick={handleModalOpen}
                 className="font-bold text-gray-700 hover:underline cursor-pointer"

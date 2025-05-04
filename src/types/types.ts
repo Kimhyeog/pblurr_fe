@@ -108,3 +108,10 @@ export interface SkinAnalysisCompareResponse {
   result1Average: number;
   result2Average: number;
 }
+
+//스킨 케어 미션
+
+export interface DailyMission {
+  mission: string;
+  checked: boolean;
+}

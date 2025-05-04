@@ -119,7 +119,7 @@ const SeoulMap = () => {
                           transition: "all 0.3s ease",
                         },
                         hover: {
-                          fill: "#E5E7EB",
+                          fill: "#10101156",
                           strokeWidth: 1.2,
                           outline: "none",
                           transition: "all 0.3s ease",

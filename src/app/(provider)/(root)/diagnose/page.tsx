@@ -160,7 +160,7 @@ export default function Page() {
                         }
                       }}
                     >
-                      질횐 상세 보기
+                      질환 상세 보기
                     </button>
                   </div>
                 </div>
