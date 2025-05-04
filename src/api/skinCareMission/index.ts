@@ -41,3 +41,32 @@ export const createSkinCareMission = async (): Promise<string> => {
     }
   }
 };
+
+export const saveTodayMissionCheck = async (
+  missions: boolean[]
+): Promise<string> => {
+  try {
+    const body = {
+      mission1: missions[0],
+      mission2: missions[1],
+      mission3: missions[2],
+      mission4: missions[3],
+      mission5: missions[4],
+    };
+
+    const response = await axios.post<{ message: string }>(
+      `${BASE_URL}/care-mission/daily/check`,
+      body,
+      {
+        withCredentials: true, // 인증 필요 시 쿠키 포함
+      }
+    );
+    return response.data.message;
+  } catch (error: any) {
+    if (error.response?.data?.message) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw new Error("미션 체크 저장 중 문제가 발생했습니다.");
+    }
+  }
+};
