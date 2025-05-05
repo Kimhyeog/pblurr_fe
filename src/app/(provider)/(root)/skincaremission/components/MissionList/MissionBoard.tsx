@@ -4,11 +4,49 @@ import { motion } from "framer-motion";
 import { saveTodayMissionCheck } from "@/api/skinCareMission";
 import InCompleteMissionsBox from "./InCompleteMissionsBox";
 import CompleteMissionsBox from "./CompleteMissionsBox";
+import {
+  FaTint,
+  FaSun,
+  FaCapsules,
+  FaLeaf,
+  FaSmile,
+  FaRegSmileBeam,
+  FaRegClock,
+  FaHandsWash,
+  FaSyringe,
+  FaRegGrinStars,
+} from "react-icons/fa";
 
 interface Props {
   dailyMissionList: DailyMission[];
   setMissions: (MissionList: DailyMission[]) => void;
 }
+
+// ✅ 문자열과 아이콘 매핑
+const missionIconMap: Record<string, ReactNode> = {
+  "매일 저녁 레티놀 성분의 세럼 바르기": (
+    <FaSyringe className="text-[#E63946]" />
+  ),
+  "매일 2L 이상 수분 섭취하기": <FaTint className="text-[#457B9D]" />,
+  "저녁 세안 후 AHA 성분 제품 바르기": (
+    <FaHandsWash className="text-[#F1FAEE]" />
+  ),
+  "비타민C 섭취하기": <FaCapsules className="text-[#FF6F61]" />,
+  "아침 세안 후 BHA 성분 토너 또는 패드 사용하기": (
+    <FaLeaf className="text-[#2A9D8F]" />
+  ),
+  "외출 전 자외선 차단제 바르기": <FaSun className="text-[#F1C40F]" />,
+  "하루 1회 입술 보습제 바르기": <FaSmile className="text-[#F4A261]" />,
+  "하루 3회 이상 입술 보습제 덧바르기": (
+    <FaRegSmileBeam className="text-[#E9C46A]" />
+  ),
+  "하루 1회 턱선 리프팅 마사지를 5분간 실천하기": (
+    <FaRegClock className="text-[#6C757D]" />
+  ),
+  "콜라겐 보충제 또는 식품으로 콜라겐 섭취하기": (
+    <FaRegGrinStars className="text-[#FFD700]" />
+  ),
+};
 
 function MissionBoard(props: Props) {
   const { dailyMissionList, setMissions } = props;
@@ -19,7 +57,6 @@ function MissionBoard(props: Props) {
   }, [dailyMissionList]);
 
   const toggleMission = (index: number) => {
-    // 완료된 항목은 토글 비활성화
     if (dailyMissionList[index].checked) return;
     setMissionStates((prev) =>
       prev.map((state, i) => (i === index ? !state : state))
@@ -45,8 +82,6 @@ function MissionBoard(props: Props) {
     }
   };
 
-  // 분류
-  // ✅ forEach를 사용한 분류 방식
   const completedMissions: (DailyMission & { index: number })[] = [];
   const incompleteMissions: (DailyMission & { index: number })[] = [];
 
@@ -71,21 +106,25 @@ function MissionBoard(props: Props) {
     >
       <input
         type="checkbox"
-        checked={missionStates[mission.index] === true}
+        checked={missionStates[mission.index]}
         onChange={() => toggleMission(mission.index)}
-        disabled={dailyMissionList[mission.index].checked} // ✅ 완료된 항목은 토글 불가
+        disabled={dailyMissionList[mission.index].checked}
         className={`form-checkbox h-5 w-5 rounded border-gray-300 focus:ring-[#58A399] ${
           missionStates[mission.index]
             ? "text-[#58A399]"
             : "text-gray-400 hover:text-[#58A399]"
         }`}
       />
-      <span
-        className={`text-gray-700 transition-all duration-200 ${
-          missionStates[mission.index] ? " text-[#58A399] font-medium" : ""
-        }`}
-      >
-        {mission.mission}
+      {/* ✅ 아이콘 + 텍스트 */}
+      <span className="flex items-center space-x-2 text-gray-700 transition-all duration-200">
+        {missionIconMap[mission.mission]}
+        <span
+          className={`${
+            missionStates[mission.index] ? "text-[#58A399] font-medium" : ""
+          }`}
+        >
+          {mission.mission}
+        </span>
       </span>
     </motion.li>
   );
@@ -98,15 +137,12 @@ function MissionBoard(props: Props) {
 
       {missionStates.length > 0 && (
         <>
-          {/* ✅ 미완료 항목 */}
           {incompleteMissions.length > 0 && (
             <InCompleteMissionsBox
               incompleteMissions={incompleteMissions}
               renderMissionItem={renderMissionItem}
             />
           )}
-
-          {/* ✅ 완료 항목 */}
           {completedMissions.length > 0 && (
             <CompleteMissionsBox
               completedMissions={completedMissions}
