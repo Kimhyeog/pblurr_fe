@@ -16,10 +16,13 @@ import {
   FaSyringe,
   FaRegGrinStars,
 } from "react-icons/fa";
+import { ClipLoader } from "react-spinners"; // npm install react-spinners
 
 interface Props {
   dailyMissionList: DailyMission[];
   setMissions: (MissionList: DailyMission[]) => void;
+  loading: boolean;
+  areAllMissionsCompleted: () => boolean; // 새로운 속성 추가
 }
 
 // ✅ 문자열과 아이콘 매핑
@@ -129,9 +132,17 @@ function MissionBoard(props: Props) {
     </motion.li>
   );
 
+  if (props.loading) {
+    return (
+      <div className="flex justify-center items-center h-40">
+        <ClipLoader size={35} color="#58A399" />
+      </div>
+    );
+  }
+
   return (
-    <div className="bg-[#E9F6FC] rounded-xl shadow-md p-6 max-w-xl mx-auto">
-      <h1 className="text-xl font-bold text-[#146C94] mb-4 text-center">
+    <div className="w-full border-6 border-[#5CA7C8] bg-[#E9F6FC] rounded-xl shadow-md p-6 ">
+      <h1 className="w-full text-xl font-bold text-[#146C94] mb-4 text-center">
         오늘의 스킨케어 미션
       </h1>
 
@@ -152,10 +163,20 @@ function MissionBoard(props: Props) {
         </>
       )}
 
-      <div className="flex justify-center mt-4">
+      <div className="flex flex-col items-center gap-y-3 justify-center mt-4">
+        {props.areAllMissionsCompleted() && (
+          <p className="text-sm text-gray-500 font-medium">
+            오늘 할 미션을 모두 완료했습니다.
+          </p>
+        )}
         <button
           onClick={handleSave}
-          className="bg-[#7FC5E0] text-white hover:bg-[#5CA7C8] active:bg-[#4A8FBF] font-semibold py-2 px-6 rounded-lg shadow cursor-pointer transition"
+          disabled={props.areAllMissionsCompleted()}
+          className={`font-semibold py-2 px-6 rounded-lg shadow transition ${
+            props.areAllMissionsCompleted()
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-[#7FC5E0] text-white hover:bg-[#5CA7C8] active:bg-[#4A8FBF] cursor-pointer"
+          }`}
         >
           저장
         </button>
