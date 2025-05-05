@@ -5,8 +5,8 @@ import GeneralModal from "@/components/Modal/GeneralModal";
 import { DailyMission, MissionScore } from "@/types/types";
 import { useEffect, useState } from "react";
 import MissionCreateCheckNotice from "./components/MissionCreateCheckNotice";
-import MissionBoead from "./components/MissionBoead";
 import ScoreBoard from "./components/ScoreBoard";
+import MissionBoard from "./components/MissionList/MissionBoard";
 
 export default function Page() {
   // 미션 항목들 State 변수
@@ -50,7 +50,7 @@ export default function Page() {
       </GeneralModal>
 
       <div className="rounded-2xl shadow-md px-10 py-5 border-0 bg-white">
-        <MissionBoead dailyMissionList={missions} setMissions={setMissions} />
+        <MissionBoard dailyMissionList={missions} setMissions={setMissions} />
       </div>
 
       <div className="rounded-2xl shadow-md px-10 py-5 border-0 bg-white">
