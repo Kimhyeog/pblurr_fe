@@ -73,6 +73,7 @@ export default function Page() {
 
       <div className="w-full px-5 py-5 rounded-2xl shadow-md  bg-white">
         <MissionBoard
+          missionScore={missionScore}
           dailyMissionList={missions}
           setMissions={setMissions}
           loading={loading}

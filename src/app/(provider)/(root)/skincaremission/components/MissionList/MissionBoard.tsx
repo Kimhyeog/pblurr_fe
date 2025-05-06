@@ -1,4 +1,4 @@
-import { DailyMission } from "@/types/types";
+import { DailyMission, MissionScore } from "@/types/types";
 import { ReactNode, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { saveTodayMissionCheck } from "@/api/skinCareMission";
@@ -17,12 +17,14 @@ import {
   FaRegGrinStars,
 } from "react-icons/fa";
 import { ClipLoader } from "react-spinners"; // npm install react-spinners
+import DeadLine from "../ScoreBoard/DeadLine";
 
 interface Props {
   dailyMissionList: DailyMission[];
   setMissions: (MissionList: DailyMission[]) => void;
   loading: boolean;
   areAllMissionsCompleted: () => boolean; // 새로운 속성 추가
+  missionScore: MissionScore | null;
 }
 
 // ✅ 문자열과 아이콘 매핑
@@ -52,7 +54,7 @@ const missionIconMap: Record<string, ReactNode> = {
 };
 
 function MissionBoard(props: Props) {
-  const { dailyMissionList, setMissions } = props;
+  const { dailyMissionList, setMissions, missionScore } = props;
   const [missionStates, setMissionStates] = useState<boolean[]>([]);
 
   useEffect(() => {
@@ -103,7 +105,7 @@ function MissionBoard(props: Props) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: mission.index * 0.05, duration: 0.3 }}
-      className={`flex items-center space-x-3 rounded-lg p-3 shadow-sm transition ${
+      className={`flex items-center space-x-3 rounded-lg p-3 shadow-md transition ${
         missionStates[mission.index] ? "bg-[#E0F7EB]" : "bg-white"
       }`}
     >
@@ -145,20 +147,46 @@ function MissionBoard(props: Props) {
       <h1 className="w-full text-xl font-bold text-[#146C94] mb-4 text-center">
         오늘의 스킨케어 미션
       </h1>
+      {/* 기간 */}
+      <div>
+        <DeadLine
+          startDate={missionScore!.startDate}
+          endDate={missionScore!.endDate}
+        />
+      </div>
 
       {missionStates.length > 0 && (
         <>
           {incompleteMissions.length > 0 && (
-            <InCompleteMissionsBox
-              incompleteMissions={incompleteMissions}
-              renderMissionItem={renderMissionItem}
-            />
+            <div>
+              <h2
+                className="
+            text-center sm:text-left
+            text-md sm:text-xl px-3 py-3
+            font-semibold text-[#146C94] mb-2"
+              >
+                오늘 미완료된 항목
+              </h2>
+              <InCompleteMissionsBox
+                incompleteMissions={incompleteMissions}
+                renderMissionItem={renderMissionItem}
+              />
+            </div>
           )}
           {completedMissions.length > 0 && (
-            <CompleteMissionsBox
-              completedMissions={completedMissions}
-              renderMissionItem={renderMissionItem}
-            />
+            <div>
+              <h2
+                className="text-center sm:text-left
+            text-md sm:text-xl px-3 py-3
+            font-semibold text-[#146C94] mb-2"
+              >
+                오늘 완료된 항목
+              </h2>
+              <CompleteMissionsBox
+                completedMissions={completedMissions}
+                renderMissionItem={renderMissionItem}
+              />
+            </div>
           )}
         </>
       )}

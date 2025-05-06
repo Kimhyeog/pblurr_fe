@@ -25,6 +25,15 @@ function DeadLine({ startDate, endDate }: Props) {
     });
   };
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   useEffect(() => {
     const updateRemaining = () => {
       const now = new Date();
@@ -52,14 +61,14 @@ function DeadLine({ startDate, endDate }: Props) {
   }, [formattedEndDate]);
 
   return (
-    <div className="w-full flex flex-col items-center justify-center px-4 py-3 bg-white rounded-xl border border-[#B2EBF2] shadow-md">
+    <div className="w-full flex flex-row items-center justify-between px-6 py-3 bg-white rounded-xl border border-[#B2EBF2] shadow-md">
       <div className="flex items-center gap-2 text-base font-semibold text-[#0288D1] mb-1">
         <FaClock className="text-[#0288D1]" />
         <span className="text-lg">미션 기간</span>
       </div>
 
       <p className="text-md text-gray-600 mb-2">
-        {formatTime(formattedStartDate)} ~ {formatTime(formattedEndDate)}
+        {formatDate(formattedStartDate)} ~ {formatDate(formattedEndDate)}
       </p>
 
       {isUrgent ? (

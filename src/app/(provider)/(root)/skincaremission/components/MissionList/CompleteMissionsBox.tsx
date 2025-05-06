@@ -8,10 +8,7 @@ interface Props {
 
 function CompleteMissionsBox({ completedMissions, renderMissionItem }: Props) {
   return (
-    <div>
-      <h2 className="text-md font-semibold text-[#146C94] mb-2">
-        오늘 미완료된 항목
-      </h2>
+    <div className="px-6 py-5 bg-white rounded-xl border border-[#B2EBF2] shadow-md">
       <ul className="space-y-4 mb-6">
         {completedMissions.map((mission) => renderMissionItem(mission))}
       </ul>

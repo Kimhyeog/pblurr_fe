@@ -39,14 +39,6 @@ function ScoreBoard({ missionScore }: Props) {
           </div>
           <div className="w-full h-px bg-[#B2EBF2]" />
 
-          {/* 기간 */}
-          <div>
-            <DeadLine
-              startDate={missionScore.startDate}
-              endDate={missionScore.endDate}
-            />
-          </div>
-
           {/* 점수 뱃지 */}
           <motion.div
             className={`mt-2 px-6 py-4 bg-white rounded-full border border-${color}-200 ${textColor} text-3xl font-extrabold flex items-center justify-center gap-3 shadow-md`}

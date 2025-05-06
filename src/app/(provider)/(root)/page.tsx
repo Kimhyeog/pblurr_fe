@@ -2,8 +2,10 @@
 
 import MainDiagnose from "./components/MainDiagnose";
 import MainSkinCompare from "./components/MainSkinCompare";
-import MainSkinDiagnose from "./components/MainSkinDiagnose";
+import MainSkinDiagnose from "./components/MainSkinAnalysis";
 import { motion } from "framer-motion";
+import MainSkinAnalysis from "./components/MainSkinAnalysis";
+import MainSkinCareMission from "./components/MainSkinCareMission";
 
 export default function Home() {
   const list = {
@@ -29,15 +31,15 @@ export default function Home() {
           <MainDiagnose />
         </motion.li>
         <motion.li variants={item}>
-          <MainSkinDiagnose />
+          <MainSkinAnalysis />
         </motion.li>
         <motion.li variants={item}>
           <MainSkinCompare />
         </motion.li>
-        {/*
+
         <motion.li variants={item}>
-        커뮤니티
-        </motion.li> */}
+          <MainSkinCareMission />
+        </motion.li>
       </motion.ul>
     </div>
   );

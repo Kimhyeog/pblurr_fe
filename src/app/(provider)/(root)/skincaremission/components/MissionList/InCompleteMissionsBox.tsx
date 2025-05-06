@@ -11,11 +11,8 @@ function InCompleteMissionsBox({
   renderMissionItem,
 }: Props) {
   return (
-    <div>
-      <h2 className="text-md font-semibold text-[#146C94] mb-2">
-        오늘 미완료된 항목
-      </h2>
-      <ul className="space-y-4 mb-6">
+    <div className="px-6 py-5 bg-white rounded-xl border border-[#B2EBF2] shadow-md">
+      <ul className="flex flex-col gap-y-2 space-y-4">
         {incompleteMissions.map((mission) => renderMissionItem(mission))}
       </ul>
     </div>
