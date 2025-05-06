@@ -99,6 +99,12 @@ function MissionBoard(props: Props) {
     }
   });
 
+  const areCheckedStatesEqual = () => {
+    return dailyMissionList.every(
+      (mission, index) => mission.checked === missionStates[index]
+    );
+  };
+
   const renderMissionItem = (mission: DailyMission & { index: number }) => (
     <motion.li
       key={mission.index}
@@ -199,9 +205,9 @@ function MissionBoard(props: Props) {
         )}
         <button
           onClick={handleSave}
-          disabled={props.areAllMissionsCompleted()}
+          disabled={props.areAllMissionsCompleted() || areCheckedStatesEqual()}
           className={`font-semibold py-2 px-6 rounded-lg shadow transition ${
-            props.areAllMissionsCompleted()
+            props.areAllMissionsCompleted() || areCheckedStatesEqual()
               ? "bg-gray-300 text-gray-500 cursor-not-allowed"
               : "bg-[#7FC5E0] text-white hover:bg-[#5CA7C8] active:bg-[#4A8FBF] cursor-pointer"
           }`}

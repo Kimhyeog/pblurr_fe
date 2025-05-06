@@ -23,15 +23,6 @@ export default function Page() {
   //로딩 상태 State 변수
   const [loading, setLoading] = useState(true);
 
-  // 미션이 모두 완료되었는지 체크하는 함수
-  const checkAllMissionsCompleted = () => {
-    // 실제 fetch 후의 상태에서만 검사
-    if (tempMissions.length === 0) {
-      return false; // 임시 미션 리스트가 없으면 완료되지 않음
-    }
-    return tempMissions.every((mission) => mission.checked);
-  };
-
   useEffect(() => {
     const getMissionsAndScore = async () => {
       try {
