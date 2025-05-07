@@ -18,6 +18,7 @@ import {
 } from "react-icons/fa";
 import { ClipLoader } from "react-spinners"; // npm install react-spinners
 import DeadLine from "../ScoreBoard/DeadLine";
+import Swal from "sweetalert2";
 
 interface Props {
   dailyMissionList: DailyMission[];
@@ -80,8 +81,9 @@ function MissionBoard(props: Props) {
 
     try {
       const responseMessage = await saveTodayMissionCheck(missionStates);
-      alert(responseMessage);
-      window.location.reload();
+      Swal.fire("", "미션을 업데이트하였습니다.", "success").then(() => {
+        window.location.reload();
+      });
     } catch (error: any) {
       alert(error.message || "미션 저장 중 오류가 발생했습니다.");
     }
@@ -154,12 +156,16 @@ function MissionBoard(props: Props) {
         오늘의 스킨케어 미션
       </h1>
       {/* 기간 */}
-      <div>
+      {missionScore ? (
         <DeadLine
-          startDate={missionScore!.startDate}
-          endDate={missionScore!.endDate}
+          startDate={missionScore.startDate ?? new Date().toDateString()}
+          endDate={missionScore.endDate ?? new Date().toDateString()}
         />
-      </div>
+      ) : (
+        <div className="flex justify-center items-center h-40">
+          <ClipLoader size={35} color="#58A399" />
+        </div> // 혹은 null 또는 스피너 컴포넌트
+      )}
 
       {missionStates.length > 0 && (
         <>

@@ -123,3 +123,14 @@ export interface MissionScore {
   endDate: string; // 종료 날짜 (예: "2025-04-22")
   averageScore: number; // 평균 점수 (0 이상 정수)
 }
+
+//스킨 케어의 미션 1,2,3등 점수 계정 3명
+
+export interface TopUser {
+  userId: string;
+  totalScore: number;
+}
+
+export interface MissionTop3Response {
+  topUsers: TopUser[];
+}

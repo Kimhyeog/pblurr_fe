@@ -94,3 +94,28 @@ export const fetchMissionScore = async (): Promise<MissionScore> => {
     }
   }
 };
+
+// src/api/skinCareMission/index.ts
+
+import { MissionTop3Response } from "@/types/types";
+
+export const fetchTop3MissionScores =
+  async (): Promise<MissionTop3Response> => {
+    try {
+      const response = await axios.get<MissionTop3Response>(
+        `${BASE_URL}/care-mission/top3`,
+        {
+          withCredentials: true,
+        }
+      );
+      return response.data;
+    } catch (error: any) {
+      if (error.response?.data?.message) {
+        throw new Error(error.response.data.message);
+      } else {
+        throw new Error(
+          "상위 3명의 미션 점수를 불러오는 중 문제가 발생했습니다."
+        );
+      }
+    }
+  };

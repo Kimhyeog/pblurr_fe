@@ -6,7 +6,7 @@ import { DailyMission, MissionScore } from "@/types/types";
 import { useEffect, useState } from "react";
 import MissionCreateCheckNotice from "./components/MissionCreateCheckNotice";
 import MissionBoard from "./components/MissionList/MissionBoard";
-import ScoreBoard from "./components/ScoreBoard/ScoreBoard";
+import ScoreContainer from "./components/ScoreBoard/ScoreContainer";
 
 export default function Page() {
   // 미션 항목들 State 변수
@@ -73,7 +73,7 @@ export default function Page() {
       </div>
 
       <div className="rounded-2xl shadow-md px-5 py-5 border-0 bg-white">
-        <ScoreBoard missionScore={missionScore} />
+        <ScoreContainer missionScore={missionScore} />
       </div>
     </div>
   );

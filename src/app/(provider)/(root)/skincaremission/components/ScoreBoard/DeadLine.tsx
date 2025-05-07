@@ -16,22 +16,12 @@ function DeadLine({ startDate, endDate }: Props) {
   const [remainingTime, setRemainingTime] = useState("");
   const [isUrgent, setIsUrgent] = useState(false);
 
-  const formatTime = (dateString: string) => {
+  const formatDate = (dateString: string, day = 0) => {
     const date = new Date(dateString);
-    return date.toLocaleTimeString("ko-KR", {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-    });
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("ko-KR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate() - day).padStart(2, "0");
+    return `${yyyy} . ${mm} . ${dd}`;
   };
 
   useEffect(() => {
@@ -61,14 +51,18 @@ function DeadLine({ startDate, endDate }: Props) {
   }, [formattedEndDate]);
 
   return (
-    <div className="w-full flex flex-row items-center justify-between px-6 py-3 bg-white rounded-xl border border-[#B2EBF2] shadow-md">
+    <div
+      className="w-full flex flex-col items-center justify-center
+             sm:flex-row sm:items-center sm:justify-between
+             px-6 py-3 bg-white rounded-xl border border-[#B2EBF2] shadow-md text-center space-y-2 sm:space-y-0"
+    >
       <div className="flex items-center gap-2 text-base font-semibold text-[#0288D1] mb-1">
         <FaClock className="text-[#0288D1]" />
         <span className="text-lg">미션 기간</span>
       </div>
 
-      <p className="text-md text-gray-600 mb-2">
-        {formatDate(formattedStartDate)} ~ {formatDate(formattedEndDate)}
+      <p className="text-md text-gray-600 px-3 py-1 rounded-lg border border-sky-200 bg-sky-50 shadow-sm hidden sm:inline-block">
+        {formatDate(formattedStartDate)} ~ {formatDate(formattedEndDate, -1)}
       </p>
 
       {isUrgent ? (
@@ -81,7 +75,9 @@ function DeadLine({ startDate, endDate }: Props) {
           <span>{remainingTime}</span>
         </motion.div>
       ) : (
-        <div className="text-sm text-gray-700 font-medium">{remainingTime}</div>
+        <div className="text-sm font-medium text-md text-gray-600 px-3 py-1 rounded-lg border border-sky-200 bg-sky-50 shadow-sm">
+          {remainingTime}
+        </div>
       )}
     </div>
   );
