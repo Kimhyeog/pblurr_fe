@@ -33,13 +33,13 @@ export default function FranticButton() {
   return (
     <motion.button
       onClick={() => {
-        router.push("/skincaremission");
+        router.push("/community");
       }}
       animate={controls}
       whileHover={{ scale: 1.15 }}
       className="font-bold text-sm text-gray-500 hover:underline cursor-pointer"
     >
-      👉 스킨 케어 미션
+      👉 커뮤니티
     </motion.button>
   );
 }

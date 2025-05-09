@@ -94,9 +94,7 @@ export default function Header() {
           </Link>
         </div>
         <div className="flex items-center gap-x-5">
-          {pathname !== "/skincaremission" && (
-            <SkinCareMissionPromotionButton />
-          )}
+          <SkinCareMissionPromotionButton />
           {isLoginState ? (
             <div className="flex items-center gap-5 relative">
               <div className="flex flex-row gap-x-3">

@@ -2,7 +2,6 @@
 
 import MainDiagnose from "./components/MainDiagnose";
 import MainSkinCompare from "./components/MainSkinCompare";
-import MainSkinDiagnose from "./components/MainSkinAnalysis";
 import { motion } from "framer-motion";
 import MainSkinAnalysis from "./components/MainSkinAnalysis";
 import MainSkinCareMission from "./components/MainSkinCareMission";

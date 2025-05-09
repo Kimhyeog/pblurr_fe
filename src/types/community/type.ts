@@ -1,0 +1,19 @@
+export interface Comment {
+  id: number;
+  userName: string;
+  content: string;
+  createAt: string;
+}
+// 게시문 좋아요 순
+export interface FullPost {
+  id: number;
+  title: string;
+  userId: string;
+  userName: string;
+  images: string[];
+  content: string;
+  createAt: string;
+  updateAt: string;
+  likes: string[]; // 좋아요 누른 userId 목록
+  comments: Comment[];
+}
