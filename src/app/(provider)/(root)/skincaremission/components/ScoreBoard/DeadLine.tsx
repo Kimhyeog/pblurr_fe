@@ -16,14 +16,6 @@ function DeadLine({ startDate, endDate }: Props) {
   const [remainingTime, setRemainingTime] = useState("");
   const [isUrgent, setIsUrgent] = useState(false);
 
-  const formatDate = (dateString: string, day = 0) => {
-    const date = new Date(dateString);
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, "0");
-    const dd = String(date.getDate() - day).padStart(2, "0");
-    return `${yyyy} . ${mm} . ${dd}`;
-  };
-
   useEffect(() => {
     const updateRemaining = () => {
       const now = new Date();
@@ -52,8 +44,8 @@ function DeadLine({ startDate, endDate }: Props) {
 
   return (
     <div
-      className="w-full flex flex-col items-center justify-center
-             sm:flex-row sm:items-center sm:justify-between
+      className="w-full flex flex-col sm:flex-row items-center justify-center
+             sm:items-center sm:justify-between
              px-6 py-3 bg-white rounded-xl border border-[#B2EBF2] shadow-md text-center space-y-2 sm:space-y-0"
     >
       <div className="flex items-center gap-2 text-base font-semibold text-[#0288D1] mb-1">
@@ -61,13 +53,9 @@ function DeadLine({ startDate, endDate }: Props) {
         <span className="text-lg">미션 기간</span>
       </div>
 
-      <p className="text-md text-gray-600 px-3 py-1 rounded-lg border border-sky-200 bg-sky-50 shadow-sm hidden sm:inline-block">
-        {formatDate(formattedStartDate)} ~ {formatDate(formattedEndDate, -1)}
-      </p>
-
       {isUrgent ? (
         <motion.div
-          className="flex text-md items-center gap-2 text-red-600 font-semibold text-sm bg-red-50 border border-red-300 px-3 py-2 rounded-lg"
+          className="flex  text-md items-center gap-2 text-red-600 font-bold text-sm bg-red-50 border border-red-300 px-3 py-2 rounded-lg"
           animate={{ opacity: [1, 0.6, 1] }}
           transition={{ duration: 1, repeat: Infinity }}
         >

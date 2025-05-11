@@ -2,7 +2,8 @@ import { MissionScore } from "@/types/types";
 import { FaStar } from "react-icons/fa";
 import { ClipLoader } from "react-spinners";
 import ScoreRankBox from "./ScoreRank123";
-import { ScoreBadge } from "./ScoreBoard";
+import { AverageScoreBoard } from "./AverageScoreBoard";
+import TotalScoreBoard from "./TotalScoreBoard";
 
 interface Props {
   missionScore: MissionScore | null;
@@ -39,14 +40,21 @@ function ScoreContainer({ missionScore }: Props) {
           </div>
 
           <div
-            className="w-full h-auto sm:h-[300px] flex items-center
+            className="w-full h-auto  flex items-center
           flex-col  p-5 gap-5
-          sm:flex-row
           "
           >
+            <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <TotalScoreBoard
+                startDate={missionScore.startDate ?? new Date().toDateString()}
+                endDate={missionScore.endDate ?? new Date().toDateString()}
+                totalScore={missionScore.totalScore}
+              />
+              {/* 나의 평균 점수 Board */}
+              <AverageScoreBoard averageScore={missionScore.averageScore} />
+            </div>
             {/* 미션 등수 단상 */}
             <ScoreRankBox />
-            <ScoreBadge score={missionScore.averageScore} />
           </div>
         </div>
       ) : (

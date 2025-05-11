@@ -58,6 +58,14 @@ function MissionBoard(props: Props) {
   const { dailyMissionList, setMissions, missionScore } = props;
   const [missionStates, setMissionStates] = useState<boolean[]>([]);
 
+  const formatDate = (dateString: string, day = 0) => {
+    const date = new Date(dateString);
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+    return `생성날짜 : ${yyyy}년 ${mm} 월 ${dd} 일`;
+  };
+
   useEffect(() => {
     setMissionStates(dailyMissionList.map((m) => m.checked || false));
   }, [dailyMissionList]);
@@ -151,10 +159,16 @@ function MissionBoard(props: Props) {
   }
 
   return (
-    <div className="w-full border-6 border-[#5CA7C8] bg-[#E9F6FC] rounded-xl shadow-md p-6 ">
-      <h1 className="w-full text-xl font-bold text-[#146C94] mb-4 text-center">
-        오늘의 스킨케어 미션
-      </h1>
+    <div className="relative w-full border-6 border-[#5CA7C8] bg-[#E9F6FC] rounded-xl shadow-md p-6 ">
+      <div className="w-full">
+        <h1 className="w-full text-xl font-bold text-[#146C94] mb-4 text-center">
+          오늘의 스킨케어 미션
+        </h1>
+        <p className="absolute top-0 right-0 font-bold text-sm text-gray-600 px-3 py-1 rounded-lg border border-sky-200 bg-sky-50 shadow-sm hidden sm:inline-block">
+          {/* 미션 날짜 텍스트 수정 */}
+          {formatDate(missionScore!.startDate)}
+        </p>
+      </div>
       {/* 기간 */}
       {missionScore ? (
         <DeadLine
