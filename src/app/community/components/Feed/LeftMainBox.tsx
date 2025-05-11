@@ -33,7 +33,7 @@ function LeftMainBox() {
   const currentFeed = feeds[selectedIndex];
 
   return (
-    <div className="relative w-full sm:h-[400px] rounded-xl overflow-hidden">
+    <div className="relative w-full min-h-[400px] rounded-xl overflow-hidden">
       <div className="absolute inset-0">
         <AnimatePresence mode="wait">
           <motion.div
