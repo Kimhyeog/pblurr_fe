@@ -4,14 +4,13 @@ import { useEffect, useState } from "react";
 import SkinAnalysis from "./components/SkinAnalysis/SkinAnalysis";
 import InfoNav from "./components/Info/InfoNav";
 import { SkinAnalysisResult } from "@/types/types";
-import {
-  mockEmptySkinAnalysisResult,
-  mockSkinAnalysisResult,
-} from "@/data/skinAnalysis";
 import CosMeticSession from "./components/Cosmetics/CosMeticSession";
 import DiagnoseStartInfo from "./components/Info/DiagnoseStartInfo";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
+
   const [result, setResult] = useState<SkinAnalysisResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [showCosmetic, setShowCosmetic] = useState(false); // ★ 추가: 화장품 추천 버튼 눌렀는지 여부
@@ -83,12 +82,18 @@ export default function Page() {
           </div>
           <div className="w-full border-4 border-[#5CA7C8] rounded-2xl shadow-xl bg-white">
             <SkinAnalysis result={result} />
-            <div className="w-full px-6 mb-4">
+            <div className="w-full px-6 mb-4 flex flex-col gap-y-4">
               <button
                 className="w-full py-2 bg-[#5CA7C8] text-white text-xl sm:text-2xl hover:bg-[#5ca8c8ab] rounded-2xl"
                 onClick={handleShowCosmetic}
               >
                 화장품 추천 받기
+              </button>
+              <button
+                className="w-full py-2 bg-[#FBBF24] text-white text-xl sm:text-2xl hover:bg-[#fbbe24aa] active:bg-[#fbbe2460] rounded-2xl"
+                onClick={() => router.push("/skincaremission")}
+              >
+                스킨 케어 미션 생성하기기
               </button>
             </div>
           </div>

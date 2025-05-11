@@ -8,6 +8,7 @@ import Link from "next/link";
 import UserInfoModal from "./UserInfoModal";
 import { User } from "@/types/types";
 import Swal from "sweetalert2";
+import SkinCareMissionPromotionButton from "./SkinCareMissionPromotionButton";
 
 export default function Header() {
   const [isLoginState, setIsLoginState] = useState(false);
@@ -88,46 +89,54 @@ export default function Header() {
               alt="로그인 로고"
               width={250}
               height={100}
-              className="min-w-[300px]"
+              className="min-w-[500px] sm:min-w-[300px]"
             />
           </Link>
         </div>
-        {isLoginState ? (
-          <div className="flex items-center gap-5 relative">
-            <div className="flex flex-row gap-x-0">
-              <p
-                onClick={handleModalOpen}
-                className="font-bold text-gray-700 hover:underline cursor-pointer"
-              >
-                {userName}
-              </p>
-              <span>님</span>
-            </div>
-            <button
-              onClick={handleLogout}
-              className="
-              bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg text-lg
+        <div className="flex items-center gap-x-5">
+          <SkinCareMissionPromotionButton />
+          {isLoginState ? (
+            <div className="flex items-center gap-5 relative">
+              <div className="flex flex-row gap-x-3">
+                <p
+                  onClick={handleModalOpen}
+                  className="font-bold text-gray-700 hover:underline cursor-pointer"
+                >
+                  {userName}
+                </p>
+                <span>님</span>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="
+              bg-[#7FC5E0] text-white font-bold rounded-lg
               hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer
-            "
+              px-4 py-2
+              text-md sm:text-lg
+              "
+              >
+                로그아웃
+              </button>
+              {/* UserInfoModal이 열릴 때만 렌더링 */}
+              <UserInfoModal
+                userInformation={userInfo!}
+                isOpen={isUserInfoModalOpen}
+                onClose={handleModalClose}
+              />
+            </div>
+          ) : (
+            <button
+              onClick={onClickLogin}
+              className="bg-[#7FC5E0] text-white font-bold  rounded-lg
+          hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer
+          px-6 py-2
+          text-md sm:text-lg
+          "
             >
-              로그아웃
+              로그인
             </button>
-            {/* UserInfoModal이 열릴 때만 렌더링 */}
-            <UserInfoModal
-              userInformation={userInfo!}
-              isOpen={isUserInfoModalOpen}
-              onClose={handleModalClose}
-            />
-          </div>
-        ) : (
-          <button
-            onClick={onClickLogin}
-            className="bg-[#7FC5E0] text-white font-bold px-4 py-2 rounded-lg
-            hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer"
-          >
-            로그인
-          </button>
-        )}
+          )}
+        </div>
       </div>
     </>
   );

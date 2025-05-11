@@ -68,7 +68,7 @@ export default function Page() {
               width={400}
               height={200}
               layout="intrinsic"
-              className="mb-4 w-full min-w-[300px]"
+              className="mb-4 w-full min-w-[280px] sm:min-w-[300px]"
             />
           </Link>
           <div

@@ -54,7 +54,11 @@ function DiagnoseMethodInfo() {
           <h3 className="text-lg font-semibold text-[#5CA7C8] mb-2">
             예시 이미지
           </h3>
-          <div className="flex justify-center gap-x-10 items-center">
+          <div
+            className="flex 
+          flex-col items-center
+          sm:flex-row sm:justify-center gap-x-10 sm:items-center"
+          >
             <div>
               <Image
                 src="/images/left-face.png" // 프로젝트 내 public 폴더에 넣어주세요

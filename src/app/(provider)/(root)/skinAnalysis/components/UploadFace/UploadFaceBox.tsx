@@ -54,7 +54,7 @@ function UploadFaceBox(props: Props) {
       console.log("data", data);
       setResult(data);
     } catch (err: any) {
-      Swal.fire("오류", err.message, "warning");
+      Swal.fire("이상 감지", err.message, "warning");
     } finally {
       setLoading(false);
     }

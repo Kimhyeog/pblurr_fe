@@ -1,8 +1,10 @@
 "use client";
 
 import MainDiagnose from "./components/MainDiagnose";
-import MainSkinDiagnose from "./components/MainSkinDiagnose";
+import MainSkinCompare from "./components/MainSkinCompare";
 import { motion } from "framer-motion";
+import MainSkinAnalysis from "./components/MainSkinAnalysis";
+import MainSkinCareMission from "./components/MainSkinCareMission";
 
 export default function Home() {
   const list = {
@@ -26,16 +28,44 @@ export default function Home() {
       <motion.ul variants={list} initial="hidden" animate="visible">
         <motion.li variants={item}>
           <MainDiagnose />
+          <div
+            className=" bg-white
+        sm:max-w-screen-sm 
+        md:max-w-screen-md 
+        lg:max-w-screen-lg
+        mx-auto flex flex-col sm:flex-row"
+          >
+            <div className="mx-auto border-1 border-[#e0d8d85c] w-4/5"></div>
+          </div>
         </motion.li>
         <motion.li variants={item}>
-          <MainSkinDiagnose />
-        </motion.li>
-        {/* <motion.li variants={item}>
-        스킨케어미션
+          <MainSkinAnalysis />
+          <div
+            className=" bg-white
+        sm:max-w-screen-sm 
+        md:max-w-screen-md 
+        lg:max-w-screen-lg
+        mx-auto flex flex-col sm:flex-row"
+          >
+            <div className="mx-auto border-1 border-[#e0d8d85c] w-4/5"></div>
+          </div>
         </motion.li>
         <motion.li variants={item}>
-        커뮤니티
-        </motion.li> */}
+          <MainSkinCompare />
+          <div
+            className=" bg-white
+        sm:max-w-screen-sm 
+        md:max-w-screen-md 
+        lg:max-w-screen-lg
+        mx-auto flex flex-col sm:flex-row"
+          >
+            <div className="mx-auto border-1 border-[#e0d8d85c] w-4/5"></div>
+          </div>
+        </motion.li>
+
+        <motion.li variants={item}>
+          <MainSkinCareMission />
+        </motion.li>
       </motion.ul>
     </div>
   );

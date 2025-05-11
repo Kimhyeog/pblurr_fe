@@ -33,8 +33,8 @@ const GeneralModal: React.FC<GeneralModalProps> = ({
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className="
               fixed z-50 bg-white
-              w-full bottom-0 left-0
-              sm:w-[500px] sm:top-1/2 sm:left-1/2 sm:bottom-auto
+              w-auto bottom-0 left-0
+              sm:top-1/2 sm:left-1/2 sm:bottom-auto
               sm:translate-x-[-50%] sm:translate-y-[-50%]
               sm:rounded-2xl sm:shadow-xl
               rounded-t-3xl

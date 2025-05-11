@@ -108,3 +108,30 @@ export interface SkinAnalysisCompareResponse {
   result1Average: number;
   result2Average: number;
 }
+
+//스킨 케어 미션
+
+export interface DailyMission {
+  mission: string;
+  checked: boolean;
+}
+
+// 스킨 케어 미션 점수
+
+export interface MissionScore {
+  startDate: string; // 시작 날짜 (예: "2025-04-20")
+  endDate: string; // 종료 날짜 (예: "2025-04-22")
+  totalScore: number;
+  averageScore: number; // 평균 점수 (0 이상 정수)
+}
+
+//스킨 케어의 미션 1,2,3등 점수 계정 3명
+
+export interface TopUser {
+  userId: string;
+  totalScore: number;
+}
+
+export interface MissionTop3Response {
+  topUsers: TopUser[];
+}

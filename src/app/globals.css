@@ -8,3 +8,27 @@
   --color-white: #ffffff;
   /* 흰색 추가 */
 }
+
+/* globals.css 또는 AnalysisCalendar.module.css */
+.selected-date {
+  background-color: #3b82f6 !important;
+  /* Tailwind의 bg-blue-500 */
+  color: white !important;
+  border-radius: 9999px;
+  /* rounded-full */
+}
+
+/* styles/globals.css */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}

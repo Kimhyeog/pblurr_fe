@@ -45,7 +45,11 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen flex flex-col mt-5 gap-y-3">
+    <div
+      className="max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen flex flex-col mt-5 
+    gqp-y-1
+    sm:gap-y-3"
+    >
       <GeneralModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <SkinDiseaseNotice onClose={() => setIsModalOpen(false)} />
       </GeneralModal>
@@ -156,7 +160,7 @@ export default function Page() {
                         }
                       }}
                     >
-                      질횐 상세 보기
+                      질환 상세 보기
                     </button>
                   </div>
                 </div>

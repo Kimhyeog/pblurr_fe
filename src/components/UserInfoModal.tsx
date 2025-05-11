@@ -105,7 +105,7 @@ export default function UserInfoModal({
             </h3>
 
             <div className="mb-2 flex flex-col gap-y-2">
-              <p className="text-gray-500 text-md">출생년도</p>
+              <p className="text-gray-500 text-md">생년월일</p>
               <span className="text-black font-medium text-lg">
                 {userInformation.userBirthday}
               </span>

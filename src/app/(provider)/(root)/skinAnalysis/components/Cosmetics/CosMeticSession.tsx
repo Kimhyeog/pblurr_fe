@@ -11,6 +11,7 @@ type Props = {
   pigmentationScore: number;
   poreScore: number;
 };
+// 수정&& 그냥 다 엎어
 
 function CosMeticSession(props: Props) {
   const [recommendations, setRecommendations] = useState<

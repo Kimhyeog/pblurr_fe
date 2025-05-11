@@ -4,7 +4,6 @@ import GeneralModal from "@/components/Modal/GeneralModal";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
-import UploadBox from "../UploadFace/UploadFaceBox";
 import { SkinAnalysisResult } from "@/types/types";
 import UploadFaceBox from "../UploadFace/UploadFaceBox";
 
@@ -28,7 +27,7 @@ function DiagnoseStartInfo(props: Props) {
         {/* 내용1 */}
         <h2 className="text-center hidden md:block text-2xl font-bold text-[#5CA7C8] mb-4">
           <strong className="text-[#5CA7C8]">
-            피부 미용 분석받고 예뻐지러 가볼까?
+            나만의 피부 맞춤 분석, 지금 시작해요!
           </strong>{" "}
           🧴✨
         </h2>
