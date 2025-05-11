@@ -30,7 +30,11 @@ const FaceAreaSelectorMobile: React.FC<FaceAreaSelectorMobileProps> = ({
   ];
 
   return (
-    <div className="relative w-full max-w-[600px] mx-auto mb-6">
+    <div
+      className="relative w-full max-w-[600px] mx-auto mb-6 
+    // 모바일일떄 안보이기 수정&&
+    hidden visible"
+    >
       {/* 얼굴 이미지 */}
       <Image
         src="/images/front-face.png"

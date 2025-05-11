@@ -14,7 +14,8 @@ function MainDiagnose() {
         sm:max-w-screen-sm 
         md:max-w-screen-md 
         lg:max-w-screen-lg 
-        mx-auto flex flex-col sm:flex-row bg-white
+        mx-auto flex flex-col sm:flex-row 
+        bg-white
         px-15 py-10 sm:px-20 sm:py-15 
         justify-center items-center 
         gap-x-15

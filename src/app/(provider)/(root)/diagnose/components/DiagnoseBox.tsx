@@ -43,7 +43,14 @@ function DiagnoseBox(props: Props) {
     props.setDiagnose(null); // 진단 결과 초기화 (필요하면)
   };
 
+  //업로드 핸들러
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    {
+      /* 수정&& */
+      // 모달 ok 핸들러 <= 업로드핸들러 작동되도록
+      // 편집기 달기
+    }
+
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       setImage(file);

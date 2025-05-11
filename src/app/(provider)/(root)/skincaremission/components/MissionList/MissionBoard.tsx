@@ -164,9 +164,10 @@ function MissionBoard(props: Props) {
         <h1 className="w-full text-xl font-bold text-[#146C94] mb-4 text-center">
           오늘의 스킨케어 미션
         </h1>
+
         <p className="absolute top-0 right-0 font-bold text-sm text-gray-600 px-3 py-1 rounded-lg border border-sky-200 bg-sky-50 shadow-sm hidden sm:inline-block">
           {/* 미션 날짜 텍스트 수정 */}
-          {formatDate(missionScore!.startDate)}
+          {missionScore ? formatDate(missionScore.startDate) : ""}
         </p>
       </div>
       {/* 기간 */}

@@ -7,7 +7,7 @@ function MainSkinCareMission() {
     <div
       className="
           w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg 
-          mx-auto flex flex-col sm:flex-row
+          mx-auto flex flex-col sm:flex-row bg-[#FFFFFF]
       px-20 py-15  justify-center items-center gap-x-15 
         "
     >

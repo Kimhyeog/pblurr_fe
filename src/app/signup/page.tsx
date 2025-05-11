@@ -171,7 +171,8 @@ export default function Page() {
                   {pwMessage}
                 </p>
               )}
-
+              {/* 수정&& */}
+              <p className="text-xs">생년월일</p>
               <Input
                 type="date"
                 value={userBirthday}

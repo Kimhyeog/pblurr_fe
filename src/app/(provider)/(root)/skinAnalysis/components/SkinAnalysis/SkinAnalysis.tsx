@@ -162,6 +162,7 @@ const SkinAnalysis = ({ result }: Props) => {
                         const status = getStatusFromPercentage(percentage);
 
                         return (
+                          // 수정&& :전체 요약 점수
                           <ScoreCard
                             key={itemIndex}
                             label={item.name}

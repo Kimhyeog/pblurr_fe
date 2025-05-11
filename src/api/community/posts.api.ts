@@ -40,3 +40,23 @@ export const getMostLikedPostsPreview = async (
 
   return previews;
 };
+
+export const getLatestPosts = async (
+  size: number,
+  page: number
+): Promise<FullPost[]> => {
+  const response = await axios.get(
+    `${BASE_URL}/posts/read-latest?size=${size}&page=${page}`
+  );
+  return response.data;
+};
+
+export const getMostCommentedPosts = async (
+  size: number,
+  page: number
+): Promise<FullPost[]> => {
+  const response = await axios.get(
+    `${BASE_URL}/posts/read-most-commented?size=${size}&page=${page}`
+  );
+  return response.data;
+};

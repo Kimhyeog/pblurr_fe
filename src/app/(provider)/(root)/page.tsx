@@ -28,12 +28,39 @@ export default function Home() {
       <motion.ul variants={list} initial="hidden" animate="visible">
         <motion.li variants={item}>
           <MainDiagnose />
+          <div
+            className=" bg-white
+        sm:max-w-screen-sm 
+        md:max-w-screen-md 
+        lg:max-w-screen-lg
+        mx-auto flex flex-col sm:flex-row"
+          >
+            <div className="mx-auto border-1 border-[#e0d8d85c] w-4/5"></div>
+          </div>
         </motion.li>
         <motion.li variants={item}>
           <MainSkinAnalysis />
+          <div
+            className=" bg-white
+        sm:max-w-screen-sm 
+        md:max-w-screen-md 
+        lg:max-w-screen-lg
+        mx-auto flex flex-col sm:flex-row"
+          >
+            <div className="mx-auto border-1 border-[#e0d8d85c] w-4/5"></div>
+          </div>
         </motion.li>
         <motion.li variants={item}>
           <MainSkinCompare />
+          <div
+            className=" bg-white
+        sm:max-w-screen-sm 
+        md:max-w-screen-md 
+        lg:max-w-screen-lg
+        mx-auto flex flex-col sm:flex-row"
+          >
+            <div className="mx-auto border-1 border-[#e0d8d85c] w-4/5"></div>
+          </div>
         </motion.li>
 
         <motion.li variants={item}>

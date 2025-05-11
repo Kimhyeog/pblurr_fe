@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CMButton from "../common/CMButton";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const feeds = [
   {
@@ -32,8 +33,24 @@ function LeftMainBox() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const currentFeed = feeds[selectedIndex];
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSelectedIndex((prev) => (prev + 1) % feeds.length);
+    }, 7000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleNext = () => {
+    setSelectedIndex((prev) => (prev + 1) % feeds.length);
+  };
+
+  const handlePrev = () => {
+    setSelectedIndex((prev) => (prev === 0 ? feeds.length - 1 : prev - 1));
+  };
+
   return (
     <div className="relative w-full min-h-[400px] rounded-xl overflow-hidden">
+      {/* 배경 이미지 */}
       <div className="absolute inset-0">
         <AnimatePresence mode="wait">
           <motion.div
@@ -48,21 +65,40 @@ function LeftMainBox() {
         </AnimatePresence>
       </div>
 
-      {/* 텍스트 & 버튼 레이어 */}
-      <div className="absolute bottom-4 left-4 z-10 text-white bg-black/50 px-4 py-5 rounded-2xl">
-        <p className="text-2xl font-semibold">{currentFeed.title}</p>
-        <p className="text-md">{currentFeed.description}</p>
-        <div className="flex gap-2 mt-2">
+      {/* 텍스트 레이어 */}
+      <div className="absolute bottom-20 md:bottom-4 left-4 z-10 text-white bg-black/50 px-4 py-5 rounded-2xl max-w-[90%]">
+        <p className="text-xl md:text-2xl font-semibold">{currentFeed.title}</p>
+        <p className="text-sm md:text-md">{currentFeed.description}</p>
+
+        {/* 카테고리 버튼 */}
+        <div className="flex flex-wrap gap-2 mt-2">
           {feeds.map((feed, index) => (
             <CMButton
               key={feed.title}
               onClick={() => setSelectedIndex(index)}
-              className={index === selectedIndex ? " text-black" : ""}
+              className={index === selectedIndex ? "text-black" : ""}
             >
               {feed.category}
             </CMButton>
           ))}
         </div>
+      </div>
+
+      {/* 컨트롤 버튼: 모바일은 하단 중앙, PC는 우측 상단 */}
+      <div className="absolute top-2 left-2 z-20 flex items-center space-x-2">
+        <button
+          onClick={handlePrev}
+          className="bg-black/50 text-white p-2 md:p-1 rounded-full hover:bg-black/70"
+        >
+          <ChevronLeft size={20} />
+        </button>
+
+        <button
+          onClick={handleNext}
+          className="bg-black/50 text-white p-2 md:p-1 rounded-full hover:bg-black/70"
+        >
+          <ChevronRight size={20} />
+        </button>
       </div>
     </div>
   );

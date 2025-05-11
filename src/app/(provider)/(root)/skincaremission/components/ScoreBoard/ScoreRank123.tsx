@@ -66,7 +66,7 @@ function ScoreRankBox() {
           ))}
         </div>
       </div>
-      <motion.div
+      {/* <motion.div
         className="ml-4 sm:ml-8 p-3 sm:p-4 rounded-lg bg-sky-50 border border-sky-200 shadow-inner  text-gray-700"
         initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}
@@ -96,7 +96,7 @@ function ScoreRankBox() {
             평균 점수 = <span className="font-bold text-green-600">56점</span>
           </li>
         </ul>
-      </motion.div>
+      </motion.div> */}
     </div>
   );
 }
