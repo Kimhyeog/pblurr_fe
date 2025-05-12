@@ -135,9 +135,7 @@ export default function Page() {
                       width={32}
                       height={32}
                     />
-                    <p className="text-lg font-bold sm:text-xl">
-                      질환 상세정보
-                    </p>
+                    <p className="text-xl font-bold ">질환 상세정보</p>
                   </div>
                   <div className="mr-3">
                     <button
@@ -160,7 +158,8 @@ export default function Page() {
                         }
                       }}
                     >
-                      질환 상세 보기
+                      <span className="hidden sm:visible">질환{` `} </span>
+                      상세 보기
                     </button>
                   </div>
                 </div>

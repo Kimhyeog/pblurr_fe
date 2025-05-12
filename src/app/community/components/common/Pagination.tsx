@@ -32,6 +32,7 @@ export default function Pagination({
         &lt; {/* < 기호 표시 */}
       </button>
 
+      <p className="px-3 text-lg font-bold">{currentPage}</p>
       {/* 다음 버튼 */}
       <button
         onClick={handleNext}

@@ -33,7 +33,8 @@ const GeneralModal: React.FC<GeneralModalProps> = ({
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className="
               fixed z-50 bg-white
-              w-auto bottom-0 left-0
+              w-full bottom-0 left-0
+              mx-auto
               sm:top-1/2 sm:left-1/2 sm:bottom-auto
               sm:translate-x-[-50%] sm:translate-y-[-50%]
               sm:rounded-2xl sm:shadow-xl
@@ -42,6 +43,7 @@ const GeneralModal: React.FC<GeneralModalProps> = ({
               sm:max-h-none sm:overflow-visible
             "
           >
+            {/* 수정&& */}
             {children}
           </motion.div>
         </>

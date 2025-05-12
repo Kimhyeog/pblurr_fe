@@ -50,7 +50,7 @@ function AnalysisCalendar({
   };
 
   return (
-    <div className="p-4 bg-white rounded-3xl shadow-md border max-h-[340px] border-[#DEDCE1] w-full sm:w-auto">
+    <div className="p-4 bg-white rounded-3xl shadow-md border border-[#DEDCE1] w-full sm:w-auto">
       <Calendar
         onClickDay={handleClick}
         tileContent={({ date }) =>

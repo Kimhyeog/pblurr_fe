@@ -19,7 +19,7 @@ function MainFeed() {
       >
         {/* Left: Main Feed */}
         <div className="w-full h-full flex flex-col ">
-          <h2 className="text-2xl font-bold mb-4">올해의 추천 피드</h2>
+          <h2 className="text-2xl font-bold mb-4">피부르르의 추천 피드</h2>
           <div className="flex-grow">
             <LeftMainBox />
           </div>

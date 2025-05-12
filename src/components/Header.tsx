@@ -89,18 +89,19 @@ export default function Header() {
               alt="로그인 로고"
               width={250}
               height={100}
-              className="min-w-[500px] sm:min-w-[300px]"
+              className=" sm:min-w-[300px]"
             />
           </Link>
         </div>
         <div className="flex items-center gap-x-5">
           <SkinCareMissionPromotionButton />
           {isLoginState ? (
+            // 열맞춤 수정&&
             <div className="flex items-center gap-5 relative">
               <div className="flex flex-row gap-x-3">
                 <p
                   onClick={handleModalOpen}
-                  className="font-bold text-gray-700 hover:underline cursor-pointer"
+                  className="font-bold  text-sm text-gray-700 hover:underline cursor-pointer"
                 >
                   {userName}
                 </p>
@@ -112,7 +113,7 @@ export default function Header() {
               bg-[#7FC5E0] text-white font-bold rounded-lg
               hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer
               px-4 py-2
-              text-md sm:text-lg
+               text-sm sm:text-lg
               "
               >
                 로그아웃
@@ -130,7 +131,7 @@ export default function Header() {
               className="bg-[#7FC5E0] text-white font-bold  rounded-lg
           hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer
           px-6 py-2
-          text-md sm:text-lg
+          text-sm sm:text-lg
           "
             >
               로그인

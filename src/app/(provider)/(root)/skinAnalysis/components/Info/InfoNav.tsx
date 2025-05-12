@@ -40,7 +40,7 @@ function InfoNav() {
               key={tab.value}
               value={tab.value}
               onClick={onClickDiagnoseInfoToggle}
-              className={`text-lg relative z-10 px-4 py-2 rounded-full font-medium transition-colors duration-200 ${
+              className={`text-md sm:text-lg relative z-10 px-4 py-2 rounded-full font-medium transition-colors duration-200 ${
                 diagnoseInfoValue === tab.value
                   ? "text-[#5CA7C8] font-extrabold"
                   : "text-blue-100 hover:text-[#5CA7C8]"

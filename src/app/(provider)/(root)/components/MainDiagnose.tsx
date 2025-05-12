@@ -27,11 +27,11 @@ function MainDiagnose() {
           <p
             className="
           text-center whitespace-nowrap
-          text-sm sm:text-md"
+          text-xs sm:text-md"
           >
-            {`"`}피부르르{`"`}는 당신의 피부 질환 의심 사진을 업로드하면,
+            {`"`}피부르르{`"`}에서 당신의 피부 질환 의심 사진을 업로드하면,
             <br />
-            피부 질환 확률을 간편하게 진단할 수 있습니다.
+            피부 질환을 간편하게 진단할 수 있습니다.
           </p>
         </div>
         <button
@@ -40,7 +40,7 @@ function MainDiagnose() {
           }}
           className="bg-[#7FC5E0] text-white px-4 py-2 font-bold rounded-lg 
           hover:bg-[#5CA7C8] active:bg-[#4A8FBF] transition cursor-pointer
-          text-md sm:text-lg 
+          text-sm sm:text-lg 
           "
         >
           진단하기

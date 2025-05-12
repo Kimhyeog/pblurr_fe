@@ -25,9 +25,9 @@ function MainSkinCareMission() {
         <h1 className="text-2xl font-extrabold">스킨 케어 미션</h1>
         <div>
           <p className="text-sm sm:text-md text-center whitespace-nowrap">
-            {`"`}피부르르{`"`}는 당신의 얼굴 사진을 업로드하면,
+            {`"`}피부르르{`"`}에서 당신의 피부 기록들을 바탕으로,
             <br />
-            부위별 피부 미용 점수를 간편하게 분석할 수 있습니다.
+            스킨 케어 미션을 제공합니다.
           </p>
         </div>
         <button

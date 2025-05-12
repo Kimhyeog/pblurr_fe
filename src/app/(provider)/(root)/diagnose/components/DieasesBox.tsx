@@ -14,7 +14,7 @@ function DieasesBox() {
   };
 
   return (
-    <div className="bg-white flex flex-col items-center p-8 gap-6 rounded-2xl">
+    <div className="bg-white flex flex-col items-center gap-6 rounded-2xl">
       <div className="w-full flex flex-col gap-y-5">
         <motion.ul
           variants={listVariants}
@@ -33,7 +33,7 @@ function DieasesBox() {
           </div>
           {data.map((item, index) => (
             <motion.li key={index} variants={itemVariants} className="w-full">
-              <div className="flex flex-col md:flex-row items-center bg-gray-100 rounded-2xl p-6 w-full shadow-md">
+              <div className="flex flex-col md:flex-row items-center bg-gray-100 rounded-2xl p-3 w-full shadow-md">
                 <Image
                   src={item.imgSrc}
                   alt={item.title}
@@ -43,7 +43,9 @@ function DieasesBox() {
                 />
                 <div className="flex flex-col text-center md:text-left">
                   <h2 className="text-xl font-semibold mb-2">{item.title}</h2>
-                  <p className="text-gray-700">{item.description}</p>
+                  <p className="text-sm sm:text-lg text-gray-700">
+                    {item.description}
+                  </p>
                 </div>
               </div>
             </motion.li>

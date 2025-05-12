@@ -51,8 +51,8 @@ function SubmitLeftFace(props: Props) {
   const imageToShow = !uploaded ? "/images/left-30.png" : previewUrl;
 
   return (
-    <div className="bg-white rounded-2xl p-4 w-full max-w-md mx-auto my-6">
-      <div className="border-2 border-[#5CA7C8] rounded-xl p-2">
+    <div className="bg-white rounded-2xl p-4 w-full  mx-auto my-6">
+      <div className="border-2 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] overflow-hidden border-[#5CA7C8] rounded-xl p-2">
         <Image
           src={imageToShow}
           alt="얼굴 좌30도 가이드"

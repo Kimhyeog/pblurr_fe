@@ -39,12 +39,14 @@ function TotalScoreBoard({
       </div>
 
       {/* 날짜 정보 */}
-      <div className="flex items-center justify-center text-sm text-gray-700 gap-2">
-        <FaCalendarAlt className="text-sky-400" />
-        <span className="font-medium text-sky-500">미션 수행 기간:</span>
-        <span className="font-normal">
-          {formatKoreanDate(startDate)} ~ {formatKoreanDate(endDate)}
-        </span>
+      <div className="flex flex-col sm:flex-row items-center justify-center text-sm text-gray-700 gap-2">
+        <FaCalendarAlt className="hidden sm:visible text-sky-400" />
+        <div className="font-medium text-sky-500">미션 수행 기간:</div>
+        <div className="font-normal flex flex-col sm:flex-row items-center">
+          <div>{formatKoreanDate(startDate)}</div>
+          <div>{"~"}</div>
+          <div>{formatKoreanDate(endDate)}</div>
+        </div>
       </div>
 
       {/* 총점 박스 */}

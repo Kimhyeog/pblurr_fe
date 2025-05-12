@@ -19,9 +19,9 @@ function MainSkinCompare() {
         <h1 className="text-2xl font-extrabold">분석 기록 비교</h1>
         <div>
           <p className="text-sm sm:text-md text-center whitespace-nowrap">
-            {`"`}피부르르{`"`}는 당신의 피부 기록들을 비교하면서,
+            {`"`}피부르르{`"`}에서 피부 기록들을 비교하여,
             <br />
-            당신의 추악한 과거들을 들쳐볼 수 있습니다.
+            당신의 피부 개선도를 확인할 수 있습니다.
           </p>
         </div>
         <button

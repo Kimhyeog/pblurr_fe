@@ -32,7 +32,7 @@ export default function Page() {
     <div className="max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen mt-5 gap-y-3">
       {result === null ? (
         // result가 null일 때 (처음 화면)
-        <div className="rounded-2xl flex flex-col gap-y-4 items-center px-10 py-5 border-0 bg-white">
+        <div className="rounded-2xl flex flex-col gap-y-4 items-center px-0 sm:px-10 py-5 border-0 bg-white">
           <div className="w-full">
             <div className="text-center sm:text-left text-xl sm:text-2xl lg:text-3xl font-bold pl-1 py-1 w-full mb-4">
               피부 미용 분석 받기
@@ -66,14 +66,14 @@ export default function Page() {
         </div>
       ) : (
         // 피부 분석 결과 화면
-        <div className="rounded-2xl flex flex-col gap-y-4 items-center px-10 py-5 border-0 bg-white">
-          <div className="w-full flex">
+        <div className="rounded-2xl flex flex-col gap-y-4 items-center  px-3 sm:px-10 py-5 border-0 bg-white">
+          <div className="w-full flex flex-col sm:flex-row items-center justify-center">
             <div className="flex-1 text-center sm:text-left text-xl sm:text-2xl lg:text-3xl font-bold pl-1 py-1 w-full mb-2">
               피부 미용 분석 결과
             </div>
             <div>
               <button
-                className="px-3 py-2 bg-[#e85959] text-white text-xl sm:text-2xl hover:bg-[#e85959b7] rounded-2xl"
+                className="px-3 py-2 bg-[#e85959] text-white  text-md sm:text-2xl hover:bg-[#e85959b7] rounded-2xl"
                 onClick={handleReset}
               >
                 다시 분석 하기

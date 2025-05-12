@@ -39,13 +39,13 @@ function ScoreRankBox() {
           {topUsers.map((user, index) => (
             <motion.div
               key={user.userId}
-              className={`w-20 sm:w-24 
+              className={`w-14 sm:w-24 
                       ${
                         index === 0
-                          ? "h-32 sm:h-40"
+                          ? "h-26 sm:h-40"
                           : index === 1
-                          ? "h-28 sm:h-32"
-                          : "h-24 sm:h-28"
+                          ? "h-22 sm:h-32"
+                          : "h-18 sm:h-28"
                       } 
                         ${rankColors[index]} 
                         rounded-t-xl flex flex-col justify-end items-center text-white shadow-lg`}

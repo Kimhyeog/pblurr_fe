@@ -11,6 +11,7 @@ import {
 import MainPostsFilter from "./components/common/MainPostsFilter";
 import PostsList from "./components/posts/PostsList";
 import Pagination from "./components/common/Pagination";
+import { ClipLoader } from "react-spinners";
 
 type SortType = "latest" | "liked" | "commented";
 
@@ -19,13 +20,17 @@ export default function Page() {
   const [sortType, setSortType] = useState<SortType>("latest");
   const [totalPostsCount, setTotalPostsCount] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(1);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchPosts = async (type: SortType, page: number) => {
-    let data: FullPost[] = [];
-    let totalCount = 0;
+    setIsLoading(true);
+    setError(null);
 
     try {
+      let data: FullPost[] = [];
+      let totalCount = 0;
+
       switch (type) {
         case "latest":
           const latestData = await getLatestPosts(10, page);
@@ -46,64 +51,61 @@ export default function Page() {
 
       setPosts(data);
       setTotalPostsCount(totalCount);
-      setTotalPages(Math.ceil(totalCount / 10));
-    } catch (error) {
-      console.error("Failed to fetch posts:", error);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("알 수 없는 오류가 발생했습니다.");
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handlePageChange = (newPage: number) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage); // 페이지 변경
-    }
-  };
-
-  // 페이지 변경 시마다 fetchPosts를 호출하도록 useEffect 수정
   useEffect(() => {
     fetchPosts(sortType, currentPage);
   }, [sortType, currentPage]);
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div className="w-full flex flex-col justify-center bg-[#FFFFFF] px-10 py-4">
       <MainFeed />
-
       <section className="w-full flex items-center my-10">
         <MainPostsFilter
           setSortTypeLatest={() => {
-            setCurrentPage(1); // 페이지를 1로 리셋
+            setCurrentPage(1);
             setSortType("latest");
           }}
           setSortTypeLiked={() => {
-            setCurrentPage(1); // 페이지를 1로 리셋
+            setCurrentPage(1);
             setSortType("liked");
           }}
           setSortTypeCommented={() => {
-            setCurrentPage(1); // 페이지를 1로 리셋
+            setCurrentPage(1);
             setSortType("commented");
           }}
         />
-
-        <div className="flex items-center border border-gray-300 rounded-full w-full px-4 py-2 mb-4">
-          <span className="text-pink-500 mr-2">🔍</span>
-          <input
-            type="text"
-            placeholder="관심있는 피부지식을 검색해보세요."
-            className="w-full outline-none bg-transparent"
-          />
-        </div>
       </section>
 
-      <PostsList posts={posts} />
-
-      <div className="mt-4 text-center">
-        <span>총 게시물 수: {totalPostsCount}</span>
-      </div>
-
-      <Pagination
-        currentPage={currentPage}
-        totalPostsCount={totalPostsCount}
-        setCurrentPage={setCurrentPage}
-      />
+      {isLoading ? (
+        <div className="flex justify-center items-center py-8">
+          <ClipLoader color="#EC4899" size={40} />
+        </div>
+      ) : error ? (
+        <div className="text-center text-red-500">{error}</div>
+      ) : (
+        <>
+          <PostsList posts={posts} />
+          <Pagination
+            currentPage={currentPage}
+            totalPostsCount={totalPostsCount}
+            setCurrentPage={handlePageChange}
+          />
+        </>
+      )}
     </div>
   );
 }

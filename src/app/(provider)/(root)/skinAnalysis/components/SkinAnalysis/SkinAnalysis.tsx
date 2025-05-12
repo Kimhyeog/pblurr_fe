@@ -112,7 +112,7 @@ const SkinAnalysis = ({ result }: Props) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="text-3xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1]">
+          <div className="text-xl sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1]">
             📊 피부 나이&nbsp;:{" "}
             <span className="text-[#7FC5E0] font-bold">{result.skinAge}대</span>
           </div>
@@ -133,14 +133,14 @@ const SkinAnalysis = ({ result }: Props) => {
           />
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             <div className="col-span-full">
-              <div className="text-3xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] mb-5">
+              <div className="text-xl sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] mb-5">
                 📊 세부 항목별 점수
               </div>
               <div className="flex flex-col gap-8">
                 {filteredData.map((section, sectionIndex) => (
                   <div
                     key={sectionIndex}
-                    className="flex flex-col gap-2 border border-[#DEDCE1] rounded-2xl shadow-sm p-4 mb-3"
+                    className="flex flex-col gap-2 border border-[#DEDCE1] rounded-2xl shadow-sm p-2 sm:p-4 mb-3"
                   >
                     <div className="flex items-center gap-2">
                       <Image
@@ -149,7 +149,7 @@ const SkinAnalysis = ({ result }: Props) => {
                         width={35}
                         height={35}
                       />
-                      <h2 className="text-2xl font-bold mb-2">
+                      <h2 className="text-lg sm:text-2xl font-bold mb-2">
                         {section.category}
                       </h2>
                     </div>
@@ -180,7 +180,7 @@ const SkinAnalysis = ({ result }: Props) => {
             </div>
           </div>
 
-          <h3 className="text-3xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] mb-5">
+          <h3 className="text-lg sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] mb-5">
             📊 종합 피부 점수
           </h3>
           <div className="w-full bg-white border border-[#DEDCE1] rounded-2xl shadow-sm p-4">

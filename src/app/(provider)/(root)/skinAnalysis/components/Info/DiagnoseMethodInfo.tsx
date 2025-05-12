@@ -7,12 +7,12 @@ function DiagnoseMethodInfo() {
   const imgSize = 30;
   return (
     <motion.div
-      className="p-6 rounded-xl bg-[#f0f9fc] shadow-md"
+      className="p-3 sm:p-6 rounded-xl bg-[#f0f9fc] shadow-md"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <h2 className="text-2xl font-bold text-[#5CA7C8] mb-4">
+      <h2 className="text-lg text-center sm:text-2xl font-bold text-[#5CA7C8] mb-4">
         피부 미용 분석 방법 안내
       </h2>
 

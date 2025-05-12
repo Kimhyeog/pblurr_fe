@@ -71,3 +71,28 @@ export const getMostCommentedPosts = async (
   const data = response.data;
   return { posts: data, totalPostsCount: data.length }; // 예시로 posts와 totalPostsCount를 반환
 };
+
+/** 게시물 단일 조회 API */
+export const getPostById = async (postId: string): Promise<FullPost> => {
+  const response = await axios.get<FullPost>(
+    `${BASE_URL}/posts/read-one/${postId}`
+  );
+  return response.data;
+};
+
+/** 게시물 좋아요 토글 API (등록/취소) */
+export const togglePostLike = async (
+  postId: string,
+  accessToken: string
+): Promise<string> => {
+  const response = await axios.post(
+    `${BASE_URL}/posts/like/${postId}`,
+    {}, // body 없음
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  return response.data.message; // "좋아요를 눌렀습니다." 또는 "좋아요를 취소했습니다."
+};

@@ -26,9 +26,11 @@ function ScoreCard(props: ScoreCardProps) {
   };
 
   return (
-    <div className="w-full bg-white border border-[#DEDCE1] rounded-2xl shadow-sm p-4 flex flex-col gap-4">
+    <div className="w-full bg-white border border-[#DEDCE1] rounded-2xl shadow-sm p-2 sm:p-4 flex flex-col gap-4">
       <div className="flex justify-between items-center">
-        <span className={`text-lg font-bold ${labelTextColor}`}>{label}</span>
+        <span className={`text-md sm:text-lg font-bold ${labelTextColor}`}>
+          {label}
+        </span>
         <span
           className={`w-20 text-center text-sm px-2 py-1 rounded-full font-semibold ${statusStyle[status]}`}
         >

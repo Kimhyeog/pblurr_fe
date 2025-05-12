@@ -45,11 +45,6 @@ function CompareRarChartGraph(props: Props) {
 
   const radarData = [
     {
-      subject: "😊 주름",
-      result1: normalize(result1.totalWrinkle, maxValues.totalWrinkle),
-      result2: normalize(result2.totalWrinkle, maxValues.totalWrinkle),
-    },
-    {
       subject: "🎨 색소침착",
       result1: normalize(
         result1.totalPigmentation,
@@ -59,6 +54,11 @@ function CompareRarChartGraph(props: Props) {
         result2.totalPigmentation,
         maxValues.totalPigmentation
       ),
+    },
+    {
+      subject: "😊 주름",
+      result1: normalize(result1.totalWrinkle, maxValues.totalWrinkle),
+      result2: normalize(result2.totalWrinkle, maxValues.totalWrinkle),
     },
     {
       subject: "🔍 모공",
@@ -87,13 +87,13 @@ function CompareRarChartGraph(props: Props) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="w-full sm:w-auto bg-[#FFFFFF] p-6 rounded-3xl shadow-lg border-4 border-[#C7EAF3] max-w-4xl mx-auto"
+      className="w-full sm:w-auto bg-[#FFFFFF] p-6 rounded-3xl shadow-lg border-4 border-[#C7EAF3] mx-auto"
     >
       <div className="w-full text-center text-[#5CA7C8] font-extrabold text-xl sm:text-left items-center py-2 px-4 mb-2 rounded-lg bg-[#FFFFFF]  border-2 border-[#3C9FCA]">
         비교 차트
       </div>
-
-      <div className="w-full h-[350px]">
+      {/* h-[350px] */}
+      <div className="w-full sm:h-aut0">
         <ResponsiveContainer>
           <RadarChart outerRadius="75%" data={radarData}>
             <PolarGrid stroke="#F3F3F3" strokeDasharray="4 4" />
