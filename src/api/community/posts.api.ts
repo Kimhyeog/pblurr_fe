@@ -1,21 +1,10 @@
+// src/api/community/posts.api.ts
+
 import axios from "axios";
 import { FullPost } from "@/types/community/type";
 import { MostLikedPostPreview } from "@/types/post.dto/types";
 
 const BASE_URL = "https://capstone-backend-1234-ab6179e289b1.herokuapp.com";
-
-/**
- * 좋아요 수 기준 게시물 전체 조회 (Full 데이터)
- */
-export const getMostLikedPosts = async (
-  size: number,
-  page: number
-): Promise<FullPost[]> => {
-  const response = await axios.get(
-    `${BASE_URL}/posts/read-most-liked?size=${size}&page=${page}`
-  );
-  return response.data;
-};
 
 /**
  * 메인 페이지 인기글 미리보기 (Preview용)
@@ -41,22 +30,44 @@ export const getMostLikedPostsPreview = async (
   return previews;
 };
 
+/**
+ * 좋아요 수 기준 게시물 전체 조회 (Full 데이터)
+ */
+export const getMostLikedPosts = async (
+  size: number,
+  page: number
+): Promise<{ posts: FullPost[]; totalPostsCount: number }> => {
+  const response = await axios.get(
+    `${BASE_URL}/posts/read-most-liked?size=${size}&page=${page}`
+  );
+  const data = response.data;
+  // 예시로 posts와 totalPostsCount를 반환
+  return { posts: data, totalPostsCount: data.length }; // 실제 totalPostsCount 값을 API에서 제공해야 할 경우 변경
+};
+
+/**
+ * 최신 게시물 조회 (Full 데이터)
+ */
 export const getLatestPosts = async (
   size: number,
   page: number
-): Promise<FullPost[]> => {
+): Promise<{ posts: FullPost[]; totalPostsCount: number }> => {
   const response = await axios.get(
     `${BASE_URL}/posts/read-latest?size=${size}&page=${page}`
   );
-  return response.data;
+  const data = response.data;
+  return { posts: data, totalPostsCount: data.length }; // 예시로 posts와 totalPostsCount를 반환
 };
-
+/**
+ * 댓글 수 기준 게시물 전체 조회 (Full 데이터)
+ */
 export const getMostCommentedPosts = async (
   size: number,
   page: number
-): Promise<FullPost[]> => {
+): Promise<{ posts: FullPost[]; totalPostsCount: number }> => {
   const response = await axios.get(
     `${BASE_URL}/posts/read-most-commented?size=${size}&page=${page}`
   );
-  return response.data;
+  const data = response.data;
+  return { posts: data, totalPostsCount: data.length }; // 예시로 posts와 totalPostsCount를 반환
 };
