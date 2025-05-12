@@ -15,7 +15,7 @@ function MainSkinCareMission() {
         <Image
           className="rounded-3xl hidden md:visible md:block border-3 border-[#5CA7C8]
             "
-          src="/images/PhotosThatLeadToAnalysis.png"
+          src="/images/MainSkinCareMission.png"
           alt="의심짛환아이콘"
           width={370}
           height={300}

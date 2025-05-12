@@ -39,7 +39,7 @@ function MainSkinCompare() {
       <div>
         <Image
           className="rounded-2xl hidden md:visible md:block border-3 border-[#5CA7C8]"
-          src="/images/MainDiagnose.png"
+          src="/images/MainResultCompare.png"
           alt="의심 질환 아이콘"
           width={350}
           height={250}

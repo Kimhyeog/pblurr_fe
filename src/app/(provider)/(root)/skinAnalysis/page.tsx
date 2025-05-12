@@ -93,7 +93,7 @@ export default function Page() {
                 className="w-full py-2 bg-[#FBBF24] text-white text-xl sm:text-2xl hover:bg-[#fbbe24aa] active:bg-[#fbbe2460] rounded-2xl"
                 onClick={() => router.push("/skincaremission")}
               >
-                스킨 케어 미션 생성하기기
+                스킨 케어 미션 생성하기
               </button>
             </div>
           </div>
