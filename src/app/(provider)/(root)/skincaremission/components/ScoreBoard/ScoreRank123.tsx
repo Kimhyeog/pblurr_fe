@@ -66,37 +66,6 @@ function ScoreRankBox() {
           ))}
         </div>
       </div>
-      {/* <motion.div
-        className="ml-4 sm:ml-8 p-3 sm:p-4 rounded-lg bg-sky-50 border border-sky-200 shadow-inner  text-gray-700"
-        initial={{ opacity: 0, x: 30 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.6, duration: 0.5 }}
-      >
-        <h3 className="font-semibold text-sky-600 mb-2 text-md">
-          총점 계산 방식
-        </h3>
-        <ul className="list-disc list-inside space-y-1">
-          <li>
-            하루 최대 미션{" "}
-            <span className="font-semibold text-gray-900">5개</span>
-          </li>
-          <li>
-            예시 기록:{" "}
-            <span className="font-mono text-sm">[5, 4, 3, 0, 2]</span>
-          </li>
-          <li>
-            총점 = 5 + 4 + 3 + 0 + 2 ={" "}
-            <span className="font-bold text-amber-500">14</span>
-          </li>
-          <li>날짜 수 = 5, 최대 점수 = 25</li>
-          <li>
-            평균 비율 = <span className="font-mono">14 / 25 = 0.56</span>
-          </li>
-          <li>
-            평균 점수 = <span className="font-bold text-green-600">56점</span>
-          </li>
-        </ul>
-      </motion.div> */}
     </div>
   );
 }

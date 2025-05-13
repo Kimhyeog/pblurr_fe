@@ -16,7 +16,7 @@ function CMHeader() {
     md:flex-row md:justify-between
   "
     >
-      <Link href="/">
+      <Link href="/community">
         <Image
           src="/images/피부르르_가로_로그인로고.png"
           alt="로그인 로고"

@@ -81,18 +81,29 @@ export const getPostById = async (postId: string): Promise<FullPost> => {
 };
 
 /** 게시물 좋아요 토글 API (등록/취소) */
-export const togglePostLike = async (
-  postId: string,
-  accessToken: string
-): Promise<string> => {
+export const togglePostLike = async (postId: number): Promise<string> => {
   const response = await axios.post(
     `${BASE_URL}/posts/like/${postId}`,
     {}, // body 없음
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    }
+    { withCredentials: true }
   );
   return response.data.message; // "좋아요를 눌렀습니다." 또는 "좋아요를 취소했습니다."
+};
+
+/** 좋아요 여부 확인 API */
+export const hasUserLikedPost = async (postId: number): Promise<boolean> => {
+  try {
+    const response = await axios.get<{ check: boolean }>(
+      `${BASE_URL}/posts/like-check/${postId}`,
+      { withCredentials: true }
+    );
+    return response.data.check;
+  } catch (error: any) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
+      console.warn("해당 게시물을 찾을 수 없습니다.");
+    } else {
+      console.error("좋아요 여부 확인 중 오류 발생:", error);
+    }
+    return false;
+  }
 };
