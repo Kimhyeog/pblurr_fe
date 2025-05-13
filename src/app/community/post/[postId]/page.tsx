@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
 import SinglePostContents from "../../components/posts/SinglePostContents";
 import SinglePostCommentsBox from "../../components/posts/SinglePostCommentsBox";
+import { checkLoginStatus } from "@/api/auth";
 
 export default function Page() {
   const params = useParams();
@@ -16,6 +17,33 @@ export default function Page() {
   const [post, setPost] = useState<FullPost | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [likeCount, setLikeCount] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // ✅ 추가
+
+  // 로그인 여부 체크
+  useEffect(() => {
+    const checkLogin = async () => {
+      const result = await checkLoginStatus();
+      setIsLoggedIn(result);
+    };
+    checkLogin();
+  }, []);
+
+  // 게시글 정보 불러오기
+  useEffect(() => {
+    if (!postId) return;
+
+    getPostById(postId)
+      .then((data) => {
+        setPost(data);
+        setLikeCount(data.likes.length);
+      })
+      .catch((err) => {
+        setError(
+          err.response?.data?.message || "알 수 없는 오류가 발생했습니다."
+        );
+      });
+  }, [postId]);
+
   useEffect(() => {
     if (!postId) return;
 
@@ -43,12 +71,16 @@ export default function Page() {
     <div className="w-full   bg-[#FFFFFF] px-3 py-4">
       <div className="flex flex-col justify-center px-4 py-10 bg-white shadow-lg rounded-2xl">
         <SinglePostContents
+          isLoggedIn={isLoggedIn}
           post={post}
           likeCount={likeCount}
           setLikeCount={setLikeCount}
           routerCallback={() => router.push("/community")}
         />
-        <SinglePostCommentsBox comments={post.comments} />
+        <SinglePostCommentsBox
+          isLoggedIn={isLoggedIn}
+          comments={post.comments}
+        />
       </div>
     </div>
   );

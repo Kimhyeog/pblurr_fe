@@ -4,6 +4,7 @@ import { FullPost } from "@/types/community/type";
 import CMPostLikeButton from "../common/CMPostLikeButton";
 
 interface SinglePostContentsProps {
+  isLoggedIn: boolean;
   post: FullPost;
   likeCount: number;
   setLikeCount: (count: number) => void;
@@ -13,6 +14,7 @@ interface SinglePostContentsProps {
 function SinglePostContents({
   post,
   likeCount,
+  isLoggedIn,
   setLikeCount,
   routerCallback,
 }: SinglePostContentsProps) {
@@ -48,6 +50,7 @@ function SinglePostContents({
           postId={id}
           postLikesLength={likeCount}
           onLikeToggle={setLikeCount}
+          isLoggedIn={isLoggedIn}
         />
 
         <button

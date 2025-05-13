@@ -7,12 +7,14 @@ import Swal from "sweetalert2";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 interface CMPostLikeButtonProps {
+  isLoggedIn: boolean;
   postId: number;
   postLikesLength: number;
   onLikeToggle: (newLikeCount: number) => void;
 }
 
 function CMPostLikeButton({
+  isLoggedIn,
   postId,
   postLikesLength,
   onLikeToggle,
@@ -23,7 +25,6 @@ function CMPostLikeButton({
   // 초기 렌더링 시 좋아요 여부 확인
   useEffect(() => {
     const fetchLikeStatus = async () => {
-      const isLoggedIn = await checkLoginStatus();
       if (!isLoggedIn) return;
 
       try {

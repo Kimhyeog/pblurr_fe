@@ -67,7 +67,7 @@ const SkinAnalysis = ({ result }: Props) => {
           ],
         },
         {
-          category: "면상 하부",
+          category: "하안부",
           items: [
             { name: "입술 건조도", value: result.lipDryness },
             { name: "턱선 처짐", value: result.jawlineSagging },
@@ -114,7 +114,7 @@ const SkinAnalysis = ({ result }: Props) => {
         >
           <div className="text-xl sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1]">
             📊 피부 나이&nbsp;:{" "}
-            <span className="text-[#7FC5E0] font-bold">{result.skinAge}대</span>
+            <span className="text-[#7FC5E0] font-bold">{result.skinAge}세</span>
           </div>
           <div className="w-full hidden md:block">
             <SkinResultAge imageUrls={result.imageUrls} />

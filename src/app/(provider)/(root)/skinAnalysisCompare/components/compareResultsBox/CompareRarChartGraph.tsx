@@ -89,11 +89,14 @@ function CompareRarChartGraph(props: Props) {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="w-full sm:w-auto bg-[#FFFFFF] p-6 rounded-3xl shadow-lg border-4 border-[#C7EAF3] mx-auto"
     >
-      <div className="w-full text-center text-[#5CA7C8] font-extrabold text-xl sm:text-left items-center py-2 px-4 mb-2 rounded-lg bg-[#FFFFFF]  border-2 border-[#3C9FCA]">
+      <div
+        className="w-full text-center text-[#5CA7C8] font-extrabold text-xl sm:text-left items-center 
+      py-2 px-4 mb-2 rounded-lg bg-[#FFFFFF]  border-2 border-[#3C9FCA]"
+      >
         비교 차트
       </div>
       {/* h-[350px] */}
-      <div className="w-full sm:h-aut0">
+      <div className="w-full h-[150px] my-5 sm:h-[300px]">
         <ResponsiveContainer>
           <RadarChart outerRadius="75%" data={radarData}>
             <PolarGrid stroke="#F3F3F3" strokeDasharray="4 4" />

@@ -27,7 +27,6 @@ function ScoreRankBox() {
   if (error) return <div>오류 발생: {error}</div>;
 
   const rankColors = ["bg-yellow-400", "bg-gray-300", "bg-amber-700"]; // 금, 은, 동
-  const rankHeights = ["h-40", "h-32", "h-24"]; // 1등이 가장 높음
 
   return (
     <div className="w-full flex flex-col sm:flex-row items-center justify-evenly bg-white border-4 border-[#5CA7C8] p-4 sm:p-6 rounded-xl shadow-xl gap-5 ">
@@ -39,7 +38,7 @@ function ScoreRankBox() {
           {topUsers.map((user, index) => (
             <motion.div
               key={user.userId}
-              className={`w-14 sm:w-24 
+              className={`w-15 sm:w-24 
                       ${
                         index === 0
                           ? "h-26 sm:h-40"

@@ -56,7 +56,7 @@ const MissionCreateCheckNotice: React.FC<MissionCreateCheckNoticeProps> = ({
               const message = await createSkinCareMission();
               Swal.fire("성공", message, "success");
             } catch (error: any) {
-              Swal.fire("ㅗ", error.message, "warning");
+              Swal.fire("분석 결과 없음", error.message, "warning");
             }
           }}
           className="w-full sm:w-auto px-4 py-2 bg-[#7FC5E0] text-white font-semibold rounded-lg hover:bg-[#66b2cf] transition"

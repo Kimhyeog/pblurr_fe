@@ -90,13 +90,12 @@ export default function UserInfoModal({
         >
           <div
             className="
-    absolute top-full mt-2  bg-white rounded-2xl border-[1px] border-gray-300 shadow-md p-6
+    absolute top-full mt-2  bg-white rounded-2xl border-[1px]
+  border-gray-300 shadow-md p-6
     flex flex-col gap-y-2
-    sm:right-[120px]
+    left-[0px] sm:right-[120px]
     sm:translate-x-0
-    right-1/2 translate-x-1/2
-    w-sm
-    sm:w-lg
+    w-md sm:w-lg
   "
             style={{ zIndex: 30 }}
           >

@@ -37,7 +37,7 @@ const GeneralModal: React.FC<GeneralModalProps> = ({
               mx-auto
               sm:top-1/2 sm:left-1/2 sm:bottom-auto
               sm:translate-x-[-50%] sm:translate-y-[-50%]
-              sm:rounded-2xl sm:shadow-xl
+              sm:rounded-2xl sm:shadow-xl sm:w-auto
               rounded-t-3xl
 
               sm:max-h-none sm:overflow-visible

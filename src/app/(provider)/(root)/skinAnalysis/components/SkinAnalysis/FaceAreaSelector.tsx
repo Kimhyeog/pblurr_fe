@@ -12,7 +12,7 @@ const areaPositions: { [key: string]: { top: string; left: string } } = {
   "오른쪽 눈가 주름": { top: "35%", left: "76%" },
   "왼쪽 볼": { top: "50%", left: "27%" },
   "오른쪽 볼": { top: "50%", left: "73%" },
-  "면상 하부": { top: "65%", left: "50%" },
+  하안부: { top: "65%", left: "50%" },
 };
 
 const FaceAreaSelectorMobile: React.FC<FaceAreaSelectorMobileProps> = ({
@@ -26,7 +26,7 @@ const FaceAreaSelectorMobile: React.FC<FaceAreaSelectorMobileProps> = ({
     "오른쪽 눈가 주름",
     "왼쪽 볼",
     "오른쪽 볼",
-    "면상 하부",
+    "하안부",
   ];
 
   return (
@@ -68,7 +68,7 @@ const FaceAreaSelectorMobile: React.FC<FaceAreaSelectorMobileProps> = ({
           <button
             key={category}
             onClick={() => onSelect(displayCategory)}
-            className={`absolute px-3 py-1 rounded-full text-2xl transform -translate-x-1/2 -translate-y-1/2 ${
+            className={`absolute px-3 py-1 rounded-full whitespace-nowrap text-sm sm:text-2xl transform -translate-x-1/2 -translate-y-1/2 ${
               isSelected
                 ? "bg-[#7FC5E0] text-white"
                 : "bg-[#3B6F82] text-white hover:bg-[#7FC5E0]"

@@ -27,7 +27,6 @@ function DiagnoseResultInfo() {
             </span>
             를 알려드려요! 실제 나이와 비교해보며 피부 건강을 체크해보세요.
           </p>
-          <div>피부 나이 분석 결과 예시</div>
         </section>
 
         {/* 결과2 */}
@@ -52,7 +51,6 @@ function DiagnoseResultInfo() {
             </li>
             <li>항목 예시: 이마 주름, 눈가 주름, 색소침착, 모공 크기 등</li>
           </ul>
-          <div>부위별 피부 상태 결과 예시</div>
         </section>
 
         {/* 결과3 */}
@@ -79,7 +77,6 @@ function DiagnoseResultInfo() {
               전체 <span className="font-bold text-[#5CA7C8]">모공 점수</span>
             </li>
           </ul>
-          <div>종합 피부 점수 예시</div>
         </section>
 
         {/* 결과4 */}
@@ -96,7 +93,6 @@ function DiagnoseResultInfo() {
             </span>
             을 추천해드려요.
           </p>
-          <div>맞춤 화장품 추천 예시</div>
         </section>
 
         {/* 결과5 */}
@@ -117,7 +113,6 @@ function DiagnoseResultInfo() {
           <p className="text-sm mt-1 text-gray-600">
             미션을 따라 하면서 꾸준히 피부 개선을 체험해보세요 💡
           </p>
-          <div>스킨케어 미션 사진 예시</div>
         </section>
       </div>
     </motion.div>

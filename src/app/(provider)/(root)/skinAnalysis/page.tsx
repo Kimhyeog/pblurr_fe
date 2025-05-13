@@ -7,6 +7,8 @@ import { SkinAnalysisResult } from "@/types/types";
 import CosMeticSession from "./components/Cosmetics/CosMeticSession";
 import DiagnoseStartInfo from "./components/Info/DiagnoseStartInfo";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
+import { createSkinCareMission } from "@/api/skinCareMission";
 
 export default function Page() {
   const router = useRouter();
@@ -91,7 +93,16 @@ export default function Page() {
               </button>
               <button
                 className="w-full py-2 bg-[#FBBF24] text-white text-xl sm:text-2xl hover:bg-[#fbbe24aa] active:bg-[#fbbe2460] rounded-2xl"
-                onClick={() => router.push("/skincaremission")}
+                onClick={() =>
+                  Swal.fire("니 미션 없어질거임").then(async () => {
+                    try {
+                      await createSkinCareMission();
+                      router.push("/skincaremission");
+                    } catch (error: any) {
+                      Swal.fire("실패", error.message, "warning");
+                    }
+                  })
+                }
               >
                 스킨 케어 미션 생성하기
               </button>
