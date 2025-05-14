@@ -119,11 +119,14 @@ export default function Header() {
                 로그아웃
               </button>
               {/* UserInfoModal이 열릴 때만 렌더링 */}
-              <UserInfoModal
-                userInformation={userInfo!}
-                isOpen={isUserInfoModalOpen}
-                onClose={handleModalClose}
-              />
+              {/* ✅ 모달 위치 기준을 이 div로 제한 */}
+              {isUserInfoModalOpen && (
+                <UserInfoModal
+                  userInformation={userInfo!}
+                  isOpen={isUserInfoModalOpen}
+                  onClose={handleModalClose}
+                />
+              )}
             </div>
           ) : (
             <button

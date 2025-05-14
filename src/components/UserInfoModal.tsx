@@ -1,3 +1,5 @@
+//src/components/UserInfoModal.tsx
+
 "use client";
 
 import { User } from "@/types/types";
@@ -5,10 +7,9 @@ import { useEffect, useState } from "react";
 import ChangePwBox from "./LoginAndSignUp/ChangePwBox";
 import { checkPassword, deleteUser } from "@/api/auth";
 import { useRouter } from "next/navigation";
-import Swal from "sweetalert2"; //Modal import
+import Swal from "sweetalert2";
 import { AnimatePresence, motion } from "framer-motion";
 
-// UserInfoModal.tsx
 interface UserInfoModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -22,9 +23,20 @@ export default function UserInfoModal({
 }: UserInfoModalProps) {
   const [pwInputOpen, setPwInputOpen] = useState(false);
   const router = useRouter();
-  // MyPage 모달 닫기 버튼 핸들러
+  const [isMobile, setIsMobile] = useState(false);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 640); // sm 기준
+  };
+
+  useEffect(() => {
+    handleResize(); // 최초 확인
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleCancel = () => {
-    setPwInputOpen(false); // `false`로 변경해야 ChangePwBox가 사라지고 버튼이 다시 보임
+    setPwInputOpen(false);
   };
 
   const handleClick = async (): Promise<void> => {
@@ -41,7 +53,7 @@ export default function UserInfoModal({
       },
     });
 
-    if (isDismissed) return; // 취소 버튼을 누르면 아무 동작 없이 종료
+    if (isDismissed) return;
 
     if (!currentPassword) {
       Swal.fire("오류", "회원 탈퇴에 실패하였습니다.", "error");
@@ -74,88 +86,83 @@ export default function UserInfoModal({
     }
   };
 
-  // 모달 열닫 상태 State의 useEffect
-  useEffect(() => {}, [pwInputOpen]);
-
-  if (!isOpen) return null; // isOpen이 false일 때는 모달을 렌더링하지 않음
+  if (!isOpen) return null;
 
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="box"
+          className="z-30"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <div
             className="
-    absolute top-full mt-2  bg-white rounded-2xl border-[1px]
-  border-gray-300 shadow-md p-6
-    flex flex-col gap-y-2
-    left-[0px] sm:right-[120px]
-    sm:translate-x-0
-    w-md sm:w-lg
+    absolute top-full mt-2 left-1/2 -translate-x-1/2
+    bg-white rounded-2xl border border-gray-300 shadow-md p-4
+    w-[300px] sm:w-[400px]
+    z-30
   "
-            style={{ zIndex: 30 }}
           >
-            <h3 className="text-xl font-bold mb-4">
+            <h3 className="text-base sm:text-lg md:text-xl font-bold mb-4">
               {userInformation.userName}님 회원 정보
             </h3>
 
-            <div className="mb-2 flex flex-col gap-y-2">
-              <p className="text-gray-500 text-md">생년월일</p>
-              <span className="text-black font-medium text-lg">
+            <div className="mb-2 flex flex-col gap-y-1 sm:gap-y-2">
+              <p className="text-gray-500 text-sm sm:text-md">생년월일</p>
+              <span className="text-black font-medium text-sm sm:text-base md:text-lg">
                 {userInformation.userBirthday}
               </span>
             </div>
 
-            <div className="mb-2 flex flex-col gap-y-2">
-              <p className="text-gray-500 text-md">아이디</p>
-              <span className="text-black font-medium text-lg">
+            <div className="mb-2 flex flex-col gap-y-1 sm:gap-y-2">
+              <p className="text-gray-500 text-sm sm:text-md">아이디</p>
+              <span className="text-black font-medium text-sm sm:text-base md:text-lg">
                 {userInformation.userId}
               </span>
             </div>
 
-            <div className="mb-4 flex flex-col gap-y-2">
-              <p className="text-gray-500 text-md text-md">비밀번호</p>
+            <div className="mb-4 flex flex-col gap-y-1 sm:gap-y-2">
+              <p className="text-gray-500 text-sm sm:text-md">비밀번호</p>
               <div className="flex flex-row gap-x-2">
-                {/* 비밀번호 변경 */}
-                {pwInputOpen === false ? (
+                {pwInputOpen ? (
+                  <ChangePwBox onCLickClose={handleCancel} />
+                ) : (
                   <button
                     onClick={() => setPwInputOpen(true)}
-                    className="bg-blue-400 text-white text-lg px-3 py-0.5 rounded-lg font-semibold cursor-pointer"
+                    className="bg-blue-400 text-white text-xs sm:text-sm md:text-base px-3 py-1 rounded-lg font-semibold cursor-pointer"
                   >
                     변경
                   </button>
-                ) : (
-                  <ChangePwBox onCLickClose={handleCancel} />
                 )}
               </div>
             </div>
-            <div className="mb-2 flex flex-col gap-y-2">
-              <p className="text-gray-500 text-md">성별</p>
-              <span className="text-black font-medium text-lg">
+
+            <div className="mb-2 flex flex-col gap-y-1 sm:gap-y-2">
+              <p className="text-gray-500 text-sm sm:text-md">성별</p>
+              <span className="text-black font-medium text-sm sm:text-base md:text-lg">
                 {userInformation.userGender === "male" ? "남자" : "여자"}
               </span>
             </div>
-            <div className="mb-2 flex flex-col gap-y-2">
-              <p className="text-gray-500 text-md">가입시기</p>
-              <span className="text-black font-medium text-lg">
+
+            <div className="mb-2 flex flex-col gap-y-1 sm:gap-y-2">
+              <p className="text-gray-500 text-sm sm:text-md">가입시기</p>
+              <span className="text-black font-medium text-sm sm:text-base md:text-lg">
                 {new Date(userInformation.createAt).toLocaleDateString()}
               </span>
             </div>
-            <div></div>
-            <div className="flex flex-row gap-x-3">
+
+            <div className="flex flex-col sm:flex-row gap-2 mt-4">
               <button
                 onClick={onClose}
-                className="w-full bg-blue-400 text-white py-2 rounded-lg font-semibold cursor-pointer"
+                className="w-full bg-blue-400 text-white py-2 rounded-lg font-semibold cursor-pointer text-sm sm:text-base"
               >
                 닫기
               </button>
               <button
                 onClick={handleClick}
-                className="w-full bg-red-400 text-white py-2 rounded-lg font-semibold cursor-pointer"
+                className="w-full bg-red-400 text-white py-2 rounded-lg font-semibold cursor-pointer text-sm sm:text-base"
               >
                 탈퇴하기
               </button>
