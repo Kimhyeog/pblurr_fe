@@ -3,7 +3,7 @@
 import { getPostById, togglePostLike } from "@/api/community/posts.api";
 
 interface PostLikeButtonProps {
-  postId: string;
+  postId: number;
   likes_length: number;
 }
 
@@ -25,7 +25,7 @@ function PostLikeButton(props: PostLikeButtonProps) {
     }
 
     try {
-      const message = await togglePostLike(postId!, token);
+      const message = await togglePostLike(postId!);
       alert(message);
       // 최신 상태 반영 (옵션)
     } catch (err: any) {
