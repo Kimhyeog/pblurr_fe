@@ -9,6 +9,7 @@ import DiagnoseStartInfo from "./components/Info/DiagnoseStartInfo";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { createSkinCareMission } from "@/api/skinCareMission";
+import SwalComponent from "@/components/Modal/SwalComponent";
 
 export default function Page() {
   const router = useRouter();
@@ -91,18 +92,33 @@ export default function Page() {
               >
                 화장품 추천 받기
               </button>
+
               <button
                 className="w-full py-2 bg-[#FBBF24] text-white text-xl sm:text-2xl hover:bg-[#fbbe24aa] active:bg-[#fbbe2460] rounded-2xl"
-                onClick={() =>
-                  Swal.fire("니 미션 없어질거임").then(async () => {
-                    try {
-                      await createSkinCareMission();
-                      router.push("/skincaremission");
-                    } catch (error: any) {
-                      Swal.fire("실패", error.message, "warning");
-                    }
-                  })
-                }
+                onClick={() => {
+                  SwalComponent({
+                    title: "분석 삭제 경고",
+                    content: (
+                      <p className="text-center">
+                        이전에 생성한 스킨케어미션과 기록들이 초기화됩니다.
+                        <br />
+                        그래도 생성하시겠습니까??
+                      </p>
+                    ),
+                    icon: "warning",
+                    isthen: true,
+                    showCancelButton: true,
+                    onConfirm: async () => {
+                      try {
+                        await createSkinCareMission();
+                        router.push("/skincaremission");
+                      } catch (error: any) {
+                        Swal.fire("실패", error.message, "warning");
+                      }
+                    },
+                    onCancel: () => {},
+                  });
+                }}
               >
                 스킨 케어 미션 생성하기
               </button>
