@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { SkinAnalysisCompareResponse } from "@/types/types";
 import AnalysisDateList from "./components/SelectDates/AnalysisDateList";
 import CompareAnalysisPrintBox from "./components/CompareAnalysisPrintBox";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const SkinAnalysisHistoryPage = () => {
   // 고객이 피부 미용 진단 받은 날짜 데이터들
@@ -20,6 +21,9 @@ const SkinAnalysisHistoryPage = () => {
 
   //피부 미용 기록이 없을 시, 피부미용 받으로 이동용 useRouter
   const router = useRouter();
+
+  // 로딩
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchDateList = async () => {
@@ -56,18 +60,23 @@ const SkinAnalysisHistoryPage = () => {
             selectedDates={selectedDates}
             setSelectedDates={setSelectedDates} // 함수 직접 전달
             setCompareResult={setCompareResult}
+            setLoading={setLoading}
           />
         </div>
       </div>
-      {compareResult && (
-        <div className="w-full  md:w-auto  p-5  rounded-2xl shadow-xl bg-white">
-          <h2 className="w-full p-4 rounded-2xl text-2xl text-center sm:text-left font-bold mb-2">
-            분석 비교 결과
-          </h2>
-          <div>
-            <CompareAnalysisPrintBox compareResult={compareResult} />
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        compareResult && (
+          <div className="w-full  md:w-auto  p-5  rounded-2xl shadow-xl bg-white">
+            <h2 className="w-full p-4 rounded-2xl text-2xl text-center sm:text-left font-bold mb-2">
+              분석 비교 결과
+            </h2>
+            <div>
+              <CompareAnalysisPrintBox compareResult={compareResult} />
+            </div>
           </div>
-        </div>
+        )
       )}
     </div>
   );

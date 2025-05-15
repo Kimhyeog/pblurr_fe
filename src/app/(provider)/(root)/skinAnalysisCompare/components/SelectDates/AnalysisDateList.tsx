@@ -10,10 +10,17 @@ interface Props {
   setCompareResult: React.Dispatch<
     React.SetStateAction<SkinAnalysisCompareResponse | null>
   >;
+  setLoading: (loading: boolean) => void;
 }
 
 function AnalysisDateList(props: Props) {
-  const { dateList, selectedDates, setSelectedDates, setCompareResult } = props;
+  const {
+    dateList,
+    selectedDates,
+    setSelectedDates,
+    setCompareResult,
+    setLoading,
+  } = props;
   const [sortOrder, setSortOrder] = useState<"latest" | "oldest">("latest");
 
   // 현재 월과 연도를 모두 고려해서 필터링
@@ -58,6 +65,7 @@ function AnalysisDateList(props: Props) {
       alert("날짜를 두 개 선택해주세요.");
       return;
     }
+    setLoading(true);
 
     try {
       const result = await compareSkinAnalysisResults(
@@ -67,6 +75,8 @@ function AnalysisDateList(props: Props) {
       setCompareResult(result);
     } catch (error: any) {
       alert(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 

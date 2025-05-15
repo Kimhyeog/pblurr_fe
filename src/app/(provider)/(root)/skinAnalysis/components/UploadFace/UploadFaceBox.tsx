@@ -135,6 +135,7 @@ function UploadFaceBox(props: Props) {
                     onClose();
                   }
                 }}
+                setLoading={props.setLoading}
               />
             </motion.div>
           )}

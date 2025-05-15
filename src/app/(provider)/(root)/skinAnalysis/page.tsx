@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { createSkinCareMission } from "@/api/skinCareMission";
 import SwalComponent from "@/components/Modal/SwalComponent";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 export default function Page() {
   const router = useRouter();
@@ -31,6 +32,7 @@ export default function Page() {
     setShowCosmetic(true);
   };
 
+  if (loading) return <LoadingSpinner />;
   return (
     <div className="max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen mt-5 gap-y-3">
       {result === null ? (
@@ -109,11 +111,14 @@ export default function Page() {
                     isthen: true,
                     showCancelButton: true,
                     onConfirm: async () => {
+                      setLoading(true);
                       try {
                         await createSkinCareMission();
                         router.push("/skincaremission");
                       } catch (error: any) {
                         Swal.fire("실패", error.message, "warning");
+                      } finally {
+                        setLoading(false);
                       }
                     },
                     onCancel: () => {},

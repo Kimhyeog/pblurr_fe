@@ -36,7 +36,9 @@ export default function Page() {
 
   return (
     <motion.div
-      className="box"
+      className="w-full min-h-screen flex flex-col justify-center items-center
+      px-2 sm:px-4 md:px-10
+      "
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{
@@ -47,15 +49,17 @@ export default function Page() {
     >
       <div
         className="
-    w-[80%]
-        mx-auto mt-[40%] md:mt-[20%] 
+    
     flex flex-col justify-center items-center 
     bg-white rounded-3xl shadow-lg
     
+    w-full
+    sm:max-w-screen-sm
+    md:max-w-screen-md
+    lg:max-w-screen-lg
     
-    md:max-w-screen-sm
-    lg:max-w-screen-sm
-    xl:max-w-screen-sm
+    mx-5 sm:mx-10 md:mx-15
+    
     px-20
     py-20
   "

@@ -7,6 +7,7 @@ interface Props {
   onNext: () => void;
   onFileSelect: (file: File) => void;
   triggerSubmit: () => Promise<void>;
+  setLoading: (isLoading: boolean) => void;
 }
 
 function SubmitRightFace(props: Props) {
@@ -88,8 +89,13 @@ function SubmitRightFace(props: Props) {
           type="button"
           disabled={!uploaded}
           onClick={async () => {
-            await props.triggerSubmit(); // ✅ 제출 완료 기다린 후
-            props.onClose(); // ✅ 그 다음 모달 닫기
+            props.setLoading(true);
+            try {
+              await props.triggerSubmit(); // ✅ 제출 완료 기다린 후
+              props.onClose(); // ✅ 그 다음 모달 닫기
+            } finally {
+              props.setLoading(false);
+            }
           }}
           className={`py-2 px-6 rounded-lg font-bold ${
             uploaded

@@ -4,6 +4,7 @@ import { ClipLoader } from "react-spinners";
 import ScoreRankBox from "./ScoreRank123";
 import { AverageScoreBoard } from "./AverageScoreBoard";
 import TotalScoreBoard from "./TotalScoreBoard";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 interface Props {
   missionScore: MissionScore | null;
@@ -58,10 +59,7 @@ function ScoreContainer({ missionScore }: Props) {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center text-gray-500 py-6">
-          <ClipLoader color="#5CA7C8" size={40} />
-          <p className="mt-3 text-sm">점수 데이터를 불러오는 중입니다...</p>
-        </div>
+        <LoadingSpinner />
       )}
     </div>
   );

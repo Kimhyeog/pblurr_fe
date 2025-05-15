@@ -20,6 +20,7 @@ const images = [
 ];
 
 interface Props {
+  setLoading: (loading: boolean) => void;
   setImage: (imagesrc: string | null) => void;
   setDiagnose: (diagnose: DiagnosisResult | null) => void;
   setDetailInfo: (resultDiease: DetailDieaseInfo | null) => void;
@@ -73,7 +74,7 @@ function DiagnoseBox(props: Props) {
 
     try {
       const result = await diagnoseSkinDisease(image);
-
+      props.setLoading(true);
       if (result?.disease) {
         const detail = await getSkinDiseaseDetail(result.disease);
         props.setDetailInfo(detail);
@@ -87,6 +88,8 @@ function DiagnoseBox(props: Props) {
       Swal.fire("이상 감지", error.message, "warning").then(() => {
         setImage(null);
       });
+    } finally {
+      props.setLoading(false);
     }
   };
 
@@ -115,7 +118,7 @@ function DiagnoseBox(props: Props) {
     }, 30); // 조금 더 부드럽게 빠르게
 
     return () => clearInterval(interval);
-  }, [controls]);
+  }, [IMAGE_WIDTH, controls]);
 
   return (
     <div className="relative w-full h-[500px] overflow-hidden bg-blue-50 p-3 border-4 border-[#5CA7C8] rounded-3xl shadow-xl">

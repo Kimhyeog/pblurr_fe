@@ -12,6 +12,7 @@ import Swal from "sweetalert2";
 import DiagnoseMainBox from "./components/DiagnoseMainBox";
 import GeneralModal from "@/components/Modal/GeneralModal";
 import SkinDiseaseNotice from "./components/SkinDiseaseNotice";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 export default function Page() {
   const [imageSrc, setImageSrc] = useState<string | null>("");
@@ -19,6 +20,7 @@ export default function Page() {
   const [detailInfo, setDetailInfo] = useState<DetailDieaseInfo | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); //안내문구 모달 출력 Boolean
+  const [loading, setLoading] = useState(false);
 
   const listVariants = {
     hidden: { opacity: 0 },
@@ -44,6 +46,7 @@ export default function Page() {
     setIsModalOpen(true); // 항상 모달을 열도록 설정
   }, []);
 
+  if (loading) return <LoadingSpinner />;
   return (
     <div
       className="max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen flex flex-col mt-5 
@@ -72,6 +75,7 @@ export default function Page() {
           <motion.li variants={itemVariants} className="w-full">
             <div className="w-full p-5">
               <DiagnoseBox
+                setLoading={setLoading}
                 setImage={setImageSrc}
                 setDiagnose={setDiagnosis}
                 setDetailInfo={setDetailInfo}

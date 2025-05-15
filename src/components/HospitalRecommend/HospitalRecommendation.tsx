@@ -5,6 +5,7 @@
 import { useEffect, useState } from "react";
 import { getHospitalRecommendations } from "@/api/diease/index";
 import { HospitalRecommendation } from "@/types/types";
+import LoadingSpinner from "../LoadingSpinner";
 
 interface Props {
   selectedDistrict: string | null;
@@ -14,10 +15,11 @@ function HospitalRecommendComponent(props: Props) {
   const [hospitals, setHospitals] = useState<HospitalRecommendation | null>(
     null
   );
+  const [loading, setLoading] = useState(false);
 
   const fetchHospitals = async () => {
     if (!props.selectedDistrict) return;
-
+    setLoading(true);
     try {
       const data = await getHospitalRecommendations(props.selectedDistrict);
       if (data) {
@@ -25,12 +27,16 @@ function HospitalRecommendComponent(props: Props) {
       }
     } catch (error) {
       console.error("병원 추천 데이터 가져오는 중 오류 발생:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchHospitals();
   }, [props.selectedDistrict]);
+
+  if (loading) return <LoadingSpinner />;
 
   return (
     <div className="p-6 bg-gray-50 rounded-2xl shadow-lg animate-fade-in-up">
