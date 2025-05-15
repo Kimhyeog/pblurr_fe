@@ -37,7 +37,7 @@ export default function Page() {
   return (
     <motion.div
       className="w-full min-h-screen flex flex-col justify-center items-center
-      px-2 sm:px-4 md:px-10
+      px-4 sm:px-4 md:px-10
       "
       initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -52,11 +52,10 @@ export default function Page() {
     
     flex flex-col justify-center items-center 
     bg-white rounded-3xl shadow-lg
-    
-    w-full
+    w-[350px]
     sm:max-w-screen-sm
     md:max-w-screen-md
-    lg:max-w-screen-lg
+    
     
     mx-5 sm:mx-10 md:mx-15
     
@@ -64,7 +63,7 @@ export default function Page() {
     py-20
   "
       >
-        <div className="flex flex-col items-center justify-center w-full">
+        <div className="flex flex-col items-center justify-center ">
           <Link href={"/"}>
             <Image
               src="/images/loginLogo.png"

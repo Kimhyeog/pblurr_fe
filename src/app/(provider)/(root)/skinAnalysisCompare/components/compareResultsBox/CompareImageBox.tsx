@@ -28,9 +28,9 @@ function CompareImageBox(props: Props) {
 
       {/* 모바일에서는 flex-col, sm 이상에서는 grid-cols-2 */}
       <div className="flex flex-col sm:grid sm:grid-cols-2 sm:gap-6">
-        {[0, 1, 2].map((idx) => {
+        {[1, 0, 2].map((idx) => {
           // 모바일에서는 정면(1번)만 보여주고, sm 이상에서 모두 보여줌
-          const isMobileOnly = idx !== 1;
+          const isMobileOnly = idx !== 0;
           return (
             <React.Fragment key={idx}>
               <div
@@ -75,6 +75,6 @@ function CompareImageBox(props: Props) {
   );
 }
 
-const labelMap = ["좌 30도", "정면", "우 30도"];
+const labelMap = ["정면", "좌 30도", "우 30도"];
 
 export default CompareImageBox;

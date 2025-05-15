@@ -46,7 +46,12 @@ export default function Page() {
     setIsModalOpen(true); // 항상 모달을 열도록 설정
   }, []);
 
-  if (loading) return <LoadingSpinner />;
+  if (loading)
+    return (
+      <div className="max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen flex flex-col">
+        <LoadingSpinner />;
+      </div>
+    );
   return (
     <div
       className="max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen flex flex-col mt-5 

@@ -32,7 +32,12 @@ export default function Page() {
     setShowCosmetic(true);
   };
 
-  if (loading) return <LoadingSpinner />;
+  if (loading)
+    return (
+      <div className="max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen flex flex-col">
+        <LoadingSpinner />
+      </div>
+    );
   return (
     <div className="max-w-full sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen mt-5 gap-y-3">
       {result === null ? (
@@ -99,7 +104,7 @@ export default function Page() {
                 className="w-full py-2 bg-[#FBBF24] text-white text-xl sm:text-2xl hover:bg-[#fbbe24aa] active:bg-[#fbbe2460] rounded-2xl"
                 onClick={() => {
                   SwalComponent({
-                    title: "분석 삭제 경고",
+                    title: "경고",
                     content: (
                       <p className="text-center">
                         이전에 생성한 스킨케어미션과 기록들이 초기화됩니다.

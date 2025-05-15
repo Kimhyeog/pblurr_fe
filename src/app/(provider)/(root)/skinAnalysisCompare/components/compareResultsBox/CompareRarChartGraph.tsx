@@ -45,7 +45,7 @@ function CompareRarChartGraph(props: Props) {
 
   const radarData = [
     {
-      subject: "🎨 색소침착",
+      subject: "색소침착",
       result1: normalize(
         result1.totalPigmentation,
         maxValues.totalPigmentation
@@ -56,27 +56,27 @@ function CompareRarChartGraph(props: Props) {
       ),
     },
     {
-      subject: "😊 주름",
+      subject: "주름",
       result1: normalize(result1.totalWrinkle, maxValues.totalWrinkle),
       result2: normalize(result2.totalWrinkle, maxValues.totalWrinkle),
     },
     {
-      subject: "🔍 모공",
+      subject: "모공",
       result1: normalize(result1.totalPore, maxValues.totalPore),
       result2: normalize(result2.totalPore, maxValues.totalPore),
     },
     {
-      subject: "💋 입술 건조도",
+      subject: "입술 건조도",
       result1: normalize(result1.lipDryness, maxValues.lipDryness),
       result2: normalize(result2.lipDryness, maxValues.lipDryness),
     },
     {
-      subject: "🧓 피부 나이",
+      subject: "피부 나이",
       result1: normalize(result1.skinAge, maxValues.skinAge),
       result2: normalize(result2.skinAge, maxValues.skinAge),
     },
     {
-      subject: "📉 턱선 처짐",
+      subject: "턱선 처짐",
       result1: normalize(result1.jawlineSagging, maxValues.jawlineSagging),
       result2: normalize(result2.jawlineSagging, maxValues.jawlineSagging),
     },
@@ -104,6 +104,7 @@ function CompareRarChartGraph(props: Props) {
               dataKey="subject"
               stroke="#888"
               tick={{ fontSize: 13, fill: "#5CA7C8" }}
+              className="font-extrabold"
             />
             <PolarRadiusAxis
               angle={30}
