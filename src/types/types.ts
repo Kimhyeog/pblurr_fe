@@ -9,6 +9,15 @@ export interface User {
   updateAt: string; // 추가된 속성
 }
 
+export interface GetUserInfo {
+  userName: string;
+  userId: string;
+  userBirthday: string;
+  userGender: string;
+  createAt: string; // 추가된 속성
+  updateAt: string; // 추가된 속성
+}
+
 /**
  * 피부 질환 진단 API 호출 결과 타입 정의
  */
@@ -43,17 +52,7 @@ export interface HospitalRecommendation {
   hospital3Link: string; // 추천 병원 3 링크
 }
 
-// 피부미용
-
-// types.ts
-export interface ProductItem {
-  brand: string;
-  product: string;
-  productImage: string;
-  productPrice: number;
-  productLink: string;
-}
-
+//화장품품
 // 인덱스 서명을 사용하여 동적 키를 허용
 export interface ProductItem {
   brand: string;

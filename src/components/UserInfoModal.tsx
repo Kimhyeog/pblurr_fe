@@ -2,7 +2,7 @@
 
 "use client";
 
-import { User } from "@/types/types";
+import { GetUserInfo, User } from "@/types/types";
 import { useEffect, useState } from "react";
 import ChangePwBox from "./LoginAndSignUp/ChangePwBox";
 import { checkPassword, deleteUser } from "@/api/auth";
@@ -13,7 +13,7 @@ import { AnimatePresence, motion } from "framer-motion";
 interface UserInfoModalProps {
   isOpen: boolean;
   onClose: () => void;
-  userInformation: User;
+  userInformation: GetUserInfo;
 }
 
 export default function UserInfoModal({

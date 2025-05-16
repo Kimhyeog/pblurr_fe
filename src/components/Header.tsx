@@ -6,7 +6,7 @@ import { checkLoginStatus, logout, getUserInfo } from "@/api/auth";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import UserInfoModal from "./UserInfoModal";
-import { User } from "@/types/types";
+import { GetUserInfo, User } from "@/types/types";
 import Swal from "sweetalert2";
 import SkinCareMissionPromotionButton from "./SkinCareMissionPromotionButton";
 
@@ -15,7 +15,7 @@ export default function Header() {
   const [userName, setUserName] = useState("");
   const router = useRouter();
   const [isUserInfoModalOpen, setIsUserInfoModalOpen] = useState(false);
-  const [userInfo, setUserInfo] = useState<User | null>(null);
+  const [userInfo, setUserInfo] = useState<GetUserInfo | null>(null);
   const pathname = usePathname(); // ✅ 현재 경로 확인
   // 로그인 상태 확인 함수
   const fetchLoginState = async () => {
@@ -34,8 +34,10 @@ export default function Header() {
       }
 
       const response = await getUserInfo();
-      setUserInfo(response);
-      setUserName(response.userName);
+      if (response) {
+        setUserInfo(response);
+        setUserName(response.userName);
+      }
       setIsLoginState(true);
     } catch (error) {
       console.error("로그인 상태 확인 중 오류 발생:", error);

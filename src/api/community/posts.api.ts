@@ -107,3 +107,65 @@ export const hasUserLikedPost = async (postId: number): Promise<boolean> => {
     return false;
   }
 };
+
+// export const updatePost = async (
+//   postId: string,
+//   title: string,
+//   content: string
+// ): Promise<string> => {
+//   try {
+//     const response = await axios.put(
+//       `${BASE_URL}/posts/update/${postId}`,
+//       {
+//         title,
+//         content,
+//       },
+//       {
+//         withCredentials: true,
+//       }
+//     );
+
+//     return response.data.message;
+//   } catch (error: any) {
+//     if (error.response && error.response.data && error.response.data.message) {
+//       throw new Error(error.response.data.message);
+//     } else {
+//       throw new Error("알 수 없는 오류가 발생했습니다.");
+//     }
+//   }
+// };
+
+export interface UpdatePostType {
+  postId: string;
+  title: string;
+  content: string;
+}
+
+export const updatePost = async ({
+  postId,
+  title,
+  content,
+}: UpdatePostType) => {
+  try {
+    const res = await axios.put(
+      `${BASE_URL}/posts/update/${postId}`,
+      //body
+      {
+        title,
+        content,
+      },
+      {
+        withCredentials: true,
+      }
+    );
+    if (res.status !== 200) throw new Error("게시물 수정 실패");
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      const message =
+        error.response?.data?.message || error.message || "Network Error";
+
+      throw new Error(message);
+    } else if (error instanceof Error) throw new Error(error.message);
+    else throw new Error("알 수 없는 에러");
+  }
+};

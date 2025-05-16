@@ -8,6 +8,7 @@ import { ClipLoader } from "react-spinners";
 import SinglePostContents from "../../components/posts/SinglePostContents";
 import SinglePostCommentsBox from "../../components/posts/SinglePostCommentsBox";
 import { checkLoginStatus } from "@/api/auth";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Page() {
   const params = useParams();
@@ -29,21 +30,6 @@ export default function Page() {
   }, []);
 
   // 게시글 정보 불러오기
-  useEffect(() => {
-    if (!postId) return;
-
-    getPostById(postId)
-      .then((data) => {
-        setPost(data);
-        setLikeCount(data.likes.length);
-      })
-      .catch((err) => {
-        setError(
-          err.response?.data?.message || "알 수 없는 오류가 발생했습니다."
-        );
-      });
-  }, [postId]);
-
   useEffect(() => {
     if (!postId) return;
 

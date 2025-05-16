@@ -1,3 +1,4 @@
+import { GetUserInfo } from "@/types/types";
 import axios, { AxiosResponse } from "axios";
 
 const BASE_URL = "https://capstone-backend-1234-ab6179e289b1.herokuapp.com";
@@ -120,7 +121,7 @@ const checkUserId = async (userId: string): Promise<boolean> => {
 };
 
 // 사용자 정보 조회 함수
-const getUserInfo = async () => {
+const getUserInfo = async (): Promise<GetUserInfo | null> => {
   try {
     const response = await axios.get(`${BASE_URL}/userinfo`, {
       withCredentials: true, // 인증된 요청
@@ -136,8 +137,10 @@ const getUserInfo = async () => {
         console.log("로그인이 필요합니다.");
       }
     }
+
     console.error("API 요청 중 오류가 발생했습니다.", error);
   }
+  return null;
 };
 
 /**
