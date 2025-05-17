@@ -108,33 +108,6 @@ export const hasUserLikedPost = async (postId: number): Promise<boolean> => {
   }
 };
 
-// export const updatePost = async (
-//   postId: string,
-//   title: string,
-//   content: string
-// ): Promise<string> => {
-//   try {
-//     const response = await axios.put(
-//       `${BASE_URL}/posts/update/${postId}`,
-//       {
-//         title,
-//         content,
-//       },
-//       {
-//         withCredentials: true,
-//       }
-//     );
-
-//     return response.data.message;
-//   } catch (error: any) {
-//     if (error.response && error.response.data && error.response.data.message) {
-//       throw new Error(error.response.data.message);
-//     } else {
-//       throw new Error("알 수 없는 오류가 발생했습니다.");
-//     }
-//   }
-// };
-
 export interface UpdatePostType {
   postId: string;
   title: string;
@@ -168,4 +141,37 @@ export const updatePost = async ({
     } else if (error instanceof Error) throw new Error(error.message);
     else throw new Error("알 수 없는 에러");
   }
+};
+
+//댓글 작성 API
+export const createComment = async (postId: string, content: string) => {
+  const response = await axios.post(
+    `${BASE_URL}/comments/create/${postId}`,
+    { content },
+    { withCredentials: true }
+  );
+  return response.data;
+};
+
+/**
+ * 댓글 수정 API
+ */
+export const updateComment = async (commentId: number, content: string) => {
+  const response = await axios.put(
+    `${BASE_URL}/comments/update/${commentId}`,
+    { content },
+    { withCredentials: true }
+  );
+  return response.data;
+};
+
+/**
+ * 댓글 삭제 API
+ */
+export const deleteComment = async (commentId: number) => {
+  const response = await axios.delete(
+    `${BASE_URL}/comments/delete/${commentId}`,
+    { withCredentials: true }
+  );
+  return response.data;
 };

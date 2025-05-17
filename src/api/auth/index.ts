@@ -128,7 +128,6 @@ const getUserInfo = async (): Promise<GetUserInfo | null> => {
     });
 
     if (response.status === 200) {
-      console.log("사용자 정보:", response.data);
       return response.data;
     }
   } catch (error) {

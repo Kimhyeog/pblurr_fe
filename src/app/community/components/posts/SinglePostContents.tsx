@@ -10,6 +10,7 @@ interface SinglePostContentsProps {
   likeCount: number;
   setLikeCount: (count: number) => void;
   routerCallback: () => void;
+  currentUserId: string;
 }
 
 function SinglePostContents({
@@ -18,6 +19,7 @@ function SinglePostContents({
   isLoggedIn,
   setLikeCount,
   routerCallback,
+  currentUserId,
 }: SinglePostContentsProps) {
   const { id, title, userId, userName, images, content, createAt, likes } =
     post;
@@ -55,13 +57,14 @@ function SinglePostContents({
           onLikeToggle={setLikeCount}
           isLoggedIn={isLoggedIn}
         />
-
-        <button
-          onClick={() => router.push(`/community/post/${id}/updating`)}
-          className="bg-white border border-pink-500 text-pink-500 hover:bg-pink-50 px-5 py-2 rounded-xl text-sm transition"
-        >
-          수정하기
-        </button>
+        {currentUserId === userId && (
+          <button
+            onClick={() => router.push(`/community/post/${id}/updating`)}
+            className="bg-white border border-pink-500 text-pink-500 hover:bg-pink-50 px-5 py-2 rounded-xl text-sm transition"
+          >
+            수정하기
+          </button>
+        )}
         <button
           className="bg-white border border-pink-500 text-pink-500 hover:bg-pink-50 px-5 py-2 rounded-xl text-sm transition"
           onClick={routerCallback}
