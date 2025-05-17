@@ -63,8 +63,14 @@ export default function Page() {
       ) : showCosmetic ? (
         // 화장품 추천 화면
         <div className="rounded-2xl flex flex-col gap-y-4 items-center px-10 py-5 border-0 bg-white">
-          <div className="text-center sm:text-left text-xl sm:text-2xl lg:text-3xl font-bold pl-1 py-1 w-full">
-            피부 미용 분석 기반 화장품 추천
+          <div className="flex justify-between items-center text-center sm:text-left text-xl sm:text-2xl lg:text-3xl font-bold pl-1 py-1 w-full">
+            <p>피부 미용 분석 기반 화장품 추천</p>{" "}
+            <button
+              onClick={() => setShowCosmetic(false)}
+              className="group relative inline-flex items-center justify-center px-4 py-1 sm:py-3 sm:px-6 text-base sm:text-md font-semibold text-white bg-gradient-to-r from-[#4DB6AC] to-[#0288D1] rounded-full shadow-md transition-all duration-300 hover:scale-105 hover:from-[#00897B] hover:to-[#0277BD] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0288D1]"
+            >
+              📊 <span className="ml-2">분석 결과 다시 보기</span>
+            </button>
           </div>
           <div className="w-full border-4 border-[#5CA7C8] rounded-2xl shadow-xl bg-white">
             <CosMeticSession

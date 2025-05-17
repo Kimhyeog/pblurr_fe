@@ -11,6 +11,7 @@ import SwalComponent from "@/components/Modal/SwalComponent";
 import { SkinAnalysisResult } from "@/types/types";
 import FaceAreaSelectorMobile from "./FaceAreaSelectorMobile";
 import FaceAreaSelector from "./FaceAreaSelector";
+import FilterDropdown from "./FilterDropDown";
 
 interface Props {
   result: SkinAnalysisResult;
@@ -19,7 +20,7 @@ interface Props {
 const SkinAnalysis = ({ result }: Props) => {
   const resultRef = useRef<HTMLDivElement>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("이마");
-
+  const [totalDataView, setTotalDataView] = useState(false);
   useEffect(() => {
     if (result.skinAge === -1) {
       SwalComponent({
@@ -94,6 +95,14 @@ const SkinAnalysis = ({ result }: Props) => {
     return percentage > 50 ? "Good" : "Bad";
   }
 
+  const handleFilter = (selected: string) => {
+    if (selected === "전체 보기") {
+      setTotalDataView(false);
+    } else if (selected === "세부 항목") {
+      setTotalDataView(true);
+    }
+  };
+
   // 선택된 카테고리 필터링
   const filteredData =
     selectedCategory === "전체"
@@ -120,64 +129,71 @@ const SkinAnalysis = ({ result }: Props) => {
             <SkinResultAge imageUrls={result.imageUrls} />
           </div>
 
-          {/* FaceAreaSelector 컴포넌트 추가 */}
-          {/* <FaceAreaSelectorMobile
-            categories={["전체", "이마", "눈가", "볼", "면상 하부"]}
-            onSelect={setSelectedCategory}
-            selectedCategory={selectedCategory}
-          /> */}
+          <div>
+            <FilterDropdown
+              options={["전체 보기", "세부 항목"]}
+              onSelect={handleFilter}
+            />
 
-          <FaceAreaSelector
-            onSelect={setSelectedCategory}
-            selectedCategory={selectedCategory}
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            <div className="col-span-full">
-              <div className="text-xl sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] mb-5">
-                📊 세부 항목별 점수
-              </div>
-              <div className="flex flex-col gap-8">
-                {filteredData.map((section, sectionIndex) => (
-                  <div
-                    key={sectionIndex}
-                    className="flex flex-col gap-2 border border-[#DEDCE1] rounded-2xl shadow-sm p-2 sm:p-4 mb-3"
-                  >
-                    <div className="flex items-center gap-2">
-                      <Image
-                        src="/images/피부분석아이콘.png"
-                        alt="의심 질환 아이콘"
-                        width={35}
-                        height={35}
-                      />
-                      <h2 className="text-lg sm:text-2xl font-bold mb-2">
-                        {section.category}
-                      </h2>
+            {totalDataView ? (
+              <>
+                <FaceAreaSelector
+                  onSelect={setSelectedCategory}
+                  selectedCategory={selectedCategory}
+                />
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  <div className="col-span-full">
+                    <div className="text-xl sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] mb-5">
+                      📊 세부 항목별 점수
                     </div>
-                    <div className="flex flex-col gap-4">
-                      {section.items.map((item, itemIndex) => {
-                        const range = scoreRanges[item.name] ?? 10;
-                        const percentage = Math.round(
-                          (item.value / range) * 100
-                        );
-                        const status = getStatusFromPercentage(percentage);
+                    <div className="flex flex-col gap-8">
+                      {filteredData.map((section, sectionIndex) => (
+                        <div
+                          key={sectionIndex}
+                          className="flex flex-col gap-2 border border-[#DEDCE1] rounded-2xl shadow-sm p-2 sm:p-4 mb-3"
+                        >
+                          <div className="flex items-center gap-2">
+                            <Image
+                              src="/images/피부분석아이콘.png"
+                              alt="의심 질환 아이콘"
+                              width={35}
+                              height={35}
+                            />
+                            <h2 className="text-lg sm:text-2xl font-bold mb-2">
+                              {section.category}
+                            </h2>
+                          </div>
+                          <div className="flex flex-col gap-4">
+                            {section.items.map((item, itemIndex) => {
+                              const range = scoreRanges[item.name] ?? 10;
+                              const percentage = Math.round(
+                                (item.value / range) * 100
+                              );
+                              const status =
+                                getStatusFromPercentage(percentage);
 
-                        return (
-                          // 수정&& :전체 요약 점수
-                          <ScoreCard
-                            key={itemIndex}
-                            label={item.name}
-                            score={item.value}
-                            percentage={percentage}
-                            status={status}
-                            max={range}
-                          />
-                        );
-                      })}
+                              return (
+                                // 수정&& :전체 요약 점수
+                                <ScoreCard
+                                  key={itemIndex}
+                                  label={item.name}
+                                  score={item.value}
+                                  percentage={percentage}
+                                  status={status}
+                                  max={range}
+                                />
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
+              </>
+            ) : (
+              <div>전체 데이터</div>
+            )}
           </div>
 
           <h3 className="text-lg sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] mb-5">

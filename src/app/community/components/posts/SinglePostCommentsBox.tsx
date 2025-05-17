@@ -36,7 +36,7 @@ function SinglePostCommentsBox(props: SinglePostCommentsBoxProps) {
   });
 
   return (
-    <div>
+    <div className="flex flex-col gap-y-4">
       <h3 className="text-lg font-semibold text-gray-800 mb-4">댓글</h3>
       {/* 댓글 작성 div */}
       <CommentCreateInputBox
@@ -45,7 +45,7 @@ function SinglePostCommentsBox(props: SinglePostCommentsBoxProps) {
         mutate={mutation.mutate}
         isLoggedIn={isLoggedIn}
       />
-      <ul className="space-y-4">
+      <ul className="space-y-4 flex flex-col gap-y-2">
         {comments.map((comment) => (
           <div key={comment.id} className="w-full">
             <SingleCommentItem
