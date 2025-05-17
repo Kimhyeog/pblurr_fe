@@ -12,6 +12,7 @@ import { SkinAnalysisResult } from "@/types/types";
 import FaceAreaSelectorMobile from "./FaceAreaSelectorMobile";
 import FaceAreaSelector from "./FaceAreaSelector";
 import FilterDropdown from "./FilterDropDown";
+import TotalSkinAnalysis from "./TotalSkinAnalysis";
 
 interface Props {
   result: SkinAnalysisResult;
@@ -192,7 +193,18 @@ const SkinAnalysis = ({ result }: Props) => {
                 </div>
               </>
             ) : (
-              <div>전체 데이터</div>
+              // "전체 보기" 선택 시: 모든 카테고리 한꺼번에 보여줌
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className="col-span-full">
+                  <div className="text-xl sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] mb-5">
+                    📊 전체 항목별 점수
+                  </div>
+                  <TotalSkinAnalysis
+                    categorizedData={categorizedData}
+                    scoreRanges={scoreRanges}
+                  />
+                </div>
+              </div>
             )}
           </div>
 
