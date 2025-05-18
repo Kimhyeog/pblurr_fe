@@ -43,7 +43,7 @@ const ImageCropper = ({
           onCropComplete={onCropCompleteInternal}
         />
       </div>
-      <div className="lex items-center justify-between mt-3 gap-x-5 sm:gap-x-10">
+      <div className="flex items-center justify-between mt-3 gap-x-5 sm:gap-x-10">
         <button
           className="w-full bg-[#5CA7C8] text-white px-4 py-2 font-bold rounded-lg cursor-pointer 
         hover:bg-blue-300
@@ -51,7 +51,7 @@ const ImageCropper = ({
         "
           onClick={handleCrop}
         >
-          크롭 완료
+          완료
         </button>
         <button
           onClick={onCloseModal}
@@ -60,7 +60,7 @@ const ImageCropper = ({
                focus:bg-[#e76565] transition
                "
         >
-          편집 취소
+          취소
         </button>
       </div>
     </div>

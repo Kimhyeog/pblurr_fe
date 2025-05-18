@@ -105,10 +105,13 @@ function DiagnoseBox(props: Props) {
   }, [imageSrc]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      x.current -= 1; // 1px씩 이동
+    let isMounted = true;
 
-      // 너무 왼쪽으로 이동하면 위치 초기화
+    const interval = setInterval(() => {
+      if (!isMounted) return;
+
+      x.current -= 1;
+
       if (x.current <= -(IMAGE_WIDTH * images.length)) {
         x.current = 0;
       }
@@ -117,9 +120,12 @@ function DiagnoseBox(props: Props) {
         x: x.current,
         transition: { duration: 0.03, ease: "linear" },
       });
-    }, 30); // 조금 더 부드럽게 빠르게
+    }, 30);
 
-    return () => clearInterval(interval);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
   }, [IMAGE_WIDTH, controls]);
 
   return (
