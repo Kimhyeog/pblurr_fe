@@ -11,7 +11,7 @@ interface Props {
   selectedDistrict: string | null;
 }
 
-function HospitalRecommendComponent(props: Props) {
+function WepHospitalRecommendComponent(props: Props) {
   const [hospitals, setHospitals] = useState<HospitalRecommendation | null>(
     null
   );
@@ -111,4 +111,4 @@ function HospitalRecommendComponent(props: Props) {
   );
 }
 
-export default HospitalRecommendComponent;
+export default WepHospitalRecommendComponent;

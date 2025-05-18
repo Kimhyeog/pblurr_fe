@@ -39,8 +39,10 @@ export default function ModalUse({
         );
       },
       customClass: {
+        container: "!p-1 !sm:p-10",
         popup:
-          "!rounded-3xl !p-5 !overflow-visible !border-10 !border-[#bfdbfe] w-full",
+          "!rounded-3xl !p-1 !sm:p-5 !overflow-visible !border-10 !border-[#bfdbfe]",
+        htmlContainer: "!p-1 !sm:p-10 !m-0", // ✨ 여기 추가
       },
       backdrop: true,
     };

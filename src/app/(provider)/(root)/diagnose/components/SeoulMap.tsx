@@ -2,7 +2,8 @@
 
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { useState, useRef, useEffect } from "react";
-import HospitalRecommendComponent from "@/components/HospitalRecommend/HospitalRecommendation";
+import WepHospitalRecommendComponent from "@/components/HospitalRecommend/WebHospitalRecommendation";
+import MobileHospitalRecommendComponent from "@/components/HospitalRecommend/MobileHospitalRecommendation";
 
 const geoUrl = "/assets/seoul-districts-geo.json";
 
@@ -61,9 +62,11 @@ const SeoulMap = () => {
             value={selectedDistrict || ""}
             className="w-[300px] p-3 border rounded-xl text-lg font-semibold bg-white shadow"
           >
-            <option value="">지역구를 선택하세요</option>
+            <option value="" className="text-center">
+              지역구를 선택하세요
+            </option>
             {districts.map((district) => (
-              <option key={district} value={district}>
+              <option key={district} value={district} className="text-center">
                 {district}
               </option>
             ))}
@@ -157,7 +160,7 @@ const SeoulMap = () => {
       {!selectedDistrict ? (
         // 결과 없음 (선택되지 않은 경우)
         <div
-          className={`flex flex-col items-center p-6 bg-gray-50 rounded-2xl w-full h-[300px] shadow-lg animate-fade-in-up ${
+          className={`flex flex-col items-center p-6 bg-gray-50 rounded-2xl w-full h-auto shadow-lg animate-fade-in-up ${
             isMobile ? "text-[70%]" : ""
           }`}
         >
@@ -170,10 +173,17 @@ const SeoulMap = () => {
             </div>
           </div>
         </div>
+      ) : isMobile ? (
+        // 결과 있음 + 모바일인 경우
+        <div className="w-full font-semibold text-blue-600 animate-fade-in-up">
+          <MobileHospitalRecommendComponent
+            selectedDistrict={selectedDistrict}
+          />
+        </div>
       ) : (
-        // 결과 있음 (선택된 경우)
+        // 결과 있음 + 웹 경우
         <div className="font-semibold text-blue-600 animate-fade-in-up">
-          <HospitalRecommendComponent selectedDistrict={selectedDistrict} />
+          <WepHospitalRecommendComponent selectedDistrict={selectedDistrict} />
         </div>
       )}
     </div>
