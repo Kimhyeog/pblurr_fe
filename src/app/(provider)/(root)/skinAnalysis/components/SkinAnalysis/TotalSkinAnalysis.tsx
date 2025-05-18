@@ -44,12 +44,9 @@ const TotalSkinAnalysis = ({
   return (
     <div className="w-full flex flex-row ">
       {categorizedData.map((section, sectionIdx) => (
-        <div
-          key={sectionIdx}
-          className="w-full bg-white shadow p-4 rounded-xl overflow-x-auto"
-        >
+        <div key={sectionIdx} className="w-full bg-white shadow p-4 rounded-xl">
           <h3
-            className="text-lg font-bold mb-4"
+            className="w-full text-center text-lg font-bold"
             style={{ color: colors[section.category] || "#000" }}
           >
             {section.category}
@@ -87,6 +84,7 @@ const TotalSkinAnalysis = ({
                     </BarChart>
                   </ResponsiveContainer>
                   <div className="text-center text-sm font-bold mt-1">
+                    {/* 이 부분을 가로텍스트로 "이마주름"이 아닌 한글자씩 세로로 출력 가능할까? */}
                     {highlightText(item.name, section.category, color)}
                   </div>
                 </div>
