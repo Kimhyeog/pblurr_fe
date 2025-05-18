@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import WepHospitalRecommendComponent from "@/components/HospitalRecommend/WebHospitalRecommendation";
 import MobileHospitalRecommendComponent from "@/components/HospitalRecommend/MobileHospitalRecommendation";
 import { useCurrentSeoulDistrict } from "@/hooks/useCurrentSeoulDistrict";
+import { FaMapMarkerAlt } from "react-icons/fa";
 
 const geoUrl = "/assets/seoul-districts-geo.json";
 
@@ -69,18 +70,21 @@ const SeoulMap = () => {
   return (
     <div className="flex flex-col gap-y-10 items-center">
       {/* ✅ 위치 메시지 출력 */}
-      <div className="mb-4 text-lg font-semibold text-gray-700">
-        {error === "현재 위치는 서울에 있지 않습니다." && (
-          <span className="text-red-500">
-            현재 위치는 서울에 있지 않습니다.
-          </span>
-        )}
-        {error && error !== "현재 위치는 서울에 있지 않습니다." && (
-          <span className="text-red-500">현재 위치를 알 수 없습니다.</span>
-        )}
-        {!error && district && (
-          <span className="text-blue-600">나의 위치: {district}</span>
-        )}
+      <div className="my-4 p-4 bg-white rounded-xl shadow flex items-center space-x-3">
+        <FaMapMarkerAlt className="text-2xl text-blue-600" />
+        <div className="text-lg font-semibold text-gray-700">
+          {error === "현재 위치는 서울에 있지 않습니다." && (
+            <span className="text-red-500">
+              현재 위치가 서울에 있지 않습니다.
+            </span>
+          )}
+          {error && error !== "현재 위치는 서울에 있지 않습니다." && (
+            <span className="text-red-500">현재 위치를 알 수 없습니다.</span>
+          )}
+          {!error && district && (
+            <span className="text-blue-600">나의 위치: {district}</span>
+          )}
+        </div>
       </div>
 
       <div ref={mapRef} className="relative flex flex-col items-center">
