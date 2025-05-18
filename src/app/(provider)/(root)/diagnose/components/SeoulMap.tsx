@@ -4,6 +4,7 @@ import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import { useState, useRef, useEffect } from "react";
 import WepHospitalRecommendComponent from "@/components/HospitalRecommend/WebHospitalRecommendation";
 import MobileHospitalRecommendComponent from "@/components/HospitalRecommend/MobileHospitalRecommendation";
+import { useCurrentSeoulDistrict } from "@/hooks/useCurrentSeoulDistrict";
 
 const geoUrl = "/assets/seoul-districts-geo.json";
 
@@ -40,8 +41,20 @@ const SeoulMap = () => {
   const [hoveredDistrict, setHoveredDistrict] = useState<string | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(false);
-
+  const { district, error } = useCurrentSeoulDistrict();
   const mapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (district) {
+      setSelectedDistrict(district);
+    }
+  }, [district]);
+
+  useEffect(() => {
+    if (error) {
+      alert(error);
+    }
+  }, [error]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -55,6 +68,21 @@ const SeoulMap = () => {
 
   return (
     <div className="flex flex-col gap-y-10 items-center">
+      {/* ✅ 위치 메시지 출력 */}
+      <div className="mb-4 text-lg font-semibold text-gray-700">
+        {error === "현재 위치는 서울에 있지 않습니다." && (
+          <span className="text-red-500">
+            현재 위치는 서울에 있지 않습니다.
+          </span>
+        )}
+        {error && error !== "현재 위치는 서울에 있지 않습니다." && (
+          <span className="text-red-500">현재 위치를 알 수 없습니다.</span>
+        )}
+        {!error && district && (
+          <span className="text-blue-600">나의 위치: {district}</span>
+        )}
+      </div>
+
       <div ref={mapRef} className="relative flex flex-col items-center">
         {isMobile ? (
           <select
