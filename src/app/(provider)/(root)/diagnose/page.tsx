@@ -13,6 +13,7 @@ import DiagnoseMainBox from "./components/DiagnoseMainBox";
 import GeneralModal from "@/components/Modal/GeneralModal";
 import SkinDiseaseNotice from "./components/SkinDiseaseNotice";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import SwalComponent from "@/components/Modal/SwalComponent";
 
 export default function Page() {
   const [imageSrc, setImageSrc] = useState<string | null>("");
@@ -155,11 +156,11 @@ export default function Page() {
                         } else {
                           Swal.fire({
                             title: "경고",
-                            html: `<p class="text-xs text-center">
-                              해당 질환의 상세 정보에는 피부 질환의 실제 예시 이미지가 포함되어 있습니다.<br/>
-                              피부 질환 이미지 특성상 다소 불편하게 느껴질 수 있으니,<br/>
-                              이미지 확인을 원하시는 경우에만 진행해 주세요.
-                            </p>`,
+                            html: `<p class="text-sm text-center">
+                                해당 질환의 상세 정보에는 <br/> 피부 질환의 실제 예시 이미지가 포함되어 있습니다.<br/>
+                                피부 질환 이미지 특성상 다소 불편하게 느껴질 수 있으니,<br/>
+                                이미지 확인을 원하시는 경우에만 진행해 주세요.
+                              </p>`,
                             icon: "warning",
                           }).then(() => {
                             setDetailOpen(true);

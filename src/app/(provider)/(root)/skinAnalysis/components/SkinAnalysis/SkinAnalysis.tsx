@@ -21,7 +21,7 @@ interface Props {
 const SkinAnalysis = ({ result }: Props) => {
   const resultRef = useRef<HTMLDivElement>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("이마");
-  const [totalDataView, setTotalDataView] = useState(false);
+  const [totalDataView, setTotalDataView] = useState(true);
   useEffect(() => {
     if (result.skinAge === -1) {
       SwalComponent({
@@ -97,10 +97,10 @@ const SkinAnalysis = ({ result }: Props) => {
   }
 
   const handleFilter = (selected: string) => {
-    if (selected === "전체 보기") {
-      setTotalDataView(false);
-    } else if (selected === "세부 항목") {
+    if (selected === "세부 항목") {
       setTotalDataView(true);
+    } else if (selected === "전체 보기") {
+      setTotalDataView(false);
     }
   };
 
@@ -130,11 +130,13 @@ const SkinAnalysis = ({ result }: Props) => {
             <SkinResultAge imageUrls={result.imageUrls} />
           </div>
 
-          <div>
-            <FilterDropdown
-              options={["전체 보기", "세부 항목"]}
-              onSelect={handleFilter}
-            />
+          <div className="w-full relative">
+            <div className="absolute top-0 right-0 z-1">
+              <FilterDropdown
+                options={["전체 보기", "세부 항목"]}
+                onSelect={handleFilter}
+              />
+            </div>
 
             {totalDataView ? (
               <>
@@ -144,10 +146,10 @@ const SkinAnalysis = ({ result }: Props) => {
                 />
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                   <div className="col-span-full">
-                    <div className="text-xl sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] mb-5">
+                    <div className="text-xl sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] my-5">
                       📊 세부 항목별 점수
                     </div>
-                    <div className="flex flex-col gap-8">
+                    <div className="flex flex-col gap-8 mt-5">
                       {filteredData.map((section, sectionIndex) => (
                         <div
                           key={sectionIndex}
@@ -196,7 +198,7 @@ const SkinAnalysis = ({ result }: Props) => {
               // "전체 보기" 선택 시: 모든 카테고리 한꺼번에 보여줌
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 <div className="col-span-full">
-                  <div className="text-xl sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] mb-5">
+                  <div className="text-xl sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1]">
                     📊 전체 항목별 점수
                   </div>
                   <TotalSkinAnalysis

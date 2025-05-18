@@ -12,7 +12,7 @@ function DieaseDetail({ detailInfo }: Props) {
 
   return (
     <div
-      className="w-full text-left
+      className="w-full text-left 
      mx-auto p-6 bg-white rounded-xl shadow-md space-y-6"
     >
       <h2 className="text-2xl font-bold text-gray-800">{disease}</h2>
@@ -37,8 +37,12 @@ function DieaseDetail({ detailInfo }: Props) {
 
       {/* 정의 */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-700 mb-1">정의</h3>
-        <p className="text-gray-600 whitespace-pre-line">{definition}</p>
+        <h3 className="text-base sm:text-lg font-semibold text-gray-700 mb-1">
+          정의
+        </h3>
+        <p className="text-gray-600 text-lg whitespace-pre-line">
+          {definition}
+        </p>
       </div>
 
       {/* 더보기 섹션 */}
@@ -53,19 +57,21 @@ function DieaseDetail({ detailInfo }: Props) {
           {/* 원인 */}
           <div>
             <h3 className="text-lg font-semibold text-gray-700 mb-1">원인</h3>
-            <p className="text-gray-600 whitespace-pre-line">{cause}</p>
+            <p className="text-gray-600 text-lg whitespace-pre-line">{cause}</p>
           </div>
 
           {/* 증상 */}
           <div>
             <h3 className="text-lg font-semibold text-gray-700 mb-1">증상</h3>
-            <p className="text-gray-600 whitespace-pre-line">{symptom}</p>
+            <p className="text-gray-600 text-lg whitespace-pre-line">
+              {symptom}
+            </p>
           </div>
 
           {/* 출처 */}
           <div>
             <h3 className="text-lg font-semibold text-gray-700 mb-1">출처</h3>
-            <p className="text-gray-500">{source}</p>
+            <p className="text-gray-500 text-lg">{source}</p>
           </div>
         </motion.div>
       </AnimatePresence>
