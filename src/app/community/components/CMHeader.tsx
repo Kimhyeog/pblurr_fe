@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import CHeaderNav from "./CHeaderNav";
 
 function CMHeader() {
   return (
@@ -16,7 +15,7 @@ function CMHeader() {
     md:flex-row md:justify-between
   "
     >
-      <Link href="/community">
+      <Link href="/">
         <Image
           src="/images/피부르르_가로_로그인로고.png"
           alt="로그인 로고"
@@ -25,7 +24,6 @@ function CMHeader() {
           className="min-w-[500px] sm:min-w-[300px]"
         />
       </Link>
-      <CHeaderNav />
       <div className="flex gap-4 items-center px-3">
         <span>김형준님</span>
         <button className="bg-pink-500 text-white px-3 py-1 rounded">

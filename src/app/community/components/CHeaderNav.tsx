@@ -5,9 +5,8 @@ import clsx from "clsx";
 
 function CHeaderNav() {
   const navItems = [
-    { name: "피부 진단", href: "/" },
-    { name: "커뮤니티", href: "/community" },
-    { name: "인기글", href: "/about" },
+    { name: "메인 페이지", href: "/" },
+    { name: "이준민 일기장(유료)", href: "/community" },
   ];
 
   return (
