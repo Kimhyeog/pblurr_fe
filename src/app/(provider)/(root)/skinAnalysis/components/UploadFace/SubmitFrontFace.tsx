@@ -21,6 +21,7 @@ function SubmitFrontFace(props: Props) {
       setPreviewUrl(url);
       setUploaded(true);
       props.onFileSelect(file); // ⬅️ 파일 전달
+      setIsCropping(true);
     }
   };
 

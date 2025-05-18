@@ -65,6 +65,7 @@ function DiagnoseBox(props: Props) {
 
       const newImageUrl = URL.createObjectURL(file);
       setImageSrc(newImageUrl);
+      setIsCropping(true);
     }
   };
 

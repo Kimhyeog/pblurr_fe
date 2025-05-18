@@ -41,6 +41,7 @@ function SubmitLeftFace(props: Props) {
       setPreviewUrl(url);
       setUploaded(true);
       props.onFileSelect(file);
+      setIsCropping(true);
     }
   };
 

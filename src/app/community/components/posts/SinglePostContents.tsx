@@ -28,15 +28,6 @@ function SinglePostContents({
 
   return (
     <div className="w-full flex flex-col">
-      {/* 헤더 사진 영역 */}
-      {images.length > 0 ? (
-        <div
-          className="w-full h-60 bg-cover bg-center flex items-center justify-center text-white"
-          style={{
-            backgroundImage: "url('/your-header-image.jpg')", // <- public 폴더에 이미지 넣기
-          }}
-        />
-      ) : null}
       <h2 className="text-2xl font-bold text-gray-800 mb-4">{title}</h2>
 
       <div className="flex justify-between text-sm text-gray-500 mb-6">
@@ -46,6 +37,14 @@ function SinglePostContents({
         <span>작성일: {new Date(createAt).toLocaleString()}</span>
       </div>
 
+      <div className="flex flex-col">
+        {images.length > 0 ? (
+          <div
+            className="w-full h-60 bg-cover bg-center flex items-center justify-center text-white"
+            style={{ backgroundImage: `url(${post.images[0]})` }}
+          />
+        ) : null}
+      </div>
       <div className="text-gray-700 leading-relaxed mb-8 whitespace-pre-line">
         {content}
       </div>

@@ -72,7 +72,7 @@ function UploadFaceBox(props: Props) {
     console.log("SubmitRightFace mounted");
   }, []);
   return (
-    <div className="">
+    <div className="w-full flex flex-col items-center">
       <form
         ref={formRef} // ⬅️ 여기에 ref 추가!!
         onSubmit={handleFormSubmit}

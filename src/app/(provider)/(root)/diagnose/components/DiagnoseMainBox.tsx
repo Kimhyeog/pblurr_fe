@@ -5,7 +5,8 @@ function DiagnoseMainBox() {
     <div className=" bg-white p-6 rounded-2xl">
       <div className=" flex flex-col items-center px-8 py-5  bg-white border-4 border-[#5CA7C8] rounded-3xl shadow-xl text-center ">
         <h1 className="text-2xl sm:text-3xl font-bold text-[#5CA7C8] relative mb-4">
-          간편하게 받아보는 AI 피부 질환 진단
+          간편하게 받아보는 <br className="visible sm:hidden" />
+          AI 피부 질환 진단
           <span className="block w-full mx-auto border-b-4 border-[#5CA7C8] mt-2"></span>
           {/* 수정&& */}
         </h1>

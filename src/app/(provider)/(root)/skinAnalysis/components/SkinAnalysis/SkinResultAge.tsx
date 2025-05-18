@@ -11,12 +11,12 @@ function SkinResultAge(props: Props) {
 
   return (
     <div className="w-full">
-      <div className="w-full bg-white rounded-xl shadow-md p-6 space-y-6">
+      <div className="w-full bg-white rounded-xl shadow-md p-3  space-y-6">
         {/* 이미지 + 설명 텍스트, 모바일에서는 숨김 */}
         {/* 순서가 다르게 출력된된  */}
-        <div className="flex flex-row gap-x-3 sm:flex-row justify-between">
+        <div className="flex flex-row gap-x-1 sm:gap-x-3 sm:flex-row justify-around">
           <div className="text-center flex-1">
-            <div className="w-[200px] h-[200px] overflow-hidden rounded-lg shadow-md mx-auto">
+            <div className="w-[190px] h-[190px] overflow-hidden rounded-lg shadow-md mx-auto">
               <Image
                 width={300}
                 height={450}
@@ -30,7 +30,7 @@ function SkinResultAge(props: Props) {
             </p>
           </div>
           <div className="text-center flex-1">
-            <div className="w-[200px] h-[200px] overflow-hidden rounded-lg shadow-md mx-auto">
+            <div className="w-[190px] h-[190px] overflow-hidden rounded-lg shadow-md mx-auto">
               <Image
                 width={300}
                 height={450}
@@ -44,7 +44,7 @@ function SkinResultAge(props: Props) {
             </p>
           </div>
           <div className="text-center flex-1">
-            <div className="w-[200px] h-[200px] overflow-hidden rounded-lg shadow-md mx-auto">
+            <div className="w-[190px] h-[190px] overflow-hidden rounded-lg shadow-md mx-auto">
               <Image
                 width={300}
                 height={450}
