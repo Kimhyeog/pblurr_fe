@@ -6,6 +6,7 @@ import Image from "next/image";
 import { diagnoseSkinDisease, getSkinDiseaseDetail } from "@/api/diease";
 import { DetailDieaseInfo, DiagnosisResult } from "@/types/types";
 import Swal from "sweetalert2";
+import ImageCropper from "./ImageCropper";
 
 const images = [
   "/images/Characteries/백선.jpg",
@@ -30,6 +31,7 @@ function DiagnoseBox(props: Props) {
   const controls = useAnimation();
   const x = useRef(0); // 현재 위치 기억
 
+  const [isCropping, setIsCropping] = useState(false); // 사진 편집 모드 토글
   const [image, setImage] = useState<File | null>(null);
   const [imageSrc, setImageSrc] = useState<string>("");
 
@@ -171,7 +173,7 @@ function DiagnoseBox(props: Props) {
         
         flex items-center justify-center border-4 border-[#5CA7C8]
         w-[200px] h-[auto]
-        sm:w-[300px] sm:h-[300px]
+        sm:w-[350px] sm:h-[350px]
       "
       >
         {/* 이미지 업로드 */}
@@ -205,7 +207,7 @@ function DiagnoseBox(props: Props) {
         {image && (
           <div className="flex flex-col items-center justify-center relative p-10 mt-2 gap-y-5">
             {/* 업로드 시, 사진 크기 조정 */}
-            <div className="w-[150px] h-[150px] bg-[#FFFFFF] overflow-hidden">
+            <div className="w-4/5 bg-[#FFFFFF] overflow-hidden">
               <Image
                 src={imageSrc as string}
                 alt="업로드된 이미지"
@@ -214,22 +216,31 @@ function DiagnoseBox(props: Props) {
                 className="rounded-lg"
               />
             </div>
-            <div
-              className="w-full 
-            flex flex-col gap-y-1
-            sm:flex sm:flex-row sm:gap-x-3 justify-between"
-            >
-              <button
-                className="bg-[#5CA7C8] text-white px-4 py-2 font-bold rounded-lg cursor-pointer 
+            <div className="w-full flex flex-col gap-y-1 items-center">
+              <div
+                className="w-full 
+              flex flex-col sm:flex-row gap-y-1 
+             sm:gap-x-3 justify-between"
+              >
+                <button
+                  className="w-full bg-[#5CA7C8] text-white px-4 py-2 font-bold rounded-lg cursor-pointer 
                 hover:bg-blue-300
                 focus:bg-blue-500 transition
               "
-                onClick={onClickImgReUpload}
-              >
-                재업로드
-              </button>
+                  onClick={onClickImgReUpload}
+                >
+                  재업로드
+                </button>
+                <button
+                  className="w-full bg-[#6fcf97] text-white px-4 py-2 font-bold rounded-lg cursor-pointer 
+    hover:bg-green-400 focus:bg-green-600 transition"
+                  onClick={() => setIsCropping(true)}
+                >
+                  사진 편집
+                </button>
+              </div>
               <button
-                className="bg-[#f25c5c] text-white px-4 py-2 font-bold rounded-lg cursor-pointer 
+                className="w-full bg-[#f25c5c] text-white px-4 py-2 font-bold rounded-lg cursor-pointer 
                hover:bg-red-400
                focus:bg-[#e76565] transition
                "
@@ -243,6 +254,25 @@ function DiagnoseBox(props: Props) {
           </div>
         )}
       </div>
+      {isCropping && imageSrc && (
+        <div className="w-full fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="w-full md:w-3/5 lg:w-1/3 bg-white p-4 rounded-xl shadow-xl">
+            <ImageCropper
+              onCloseModal={() => setIsCropping(false)}
+              imageSrc={imageSrc}
+              onCropComplete={(croppedFile) => {
+                const newImageUrl = URL.createObjectURL(croppedFile);
+                if (imageSrc) {
+                  URL.revokeObjectURL(imageSrc);
+                }
+                setImage(croppedFile);
+                setImageSrc(newImageUrl);
+                setIsCropping(false); // 편집 종료
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
