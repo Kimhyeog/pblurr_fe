@@ -60,7 +60,7 @@ const SeoulMap = () => {
           <select
             onChange={(e) => setSelectedDistrict(e.target.value)}
             value={selectedDistrict || ""}
-            className="w-[300px] p-3 border rounded-xl text-lg font-semibold bg-white shadow"
+            className="w-[200px] my-3 p-3 border rounded-xl text-lg font-semibold bg-white shadow"
           >
             <option value="" className="text-center">
               지역구를 선택하세요
