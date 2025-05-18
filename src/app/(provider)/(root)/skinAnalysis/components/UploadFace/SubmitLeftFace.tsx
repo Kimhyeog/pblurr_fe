@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
+import ImageCropper from "../../../diagnose/components/ImageCropper";
 
 interface Props {
   onClose: () => void;
@@ -14,6 +15,7 @@ function SubmitLeftFace(props: Props) {
   const [togglePreview, setTogglePreview] = useState<boolean>(false);
   const [uploaded, setUploaded] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [isCropping, setIsCropping] = useState(false); // 사진 편집 모드 토글
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
@@ -83,13 +85,22 @@ function SubmitLeftFace(props: Props) {
         )}
 
         {uploaded && (
-          <button
-            type="button"
-            onClick={handleReupload}
-            className="bg-[#e85959] text-white font-bold py-2 px-4 rounded-lg"
-          >
-            재업로드
-          </button>
+          <>
+            <button
+              type="button"
+              onClick={handleReupload}
+              className="bg-[#e85959] text-white font-bold py-2 px-4 rounded-lg"
+            >
+              재업로드
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsCropping(true)}
+              className="bg-[#6fcf97] text-white font-bold py-2 px-4 rounded-lg"
+            >
+              사진 편집
+            </button>
+          </>
         )}
       </div>
 
@@ -115,6 +126,25 @@ function SubmitLeftFace(props: Props) {
           다음
         </button>
       </div>
+      {isCropping && uploaded && (
+        <div className="w-full h-full rounded-xl shadow-xl fixed inset-0 z-50 bg-black bg-opacity-10 backdrop-blur-md flex items-center justify-center">
+          <div className="w-full bg-white rounded-xl p-4 ">
+            <ImageCropper
+              imageSrc={previewUrl}
+              onCloseModal={() => setIsCropping(false)}
+              onCropComplete={(croppedFile) => {
+                const newImageUrl = URL.createObjectURL(croppedFile);
+                if (previewUrl.startsWith("blob:")) {
+                  URL.revokeObjectURL(previewUrl);
+                }
+                setPreviewUrl(newImageUrl);
+                props.onFileSelect(croppedFile);
+                setIsCropping(false);
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

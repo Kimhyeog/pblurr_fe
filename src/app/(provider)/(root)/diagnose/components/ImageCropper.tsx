@@ -49,7 +49,10 @@ const ImageCropper = ({
         hover:bg-blue-300
         focus:bg-blue-500 transition
         "
-          onClick={handleCrop}
+          onClick={() => {
+            handleCrop();
+            onCloseModal();
+          }}
         >
           완료
         </button>
