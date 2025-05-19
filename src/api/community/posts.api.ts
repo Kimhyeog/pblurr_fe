@@ -143,6 +143,29 @@ export const updatePost = async ({
   }
 };
 
+//게시물 삭제 API
+export const deletePost = async (postId: number) => {
+  try {
+    const res = await axios.delete(`${BASE_URL}/posts/delete/${postId}`, {
+      withCredentials: true,
+    });
+
+    if (res.status !== 200) throw new Error("게시물 삭제 실패");
+
+    return res.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      const message =
+        error.response?.data?.message || error.message || "Network Error";
+      throw new Error(message);
+    } else if (error instanceof Error) {
+      throw new Error(error.message);
+    } else {
+      throw new Error("알 수 없는 에러");
+    }
+  }
+};
+
 //댓글 작성 API
 export const createComment = async (postId: string, content: string) => {
   const response = await axios.post(
