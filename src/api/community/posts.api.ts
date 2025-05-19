@@ -108,6 +108,54 @@ export const hasUserLikedPost = async (postId: number): Promise<boolean> => {
   }
 };
 
+//게시물 생성 API
+
+export const createPost = async ({
+  title,
+  content,
+  images,
+}: {
+  title: string;
+  content: string;
+  images?: File[]; // optional
+}) => {
+  try {
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+
+    if (images && images.length > 0) {
+      images.forEach((image) => {
+        formData.append("files", image); // key: files (복수로 반복)
+      });
+    }
+
+    const res = await axios.post(`${BASE_URL}/posts/create`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      withCredentials: true,
+    });
+
+    if (res.status !== 200) throw new Error("게시물 작성 실패");
+
+    return res.data; // { id: number }
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      const message =
+        error.response?.data?.message || error.message || "Network Error";
+
+      throw new Error(message);
+    } else if (error instanceof Error) {
+      throw new Error(error.message);
+    } else {
+      throw new Error("알 수 없는 에러");
+    }
+  }
+};
+
+//게시물 수정 API
+
 export interface UpdatePostType {
   postId: string;
   title: string;

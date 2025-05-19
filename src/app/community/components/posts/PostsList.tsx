@@ -1,16 +1,29 @@
 import { FullPost } from "@/types/community/type";
 import Link from "next/link";
 import dayjs from "dayjs";
+import { useAuth } from "@/app/hooks/useAuth";
 
 interface PostsListProps {
   posts: FullPost[];
 }
 
 function PostsList(props: PostsListProps) {
+  const { isLoggedIn } = useAuth();
   const { posts } = props;
   return (
     <div className="w-full bg-gray-100 rounded p-4 text-sm">
-      <h3 className="font-semibold mb-4">실시간 인기 게시글</h3>
+      <div className="w-full flex justify-between items-center px-3 mb-4">
+        <h3 className="font-semibold ">실시간 인기 게시글</h3>
+        {isLoggedIn ? (
+          <Link
+            className="text-md px-2 py-1 bg-gray-300 rounded-lg text-white font-semibold"
+            href={"/community/post/creating"}
+            onClick={() => {}}
+          >
+            글쓰기
+          </Link>
+        ) : null}
+      </div>
       <div className="space-y-2">
         {posts.map((post) => (
           <Link
