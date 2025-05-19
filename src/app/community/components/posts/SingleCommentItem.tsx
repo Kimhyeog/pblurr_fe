@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { useAuth } from "@/app/hooks/useAuth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateComment } from "@/api/community/posts.api";
+import { deleteComment, updateComment } from "@/api/community/posts.api";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import CommentCreateInputBox from "./CommentCreateInputBox";
@@ -38,6 +38,20 @@ function SingleCommentItem(props: Props) {
     },
   });
 
+  const mutationDeleteComment = useMutation({
+    mutationFn: () => deleteComment(commentId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["singlePost"] });
+    },
+    onError: (error) => {
+      if (error instanceof Error) {
+        Swal.fire("오류", error.message, "error");
+      } else {
+        Swal.fire("오류", "댓글 삭제의 알 수 없는 에러", "error");
+      }
+    },
+  });
+
   return (
     <div className="bg-gray-50 rounded-lg p-4 shadow-sm">
       <div className="flex justify-between items-start">
@@ -51,7 +65,10 @@ function SingleCommentItem(props: Props) {
               >
                 수정
               </button>
-              <button className="text-sm px-2 py-1 bg-gray-300 rounded-lg text-white font-semibold">
+              <button
+                onClick={() => mutationDeleteComment.mutate()}
+                className="text-sm px-2 py-1 bg-gray-300 rounded-lg text-white font-semibold"
+              >
                 삭제
               </button>
             </div>
