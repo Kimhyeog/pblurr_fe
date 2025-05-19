@@ -49,9 +49,12 @@ function SinglePostCommentsBox(props: SinglePostCommentsBoxProps) {
         {comments.map((comment) => (
           <div key={comment.id} className="w-full">
             <SingleCommentItem
+              commentId={comment.id}
+              userId={comment.userId}
               userName={comment.userName}
               content={comment.content}
               createAt={comment.createAt}
+              isLoggedIn={isLoggedIn}
             />
           </div>
         ))}

@@ -91,7 +91,6 @@ export default function Page() {
             likeCount={likeCount}
             setLikeCount={setLikeCount}
             routerCallback={() => router.push("/community")}
-            currentUserId={currentUserId}
           />
           <SinglePostCommentsBox
             postId={postId}

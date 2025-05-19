@@ -3,6 +3,7 @@
 import { FullPost } from "@/types/community/type";
 import CMPostLikeButton from "../common/CMPostLikeButton";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/app/hooks/useAuth";
 
 interface SinglePostContentsProps {
   isLoggedIn: boolean;
@@ -10,7 +11,6 @@ interface SinglePostContentsProps {
   likeCount: number;
   setLikeCount: (count: number) => void;
   routerCallback: () => void;
-  currentUserId: string;
 }
 
 function SinglePostContents({
@@ -19,10 +19,11 @@ function SinglePostContents({
   isLoggedIn,
   setLikeCount,
   routerCallback,
-  currentUserId,
 }: SinglePostContentsProps) {
   const { id, title, userId, userName, images, content, createAt, likes } =
     post;
+
+  const { myId, isLoading } = useAuth();
 
   const router = useRouter();
 
@@ -56,7 +57,7 @@ function SinglePostContents({
           onLikeToggle={setLikeCount}
           isLoggedIn={isLoggedIn}
         />
-        {currentUserId === userId && (
+        {myId === userId && (
           <button
             onClick={() => router.push(`/community/post/${id}/updating`)}
             className="bg-white border border-pink-500 text-pink-500 hover:bg-pink-50 px-5 py-2 rounded-xl text-sm transition"
