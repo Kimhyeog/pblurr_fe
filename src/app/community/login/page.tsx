@@ -1,53 +1,57 @@
 "use client";
 
-import { checkPassword, login } from "@/api/auth";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { login } from "@/api/auth";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import Input from "@/components/LoginAndSignUp/Input";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
-import Input from "@/components/LoginAndSignUp/Input";
-import Image from "next/image";
-import Link from "next/link";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Page() {
-  const router = useRouter();
-  const queryClient = useQueryClient();
-
   const [userId, setUserId] = useState("");
+  const [success, setSuccess] = useState<boolean | null>(null);
   const [userPassword, setUserPassword] = useState("");
+  const [failReasonMessage, setFailReasonMessage] = useState("");
+  const router = useRouter();
 
-  const {
-    data: passwordCheck,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
-    queryKey: ["password-check"],
-    queryFn: () => checkPassword(userPassword),
-    retry: 0,
-    enabled: !!userPassword,
-  });
+  const mutationLogin = useMutation({
+    mutationFn: ({
+      userId,
+      userPassword,
+    }: {
+      userId: string;
+      userPassword: string;
+    }) => login(userId, userPassword),
+    onSuccess: (res) => {
+      const { success, message } = res;
+      // 성공 처리
+      if (typeof message !== "undefined") {
+        setSuccess(success);
+        setFailReasonMessage(message);
+      }
 
-  const mutation = useMutation({
-    mutationFn: () => login(userId, userPassword),
-    onSuccess: async () => {
-      // 여기가 중요했다 시발거
-      await queryClient.invalidateQueries({ queryKey: ["loginState"] });
-      await queryClient.invalidateQueries({ queryKey: ["userInfo"] });
-
-      Swal.fire("성공", "로그인이 완료되었습니다.", "success").then(() => {
-        router.push("/community");
-      });
+      if (success) {
+        router.push("/community"); // ✅ 여기서 이동 처리
+      }
     },
     onError: (error) => {
-      if (error instanceof Error) {
-        Swal.fire("오류", `로그인 실패 : ${error.message}`, "error");
-      } else {
-        Swal.fire("오류", `알 수 없는 에러`, "error");
+      if (!(error instanceof Error)) {
+        Swal.fire("오류", "로그인 실패 : 알 수 없는 오류", "error");
       }
     },
   });
+  // 로그인 버튼 클릭 시 실행되는 함수
+  const handleLogin = () => {
+    if (!userId.trim() || !userPassword.trim()) {
+      Swal.fire("오류", "아이디와 비밀번호를 입력하시오.", "error");
+      return;
+    }
+
+    mutationLogin.mutate({ userId, userPassword });
+  };
 
   return (
     <motion.div
@@ -81,7 +85,7 @@ export default function Page() {
         <div className="flex flex-col items-center justify-center ">
           <Link href={"/community"}>
             <Image
-              src="/images/loginLogo.png"
+              src="/images/피부르르_가로_로그인로고.png"
               alt="로그인 로고"
               width={400}
               height={200}
@@ -95,7 +99,7 @@ export default function Page() {
         "
           >
             <p className="whitespace-nowrap">회원이 아니신가요?</p>
-            <nav className="text-pink-600 px-2 sm:px-3 py-1 rounded-md">
+            <nav className="text-[#7FC5E0] px-2 sm:px-3 py-1 rounded-md">
               <Link
                 href="/signup"
                 className="font-bold text-pink-600 hover:underline
@@ -126,21 +130,21 @@ export default function Page() {
             onChange={(e) => setUserPassword(e.target.value)}
             className="text-sm sm:text-base px-3 py-2 border border-gray-300 rounded-lg w-full"
           />
-          {passwordCheck !== null && (
-            <p
-              className={`text-sm ${
-                passwordCheck ? "text-green-500" : "text-red-500"
-              } pl-3`}
-            >
-              {!passwordCheck && `${error?.message}`}
-            </p>
-          )}
+
+          <p
+            className={`text-sm ${
+              success ? "text-green-500" : "text-red-500"
+            } pl-3`}
+          >
+            {!success && `${failReasonMessage}`}
+          </p>
+
           <button
-            onClick={() => mutation.mutate()}
+            onClick={handleLogin}
             className="
-        w-full bg-pink-500 text-white font-bold 
+        w-full bg-pink-400 text-white font-bold 
         text-base sm:text-lg p-2 rounded-lg 
-        hover:bg-pink-600 active:bg-pink-700 transition
+        hover:bg-pink-600 active:bg-pink-700 transition cursor-pointer
         
       "
           >

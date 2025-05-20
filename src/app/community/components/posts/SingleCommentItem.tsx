@@ -55,29 +55,31 @@ function SingleCommentItem(props: Props) {
   return (
     <div className="bg-gray-50 rounded-lg p-4 shadow-sm">
       <div className="flex justify-between items-start">
-        <div className="flex flex-row items-center gap-x-2">
-          <p className="text-sm text-gray-800 font-semibold">{userName}</p>
+        <div className="flex-1 flex-row items-center gap-x-2">
+          <p className="flex text-sm text-gray-800 font-semibold">{userName}</p>
+        </div>
+        <div className="flex items-center">
           {myId === userId ? (
             <div className="flex items-center gap-x-2">
               <button
                 onClick={() => setUpdateInputToggle(true)}
-                className="text-sm px-2 py-1 bg-gray-300 rounded-lg text-white font-semibold"
+                className="text-gray-400  boder-x-1 px-5 py-2 hover:underline rounded-xl text-sm transition"
               >
                 수정
               </button>
+              <span className="text-xs text-gray">|</span>
               <button
                 onClick={() => mutationDeleteComment.mutate()}
-                className="text-sm px-2 py-1 bg-gray-300 rounded-lg text-white font-semibold"
+                className="text-gray-400 boder-x-1 px-5 py-2 hover:underline rounded-xl text-sm transition"
               >
                 삭제
               </button>
             </div>
           ) : null}
         </div>
-        <p className="text-xs pb-3 text-gray-400">{formattedCreateAt}</p>
       </div>
       {!updateInputToggle ? (
-        <p className="p-2 text-sm text-gray-600 mt-1">{content}</p>
+        <p className="p-1 text-sm text-gray-600 my-2">{content}</p>
       ) : (
         <CommentCreateInputBox
           content={updateContent}
@@ -86,6 +88,7 @@ function SingleCommentItem(props: Props) {
           isLoggedIn={isLoggedIn}
         />
       )}
+      <p className="p-1 text-xs text-gray-400">{formattedCreateAt}</p>
     </div>
   );
 }

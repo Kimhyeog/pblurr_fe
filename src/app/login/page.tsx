@@ -8,30 +8,49 @@ import Image from "next/image";
 import Input from "@/components/LoginAndSignUp/Input";
 import Swal from "sweetalert2";
 import { motion } from "framer-motion";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Page() {
   const [userId, setUserId] = useState("");
+  const [success, setSuccess] = useState<boolean | null>(null);
   const [userPassword, setUserPassword] = useState("");
-  const [loginCheck, setLoginCheck] = useState<boolean | null>(null);
   const [failReasonMessage, setFailReasonMessage] = useState("");
   const router = useRouter();
 
+  const mutationLogin = useMutation({
+    mutationFn: ({
+      userId,
+      userPassword,
+    }: {
+      userId: string;
+      userPassword: string;
+    }) => login(userId, userPassword),
+    onSuccess: (res) => {
+      const { success, message } = res;
+      // 성공 처리
+      if (typeof message !== "undefined") {
+        setSuccess(success);
+        setFailReasonMessage(message);
+      }
+
+      if (success) {
+        router.push("/"); // ✅ 여기서 이동 처리
+      }
+    },
+    onError: (error) => {
+      if (!(error instanceof Error)) {
+        Swal.fire("오류", "로그인 실패 : 알 수 없는 오류", "error");
+      }
+    },
+  });
   // 로그인 버튼 클릭 시 실행되는 함수
-  const handleLogin = async () => {
-    if (!userId || !userPassword) {
+  const handleLogin = () => {
+    if (!userId.trim() || !userPassword.trim()) {
       Swal.fire("오류", "아이디와 비밀번호를 입력하시오.", "error");
       return;
     }
 
-    const { success, message } = await login(userId, userPassword);
-
-    setLoginCheck(success);
-    console.log(success);
-    setFailReasonMessage(message);
-
-    if (success) {
-      router.push("/"); // 로그인 성공 후 홈으로 이동
-    }
+    mutationLogin.mutate({ userId, userPassword });
   };
 
   return (
@@ -111,15 +130,15 @@ export default function Page() {
             onChange={(e) => setUserPassword(e.target.value)}
             className="text-sm sm:text-base px-3 py-2 border border-gray-300 rounded-lg w-full"
           />
-          {loginCheck !== null && (
-            <p
-              className={`text-sm ${
-                loginCheck ? "text-green-500" : "text-red-500"
-              } pl-3`}
-            >
-              {!loginCheck && `${failReasonMessage}`}
-            </p>
-          )}
+
+          <p
+            className={`text-sm ${
+              success ? "text-green-500" : "text-red-500"
+            } pl-3`}
+          >
+            {!success && `${failReasonMessage}`}
+          </p>
+
           <button
             onClick={handleLogin}
             className="

@@ -12,6 +12,7 @@ import MainPostsFilter from "./components/common/MainPostsFilter";
 import PostsList from "./components/posts/PostsList";
 import Pagination from "./components/common/Pagination";
 import { ClipLoader } from "react-spinners";
+import { usePathname } from "next/navigation";
 
 type SortType = "latest" | "liked" | "commented";
 
@@ -22,6 +23,7 @@ export default function Page() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const pathname = usePathname();
 
   const fetchPosts = async (type: SortType, page: number) => {
     setIsLoading(true);

@@ -3,13 +3,14 @@ import { checkLoginStatus, getUserInfo, logout } from "@/api/auth";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 
 function CMHeader() {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const pathname = usePathname(); // ✅ 현재 경로 확인
 
   const { data: loginState } = useQuery({
     queryKey: ["loginState"],
@@ -41,7 +42,7 @@ function CMHeader() {
       }
     },
   });
-
+  if (pathname === "/community/login") return;
   return (
     <header
       className="

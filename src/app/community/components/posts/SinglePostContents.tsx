@@ -49,7 +49,37 @@ function SinglePostContents({
 
   return (
     <div className="w-full flex flex-col">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">{title}</h2>
+      <div className="flex items-center my-2">
+        <h2 className="flex-1 text-2xl font-bold text-gray-800 mb-4">
+          {title}
+        </h2>
+        <div className="flex items-center gap-x-4">
+          {myId === userId && (
+            <div className="">
+              <button
+                onClick={() => router.push(`/community/post/${id}/updating`)}
+                className="bg-white text-gray-400  boder-x-1 px-5 py-2 hover:underline rounded-xl text-sm transition"
+              >
+                수정하기
+              </button>
+              <span className="text-xs text-gray">|</span>
+              <button
+                onClick={() => mutationPostDelete.mutate()}
+                className="bg-white text-gray-400 boder-x-1 px-5 py-2 hover:underline rounded-xl text-sm transition"
+              >
+                삭제하기
+              </button>
+            </div>
+          )}
+          <span className="text-xs text-gray">|</span>
+          <button
+            className="bg-white text-gray-400 boder-x-1 px-5 py-2 hover:underline rounded-xl text-sm transition"
+            onClick={routerCallback}
+          >
+            목록
+          </button>
+        </div>
+      </div>
 
       <div className="flex justify-between text-sm text-gray-500 mb-6">
         <span>
@@ -58,13 +88,16 @@ function SinglePostContents({
         <span>작성일: {new Date(createAt).toLocaleString()}</span>
       </div>
 
-      <div className="flex flex-col">
-        {images.length > 0 ? (
-          <div
-            className="w-full h-60 bg-cover bg-center flex items-center justify-center text-white"
-            style={{ backgroundImage: `url(${post.images[0]})` }}
-          />
-        ) : null}
+      <div className="flex flex-row gap-x-3 my-2">
+        {images.length > 0
+          ? images.map((imgUrl) => (
+              <div
+                key={imgUrl}
+                className="sm:w-[300px] sm:h-[300px] h-60 bg-cover bg-center rounded-2xl text-white"
+                style={{ backgroundImage: `url(${imgUrl})` }}
+              />
+            ))
+          : null}
       </div>
       <div className="text-gray-700 leading-relaxed mb-8 whitespace-pre-line">
         {content}
@@ -77,28 +110,6 @@ function SinglePostContents({
           onLikeToggle={setLikeCount}
           isLoggedIn={isLoggedIn}
         />
-        {myId === userId && (
-          <div className="flex items-center gap-x-4">
-            <button
-              onClick={() => router.push(`/community/post/${id}/updating`)}
-              className="bg-white border border-pink-500 text-pink-500 hover:bg-pink-50 px-5 py-2 rounded-xl text-sm transition"
-            >
-              수정하기
-            </button>
-            <button
-              onClick={() => mutationPostDelete.mutate()}
-              className="bg-white border border-pink-500 text-pink-500 hover:bg-pink-50 px-5 py-2 rounded-xl text-sm transition"
-            >
-              삭제하기
-            </button>
-          </div>
-        )}
-        <button
-          className="bg-white border border-pink-500 text-pink-500 hover:bg-pink-50 px-5 py-2 rounded-xl text-sm transition"
-          onClick={routerCallback}
-        >
-          🔙 목록으로
-        </button>
       </div>
     </div>
   );
