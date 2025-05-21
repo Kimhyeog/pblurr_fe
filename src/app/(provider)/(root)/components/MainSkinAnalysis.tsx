@@ -27,7 +27,7 @@ function MainSkinAnalysis() {
       <div className="flex flex-col gap-y-4 justify-center items-center sm:mr-0">
         <h1 className="text-2xl font-extrabold">피부 미용 분석</h1>
         <div>
-          <p className="text-xs sm:text-md text-center whitespace-nowrap">
+          <p className="text-sm sm:text-md text-center whitespace-nowrap">
             {`"`}피부르르{`"`}에서 당신의 얼굴 사진을 업로드하면,
             <br />
             부위별 피부 미용 점수를 간편하게 분석할 수 있습니다.

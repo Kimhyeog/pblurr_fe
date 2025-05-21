@@ -27,7 +27,7 @@ function MainDiagnose() {
           <p
             className="
           text-center whitespace-nowrap
-          text-xs sm:text-md"
+          text-sm sm:text-md"
           >
             {`"`}피부르르{`"`}에서 당신의 피부 질환 의심 사진을 업로드하면,
             <br />
