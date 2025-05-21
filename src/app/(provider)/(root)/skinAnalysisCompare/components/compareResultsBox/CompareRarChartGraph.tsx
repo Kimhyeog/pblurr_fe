@@ -11,6 +11,7 @@ import {
   Tooltip,
 } from "recharts";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 interface Props {
   result1: SkinAnalysisResult;
@@ -31,6 +32,9 @@ const formatDate = (dateString: string) => {
 
 function CompareRarChartGraph(props: Props) {
   const { result1, result2, result1Average, result2Average } = props;
+  const [hoveredResult, setHoveredResult] = useState<
+    "result1" | "result2" | null
+  >(null);
 
   const maxValues = {
     totalWrinkle: 26,
@@ -98,73 +102,96 @@ function CompareRarChartGraph(props: Props) {
       {/* h-[350px] */}
       <div className="w-full h-[150px] my-5 sm:h-[300px]">
         <ResponsiveContainer>
-          <RadarChart outerRadius="75%" data={radarData}>
-            <PolarGrid stroke="#F3F3F3" strokeDasharray="4 4" />
-            <PolarAngleAxis
-              dataKey="subject"
-              stroke="#888"
-              tick={{ fontSize: 13, fill: "#5CA7C8" }}
-              className="font-extrabold"
-            />
-            <PolarRadiusAxis
-              angle={30}
-              domain={[
-                0,
-                Math.max(...radarData.flatMap((d) => [d.result1, d.result2])),
-              ]}
-              tick={{ fill: "#C0C0C0", fontSize: 11 }}
-              axisLine={false}
-            />
-            <Radar
-              name={`${formatDate(result1.createdAt)}`}
-              dataKey="result1"
-              stroke="#5CA7C8"
-              fill="#5CA7C8"
-              fillOpacity={0.3}
-              dot={{ fill: "#5CA7C8", r: 3 }}
-            />
-            <Radar
-              name={`${formatDate(result2.createdAt)}`}
-              dataKey="result2"
-              stroke="#F9A8D4"
-              fill="#F9A8D4"
-              fillOpacity={0.25}
-              dot={{ fill: "#F9A8D4", r: 3 }}
-            />
-            <Tooltip
-              contentStyle={{
-                borderRadius: 12,
-                fontSize: 13,
-                borderColor: "#EAEAEA",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-              }}
-              cursor={{ stroke: "#ccc", strokeWidth: 1 }}
-            />
-          </RadarChart>
+          <ResponsiveContainer>
+            <RadarChart outerRadius="75%" data={radarData}>
+              <PolarGrid stroke="#F3F3F3" strokeDasharray="4 4" />
+              <PolarAngleAxis
+                dataKey="subject"
+                stroke="#888"
+                tick={{ fontSize: 13, fill: "#051116" }}
+              />
+              <PolarRadiusAxis
+                angle={30}
+                domain={[
+                  0,
+                  Math.max(...radarData.flatMap((d) => [d.result1, d.result2])),
+                ]}
+                tick={{ fill: "#C0C0C0", fontSize: 11 }}
+                axisLine={false}
+              />
+
+              {/* result1만 강조 */}
+              {(hoveredResult === "result1" || hoveredResult === null) && (
+                <Radar
+                  name={`${formatDate(result1.createdAt)}`}
+                  dataKey="result1"
+                  stroke="#5CA7C8"
+                  fill="#5CA7C8"
+                  fillOpacity={hoveredResult === "result1" ? 0.55 : 0.3}
+                  dot={{ fill: "#5CA7C8", r: 3 }}
+                />
+              )}
+
+              {/* result2만 강조 */}
+              {(hoveredResult === "result2" || hoveredResult === null) && (
+                <Radar
+                  name={`${formatDate(result2.createdAt)}`}
+                  dataKey="result2"
+                  stroke="#F9A8D4"
+                  fill="#F9A8D4"
+                  fillOpacity={hoveredResult === "result2" ? 0.45 : 0.25}
+                  dot={{ fill: "#F9A8D4", r: 3 }}
+                />
+              )}
+
+              <Tooltip
+                contentStyle={{
+                  borderRadius: 12,
+                  fontSize: 13,
+                  borderColor: "#EAEAEA",
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+                }}
+                cursor={{ stroke: "#ccc", strokeWidth: 1 }}
+              />
+            </RadarChart>
+          </ResponsiveContainer>
         </ResponsiveContainer>
       </div>
 
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mt-8 text-sm sm:text-base bg-[#F0FAFC] px-6 py-6 rounded-2xl border border-[#BEE6F2] shadow-inner">
-        <div className="flex flex-col items-center sm:items-end text-center sm:text-right">
-          <p className="text-[#5CA7C8] font-bold text-lg">
-            {formatDate(result1.createdAt)}
-            <br />
-            <span className="text-[#5CA7C8] font-medium">평균 점수</span>
-          </p>
-          <span className="text-[#3C9FCA] font-extrabold text-xl mt-1">
-            {result1Average}
-          </span>
-        </div>
-
-        <span className=" font-bold text-lg">vs</span>
-
-        <div className="text-[#F9A8D4] flex flex-col items-center sm:items-start text-center sm:text-left">
-          <p className="font-bold text-lg">
-            {formatDate(result2.createdAt)}
-            <br />
-            <span className=" font-medium">평균 점수</span>
-          </p>
-          <span className="font-extrabold text-xl mt-1">{result2Average}</span>
+      <div className="relative flex flex-col  justify-center items-center gap-6 mt-8 text-sm sm:text-base bg-[#F0FAFC] px-6 py-6 rounded-2xl border border-[#BEE6F2] shadow-inner">
+        <span className="">원하는 날짜 박스에 마우스를 올려보세요!</span>
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+          <div
+            onMouseEnter={() => setHoveredResult("result1")}
+            onMouseLeave={() => setHoveredResult(null)}
+            className="w-auto bg-white flex flex-col items-center p-2 border-3 rounded-2xl border-[#3eacdb] sm:items-end text-center "
+          >
+            <p className="text-[#5CA7C8] font-bold text-lg">
+              {formatDate(result1.createdAt)}
+              <br />
+              <span className="w-full text-[#5CA7C8] font-medium">
+                평균 점수
+              </span>
+            </p>
+            <span className="w-full text-[#3C9FCA] font-extrabold text-xl mt-1">
+              {result1Average}
+            </span>
+          </div>
+          <span className=" font-bold text-lg">vs</span>
+          <div
+            onMouseEnter={() => setHoveredResult("result2")}
+            onMouseLeave={() => setHoveredResult(null)}
+            className="bg-white text-[#F9A8D4] flex flex-col border-3 p-2 rounded-2xl border-[#df56a2]  items-center sm:items-start text-center"
+          >
+            <p className="font-bold text-lg">
+              {formatDate(result2.createdAt)}
+              <br />
+              <span className="w-full font-medium">평균 점수</span>
+            </p>
+            <span className="w-full font-extrabold text-xl mt-1">
+              {result2Average}
+            </span>
+          </div>
         </div>
       </div>
     </motion.div>

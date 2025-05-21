@@ -1,6 +1,5 @@
 "use client";
 
-// pages/skinAnalysis/history.tsx (예시 경로)
 import { useEffect, useState } from "react";
 import { getSkinAnalysisDateList } from "@/api/skinAnalysisCompare";
 import { useRouter } from "next/navigation";
@@ -8,73 +7,63 @@ import { SkinAnalysisCompareResponse } from "@/types/types";
 import AnalysisDateList from "./components/SelectDates/AnalysisDateList";
 import CompareAnalysisPrintBox from "./components/CompareAnalysisPrintBox";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { useQuery } from "@tanstack/react-query";
 
 const SkinAnalysisHistoryPage = () => {
-  // 고객이 피부 미용 진단 받은 날짜 데이터들
-  const [dateList, setDateList] = useState<string[]>([]);
-  // 선택된 두 피부미용 날짜데이터
-  const [selectedDates, setSelectedDates] = useState<string[]>([]);
-
-  // 선택된 두 피부미용 비교 결과 데이터
-  const [compareResult, setCompareResult] =
-    useState<SkinAnalysisCompareResponse | null>(null);
-
-  //피부 미용 기록이 없을 시, 피부미용 받으로 이동용 useRouter
   const router = useRouter();
 
-  // 로딩
+  const [selectedDates, setSelectedDates] = useState<string[]>([]);
+  const [compareResult, setCompareResult] =
+    useState<SkinAnalysisCompareResponse | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const {
+    data: dateList = [], // 기본값 빈 배열
+    isLoading,
+    isError,
+  } = useQuery<string[]>({
+    queryKey: ["analysisCompareList"],
+    queryFn: getSkinAnalysisDateList,
+    retry: 0,
+    staleTime: 1000 * 60 * 5,
+  });
+
+  // dateList 로직 처리용 useEffect
   useEffect(() => {
-    const fetchDateList = async () => {
-      try {
-        const dates = await getSkinAnalysisDateList();
-        if (dates.length === 0) {
-          alert("피부 미용 분석한 기록이 없습니다.");
-          router.push("/skinAnalysis");
-        } else {
-          setDateList(dates);
-        }
-      } catch (error) {
-        // getSkinAnalysisDateList에서 400 처리 포함되어 있으므로 여기서는 기본 오류 처리만
-
-        router.push("/skinAnalysis");
-      }
-    };
-
-    fetchDateList();
-  }, [router]);
+    if (!isLoading && (isError || dateList.length === 0)) {
+      alert("피부 미용 분석한 기록이 없습니다.");
+      router.push("/skinAnalysis");
+    }
+  }, [isLoading, isError, dateList, router]);
 
   return (
-    <div className="max-w-full flex flex-col gap-y-5 sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen mt-5 gap-y-3,">
-      <div className="w-full  md:w-auto  p-5  rounded-2xl shadow-xl bg-white">
+    <div className="max-w-full flex flex-col sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg mx-auto min-h-screen mt-5 gap-y-3 sm:gap-y-5">
+      <div className="w-full md:w-auto p-5 rounded-2xl shadow-xl bg-white">
         <h2 className="w-full p-4 rounded-2xl text-2xl text-center sm:text-left font-bold mb-2">
           피부 분석 날짜 선택
         </h2>
         <div className="w-full border-4 border-[#5CA7C8] bg-[#5CA7C8]/20 rounded-2xl flex flex-row">
-          {/* 정렬도 추가하자
-            월 , 최신순, 오래된 순
-          */}
-          <AnalysisDateList
-            dateList={dateList}
-            selectedDates={selectedDates}
-            setSelectedDates={setSelectedDates} // 함수 직접 전달
-            setCompareResult={setCompareResult}
-            setLoading={setLoading}
-          />
+          {dateList.length > 0 && (
+            <AnalysisDateList
+              dateList={dateList}
+              selectedDates={selectedDates}
+              setSelectedDates={setSelectedDates}
+              setCompareResult={setCompareResult}
+              setLoading={setLoading}
+            />
+          )}
         </div>
       </div>
-      {loading ? (
+
+      {isLoading ? (
         <LoadingSpinner />
       ) : (
         compareResult && (
-          <div className="w-full  md:w-auto  p-5  rounded-2xl shadow-xl bg-white">
+          <div className="w-full md:w-auto p-5 rounded-2xl shadow-xl bg-white">
             <h2 className="w-full p-4 rounded-2xl text-2xl text-center sm:text-left font-bold mb-2">
               분석 비교 결과
             </h2>
-            <div>
-              <CompareAnalysisPrintBox compareResult={compareResult} />
-            </div>
+            <CompareAnalysisPrintBox compareResult={compareResult} />
           </div>
         )
       )}
