@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MainFeed from "./components/Feed/MainFeed";
 import { FullPost } from "@/types/community/type";
 import {
@@ -13,103 +13,114 @@ import PostsList from "./components/posts/PostsList";
 import Pagination from "./components/common/Pagination";
 import { ClipLoader } from "react-spinners";
 import { usePathname } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 
 type SortType = "latest" | "liked" | "commented";
 
+const PAGE_SIZE = 10;
+
 export default function Page() {
-  const [posts, setPosts] = useState<FullPost[]>([]);
   const [sortType, setSortType] = useState<SortType>("latest");
-  const [totalPostsCount, setTotalPostsCount] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
   const pathname = usePathname();
 
-  const fetchPosts = async (type: SortType, page: number) => {
-    setIsLoading(true);
-    setError(null);
+  const {
+    data: latestData,
+    isError: isLatestError,
+    isLoading: isLatestLoading,
+    error: latestError,
+  } = useQuery({
+    queryKey: ["postsList-latest", currentPage],
+    queryFn: async () => await getLatestPosts(PAGE_SIZE, currentPage),
+  });
 
-    try {
-      let data: FullPost[] = [];
-      let totalCount = 0;
+  const {
+    data: likedData,
+    isError: isLikedError,
+    isLoading: isLikedLoading,
+    error: likedError,
+  } = useQuery({
+    queryKey: ["postsList-likes", currentPage],
+    queryFn: async () => await getMostLikedPosts(PAGE_SIZE, currentPage),
+  });
 
-      switch (type) {
-        case "latest":
-          const latestData = await getLatestPosts(10, page);
-          data = latestData.posts;
-          totalCount = latestData.totalPostsCount;
-          break;
-        case "liked":
-          const likedData = await getMostLikedPosts(10, page);
-          data = likedData.posts;
-          totalCount = likedData.totalPostsCount;
-          break;
-        case "commented":
-          const commentedData = await getMostCommentedPosts(10, page);
-          data = commentedData.posts;
-          totalCount = commentedData.totalPostsCount;
-          break;
-      }
+  const {
+    data: commentedData,
+    isError: isCommentedError,
+    isLoading: isCommentedLoading,
+    error: commentedError,
+  } = useQuery({
+    queryKey: ["postsList-comments", currentPage],
+    queryFn: async () => await getMostCommentedPosts(PAGE_SIZE, currentPage),
+  });
 
-      setPosts(data);
-      setTotalPostsCount(totalCount);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("알 수 없는 오류가 발생했습니다.");
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // 현재 sortType에 따라 쿼리 데이터 선택
+  let posts: FullPost[] = [];
+  let totalPostsCount = 0;
+  let isLoading = false;
+  let error: unknown = null;
 
-  useEffect(() => {
-    fetchPosts(sortType, currentPage);
-  }, [sortType, currentPage]);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+  switch (sortType) {
+    case "latest":
+      posts = latestData?.posts || [];
+      totalPostsCount = latestData?.totalPostsCount || 0;
+      isLoading = isLatestLoading;
+      error = latestError;
+      break;
+    case "liked":
+      posts = likedData?.posts || [];
+      totalPostsCount = likedData?.totalPostsCount || 0;
+      isLoading = isLikedLoading;
+      error = likedError;
+      break;
+    case "commented":
+      posts = commentedData?.posts || [];
+      totalPostsCount = commentedData?.totalPostsCount || 0;
+      isLoading = isCommentedLoading;
+      error = commentedError;
+      break;
+  }
 
   return (
     <div
-      className="w-full flex flex-col justify-cente
+      className="w-full flex flex-col justify-center
     p-4 rounded-xl mt-3
     bg-white shadow-md
     sm:px-10 sm:py-4"
     >
       <MainFeed />
-      <section className="w-full flex items-center my-3 sm:my-5">
-        <MainPostsFilter
-          setSortTypeLatest={() => {
-            setCurrentPage(1);
-            setSortType("latest");
-          }}
-          setSortTypeLiked={() => {
-            setCurrentPage(1);
-            setSortType("liked");
-          }}
-          setSortTypeCommented={() => {
-            setCurrentPage(1);
-            setSortType("commented");
-          }}
-        />
-      </section>
 
       {isLoading ? (
         <div className="flex justify-center items-center py-8">
           <ClipLoader color="#EC4899" size={40} />
         </div>
       ) : error ? (
-        <div className="text-center text-red-500">{error}</div>
+        <div className="text-center text-red-500">
+          {error instanceof Error
+            ? error.message
+            : "알 수 없는 오류가 발생했습니다."}
+        </div>
       ) : (
         <>
-          <PostsList posts={posts} />
+          <PostsList
+            posts={posts}
+            setSortTypeLatest={() => {
+              setCurrentPage(1);
+              setSortType("latest");
+            }}
+            setSortTypeLiked={() => {
+              setCurrentPage(1);
+              setSortType("liked");
+            }}
+            setSortTypeCommented={() => {
+              setCurrentPage(1);
+              setSortType("commented");
+            }}
+          />
           <Pagination
             currentPage={currentPage}
             totalPostsCount={totalPostsCount}
-            setCurrentPage={handlePageChange}
+            setCurrentPage={setCurrentPage}
           />
         </>
       )}
