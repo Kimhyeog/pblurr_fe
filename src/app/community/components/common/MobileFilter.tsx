@@ -37,10 +37,13 @@ const MobileMainPostsFilter = ({
   const options = ["최신 순", "좋아요 순", "댓글 순"];
 
   return (
-    <div className="relative inline-block text-left text-[16px] font-medium sm:hidden">
+    <div className="relative inline-block text-left text-sm sm:text-[16px] font-medium sm:hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex justify-between items-center w-[120px] h-[40px] px-4 py-2 
+        className="flex justify-between items-center 
+        w-[110px] sm:w-[120px] 
+        h-[30px] sm:h-[40px] 
+        px-2 py-1 sm:px-4 sm:py-2 
         text-pink-300 bg-pink-50 border border-pink-400 rounded-xl shadow-sm"
       >
         {selected}

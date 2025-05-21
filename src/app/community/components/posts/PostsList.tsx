@@ -20,33 +20,33 @@ function PostsList(props: PostsListProps) {
   return (
     <div className="w-full border-3 bg-pink-50 border-pink-200 rounded-2xl p-2 py-4 sm:px-4 text-sm mt-5">
       <div className="w-full flex justify-between items-center px-3 mb-4">
-        <div className="flex items-center gap-x-5">
+        <div className="flex-1 flex items-center gap-x-5">
           <h3 className="whitespace-nowrap text-md sm:text-lg font-semibold text-pink-700">
             전체 글
           </h3>
-          <div>
+        </div>
+        <div>
+          <div className="flex items-center gap-x-1 sm:gap-x-3">
+            {isLoggedIn ? (
+              <Link
+                className="text-sm sm:text-md px-3 py-1 bg-pink-400 hover:bg-pink-500 rounded-lg text-white font-semibold transition"
+                href={"/community/post/creating"}
+              >
+                글쓰기
+              </Link>
+            ) : null}
+            <MobileMainPostsFilter
+              setSortTypeLatest={setSortTypeLatest}
+              setSortTypeLiked={setSortTypeLiked}
+              setSortTypeCommented={setSortTypeCommented}
+            />
             <MainPostsFilter
               setSortTypeLatest={setSortTypeLatest}
               setSortTypeLiked={setSortTypeLiked}
               setSortTypeCommented={setSortTypeCommented}
             />
           </div>
-          <div>
-            <MobileMainPostsFilter
-              setSortTypeLatest={setSortTypeLatest}
-              setSortTypeLiked={setSortTypeLiked}
-              setSortTypeCommented={setSortTypeCommented}
-            />
-          </div>
         </div>
-        {isLoggedIn ? (
-          <Link
-            className="text-sm sm:text-md px-3 py-1 bg-pink-400 hover:bg-pink-500 rounded-lg text-white font-semibold transition"
-            href={"/community/post/creating"}
-          >
-            글쓰기
-          </Link>
-        ) : null}
       </div>
 
       <div className="space-y-3">

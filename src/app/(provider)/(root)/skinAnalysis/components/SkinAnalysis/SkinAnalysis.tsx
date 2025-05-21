@@ -13,6 +13,7 @@ import FaceAreaSelectorMobile from "./FaceAreaSelectorMobile";
 import FaceAreaSelector from "./FaceAreaSelector";
 import FilterDropdown from "./FilterDropDown";
 import TotalSkinAnalysis from "./TotalSkinAnalysis";
+import TotalViewScoreCard from "./TotalViewScoreCard";
 
 interface Props {
   result: SkinAnalysisResult;
@@ -79,7 +80,7 @@ const SkinAnalysis = ({ result }: Props) => {
     : [];
 
   const scoreRanges: Record<string, number> = {
-    "이마 주름": 8,
+    "이마 주름": 6,
     "이마 색소침착": 5,
     "미간 주름": 6,
     "왼쪽 눈가 주름": 6,
@@ -101,12 +102,13 @@ const SkinAnalysis = ({ result }: Props) => {
       setTotalDataView(true);
     } else if (selected === "전체 보기") {
       setTotalDataView(false);
+      setSelectedCategory("전체 보기");
     }
   };
 
   // 선택된 카테고리 필터링
   const filteredData =
-    selectedCategory === "전체"
+    selectedCategory === "전체 보기"
       ? categorizedData
       : categorizedData.filter(
           (section) => section.category === selectedCategory
@@ -201,10 +203,47 @@ const SkinAnalysis = ({ result }: Props) => {
                   <div className="text-xl sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1]">
                     📊 전체 항목별 점수
                   </div>
-                  <TotalSkinAnalysis
-                    categorizedData={categorizedData}
-                    scoreRanges={scoreRanges}
-                  />
+                  <div className="flex flex-col gap-8 mt-5">
+                    {filteredData.map((section, sectionIndex) => (
+                      <div
+                        key={sectionIndex}
+                        className="flex flex-col gap-2 border border-[#DEDCE1] rounded-2xl shadow-sm p-2 sm:p-4 mb-3"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Image
+                            src="/images/피부분석아이콘.png"
+                            alt="의심 질환 아이콘"
+                            width={35}
+                            height={35}
+                          />
+                          <h2 className="text-lg sm:text-2xl font-bold mb-2">
+                            {section.category}
+                          </h2>
+                        </div>
+                        <div className="flex flex-col gap-4">
+                          {section.items.map((item, itemIndex) => {
+                            const range = scoreRanges[item.name] ?? 10;
+                            const percentage = Math.round(
+                              (item.value / range) * 100
+                            );
+                            const status = getStatusFromPercentage(percentage);
+
+                            return (
+                              // 수정&& :전체 요약 점수
+                              <TotalViewScoreCard
+                                key={itemIndex}
+                                label={item.name}
+                                score={item.value}
+                                percentage={percentage}
+                                status={status}
+                                max={range}
+                              />
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}

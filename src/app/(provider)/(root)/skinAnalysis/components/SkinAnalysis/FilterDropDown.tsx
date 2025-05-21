@@ -38,11 +38,11 @@ const FilterDropdown = ({ options, onSelect }: FilterDropdownProps) => {
   };
 
   return (
-    <div className="relative inline-block text-left text-[18px]">
+    <div className="relative inline-block text-left text-sm sm:text-[16px] font-medium">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex justify-between items-center w-[150px] 
-      h-[36px]
+        className="flex justify-between items-center         w-[110px] sm:w-[120px] 
+        h-[30px] sm:h-[40px] 
       px-[10px]
       py-2  text-[#1890FF] 
       bg-[#F5FAFF] 
@@ -53,12 +53,12 @@ const FilterDropdown = ({ options, onSelect }: FilterDropdownProps) => {
       </button>
 
       {isOpen && (
-        <div className="absolute mt-2 w-[180px] rounded-4 bg-white border border-gray-200 rounded-xl shadow-lg z-10">
+        <div className="absolute mt-2 w-[160px] rounded-4 bg-white border border-gray-200 rounded-xl shadow-lg z-10">
           {options.map((option) => (
             <button
               key={option}
               onClick={() => handleSelect(option)}
-              className="block w-full text-left px-6 py-4 hover:bg-gray-100"
+              className="block w-full text-left px-5 py-3 hover:bg-gray-100"
             >
               {option}
             </button>

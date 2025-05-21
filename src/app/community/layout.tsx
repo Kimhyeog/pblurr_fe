@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   const bgColor = pathname === "/community/login" ? "bg-pink-200" : "";
   return (
     <div className={`w-full flex justify-center ${bgColor}`}>
-      <div className="w-[360px] sm:w-[1920px] mx-auto px-10 py-4 ">
+      <div className="w-[360px] sm:w-[1920px] mx-auto p-0 md:px-5 md:py-3 sm:px-10 sm:py-4 ">
         <QueryClientProvider client={queryClient}>
           <CMHeader />
           {children}

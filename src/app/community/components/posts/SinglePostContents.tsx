@@ -121,24 +121,22 @@ function SinglePostContents({
         <span>작성일: {new Date(createAt).toLocaleString()}</span>
       </div>
 
-      <div className="flex flex-row lg:flex-row gap-x-3 my-2 overflow-auto">
-        {images.length > 0
-          ? images.map((img, idx) => (
-              <div
-                key={idx}
-                className="sm:w-[300px] sm:h-[300px] flex jusity-center items-center rounded-xl bg-gray-400 my-2 overflow-auto"
-              >
-                <Image
-                  width={400}
-                  height={300}
-                  src={img}
-                  alt={`post-image-${idx}`}
-                  className=" rounded-xl w-[300px] h-[300px]"
-                  placeholder="empty"
-                />
-              </div>
-            ))
-          : null}
+      <div className="flex flex-col sm:flex-row lg:flex-row gap-x-3 my-2 overflow-auto">
+        {images.length > 0 &&
+          images.map((img, idx) => (
+            <div
+              key={idx}
+              className="relative w-[300px] h-[300px] flex justify-center items-center rounded-xl bg-gray-400 my-2 overflow-hidden group"
+            >
+              <Image
+                src={img}
+                alt={`post-image-${idx}`}
+                fill
+                className="rounded-xl object-contain group-hover:object-cover transition-all duration-300"
+                placeholder="empty"
+              />
+            </div>
+          ))}
       </div>
       <div className="text-gray-700 leading-relaxed mb-8 whitespace-pre-line">
         {content}

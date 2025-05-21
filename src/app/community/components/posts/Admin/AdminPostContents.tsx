@@ -5,6 +5,7 @@ import Image from "next/image";
 import AdminCMPostLikeButton from "./AdminCMPostLikeButton";
 import { useAuth } from "@/app/hooks/useAuth";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 interface AdminPostContentsProps {
   post: FullPost;
@@ -33,7 +34,7 @@ function AdminPostContents({ post, routerCallback }: AdminPostContentsProps) {
       }
       return;
     } else {
-      alert("로그인이 필요합니다.");
+      Swal.fire("오류", "로그인이 필요합니다.", "error");
     }
   };
 
@@ -81,7 +82,7 @@ function AdminPostContents({ post, routerCallback }: AdminPostContentsProps) {
         <span>작성일: {new Date(createAt).toLocaleString()}</span>
       </div>
 
-      <div className="flex flex-row lg:flex-row gap-x-3 my-2 overflow-auto">
+      <div className="flex flex-col sm:flex-row lg:flex-row gap-x-3 my-2 overflow-auto">
         {images.length > 0
           ? images.map((img, idx) => (
               <div
