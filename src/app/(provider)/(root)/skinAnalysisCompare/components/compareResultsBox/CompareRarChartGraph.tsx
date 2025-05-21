@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import ResultDateItem from "../SelectDates/ResultDateItem";
 
 interface Props {
   result1: SkinAnalysisResult;
@@ -159,39 +160,23 @@ function CompareRarChartGraph(props: Props) {
       </div>
 
       <div className="relative flex flex-col  justify-center items-center gap-6 mt-8 text-sm sm:text-base bg-[#F0FAFC] px-6 py-6 rounded-2xl border border-[#BEE6F2] shadow-inner">
-        <span className="">원하는 날짜 박스에 마우스를 올려보세요!</span>
+        <span className="text-center">
+          원하는 날짜 박스에 마우스를 올려보세요!
+        </span>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-          <div
-            onMouseEnter={() => setHoveredResult("result1")}
-            onMouseLeave={() => setHoveredResult(null)}
-            className="w-auto bg-white flex flex-col items-center p-2 border-3 rounded-2xl border-[#3eacdb] sm:items-end text-center "
-          >
-            <p className="text-[#5CA7C8] font-bold text-lg">
-              {formatDate(result1.createdAt)}
-              <br />
-              <span className="w-full text-[#5CA7C8] font-medium">
-                평균 점수
-              </span>
-            </p>
-            <span className="w-full text-[#3C9FCA] font-extrabold text-xl mt-1">
-              {result1Average}
-            </span>
-          </div>
+          <ResultDateItem
+            result={result1}
+            averageScore={result1Average}
+            type="result1"
+            setHoveredResult={setHoveredResult}
+          />
           <span className=" font-bold text-lg">vs</span>
-          <div
-            onMouseEnter={() => setHoveredResult("result2")}
-            onMouseLeave={() => setHoveredResult(null)}
-            className="bg-white text-[#F9A8D4] flex flex-col border-3 p-2 rounded-2xl border-[#df56a2]  items-center sm:items-start text-center"
-          >
-            <p className="font-bold text-lg">
-              {formatDate(result2.createdAt)}
-              <br />
-              <span className="w-full font-medium">평균 점수</span>
-            </p>
-            <span className="w-full font-extrabold text-xl mt-1">
-              {result2Average}
-            </span>
-          </div>
+          <ResultDateItem
+            result={result2}
+            averageScore={result2Average}
+            type="result2"
+            setHoveredResult={setHoveredResult}
+          />
         </div>
       </div>
     </motion.div>

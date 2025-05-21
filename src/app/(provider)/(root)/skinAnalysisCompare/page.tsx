@@ -8,6 +8,7 @@ import AnalysisDateList from "./components/SelectDates/AnalysisDateList";
 import CompareAnalysisPrintBox from "./components/CompareAnalysisPrintBox";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 const SkinAnalysisHistoryPage = () => {
   const router = useRouter();
@@ -31,8 +32,11 @@ const SkinAnalysisHistoryPage = () => {
   // dateList 로직 처리용 useEffect
   useEffect(() => {
     if (!isLoading && (isError || dateList.length === 0)) {
-      alert("피부 미용 분석한 기록이 없습니다.");
-      router.push("/skinAnalysis");
+      Swal.fire("알림", "피부 미용 분석한 기록이 없습니다.", "info").then(
+        () => {
+          router.push("/skinAnalysis");
+        }
+      );
     }
   }, [isLoading, isError, dateList, router]);
 
