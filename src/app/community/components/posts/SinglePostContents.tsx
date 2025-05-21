@@ -92,15 +92,19 @@ function SinglePostContents({
       <div className="flex flex-row lg:flex-row gap-x-3 my-2 overflow-auto">
         {images.length > 0
           ? images.map((img, idx) => (
-              <Image
+              <div
                 key={idx}
-                width={400}
-                height={300}
-                src={img}
-                alt={`post-image-${idx}`}
-                className="w-full rounded-xl"
-                placeholder="empty"
-              />
+                className="w-[300px] h-[300px] flex jusity-center items-center rounded-xl bg-gray-400 my-2 overflow-auto"
+              >
+                <Image
+                  width={400}
+                  height={300}
+                  src={img}
+                  alt={`post-image-${idx}`}
+                  className=" rounded-xl w-[300px] h-[300px]"
+                  placeholder="empty"
+                />
+              </div>
             ))
           : null}
       </div>
