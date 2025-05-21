@@ -5,7 +5,7 @@ export interface Comment {
   content: string;
   createAt: string;
 }
-// 게시문 좋아요 순
+
 export interface FullPost {
   id: number;
   title: string;

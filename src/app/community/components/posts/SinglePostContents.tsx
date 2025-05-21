@@ -7,6 +7,7 @@ import { useAuth } from "@/app/hooks/useAuth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deletePost } from "@/api/community/posts.api";
 import Swal from "sweetalert2";
+import Image from "next/image";
 
 interface SinglePostContentsProps {
   isLoggedIn: boolean;
@@ -88,13 +89,17 @@ function SinglePostContents({
         <span>작성일: {new Date(createAt).toLocaleString()}</span>
       </div>
 
-      <div className="flex flex-row gap-x-3 my-2">
+      <div className="flex flex-row lg:flex-row gap-x-3 my-2 overflow-auto">
         {images.length > 0
-          ? images.map((imgUrl) => (
-              <div
-                key={imgUrl}
-                className="sm:w-[300px] sm:h-[300px] h-60 bg-cover bg-center rounded-2xl text-white"
-                style={{ backgroundImage: `url(${imgUrl})` }}
+          ? images.map((img, idx) => (
+              <Image
+                key={idx}
+                width={400}
+                height={300}
+                src={img}
+                alt={`post-image-${idx}`}
+                className="w-full rounded-xl"
+                placeholder="empty"
               />
             ))
           : null}

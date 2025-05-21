@@ -4,26 +4,27 @@ import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CMButton from "../common/CMButton";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 const feeds = [
   {
-    title: "피부에 좋은 과일 식품 5가지",
-    description: "비타민이 풍부한 과일로 피부 건강을 챙기세요.",
-    link: "https://blog.naver.com/jun_clinic/223847750611",
+    title: "피부재생에 좋은 음식 시너지 효과 가능해요",
+    description: "피부 영양이 풍부한 음식으로 피부 건강을 챙기세요.",
+    link: "/community/post/admin/1",
     category: "건강 정보",
     image: "/images/Community/LeftMainFeedImg_headth.jpg",
   },
   {
-    title: "날씨 변화에 민감한 피부, 이렇게 관리하세요",
-    description: "사계절 날씨에 따른 피부관리 습관을 알아보세요.",
-    link: "https://blog.naver.com/ok_hira/223268867410",
+    title: "건조한 겨울에 민감한 피부, 이렇게 관리하세요",
+    description: "겨울 날씨에 따른 피부관리 습관을 알아보세요.",
+    link: "/community/post/admin/2",
     category: "피부 습관",
     image: "/images/Community/LeftMainFeedImg_habit.jpg",
   },
   {
-    title: "2024 추천 화장품 BEST 5",
-    description: "민감성 피부를 위한 화장품 리스트를 소개합니다.",
-    link: "https://www.torriden.com/board/view.php?&bdId=brandcampaign&sno=12",
+    title: "2024 올해 추천 화장품",
+    description: "민감성 피부를 위한 기초 화장품을 소개합니다.",
+    link: "/community/post/admin/3",
     category: "제품 추천",
     image: "/images/Community/LeftMainFeedImg_cosmetics.jpg",
   },
@@ -53,15 +54,17 @@ function LeftMainBox() {
       {/* 배경 이미지 */}
       <div className="absolute inset-0">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={currentFeed.image}
-            className="absolute inset-0 bg-center bg-cover"
-            style={{ backgroundImage: `url(${currentFeed.image})` }}
-            initial={{ x: 100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -100, opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          />
+          <Link href={currentFeed.link}>
+            <motion.div
+              key={currentFeed.image}
+              className="absolute inset-0 bg-center bg-cover"
+              style={{ backgroundImage: `url(${currentFeed.image})` }}
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -100, opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            />
+          </Link>
         </AnimatePresence>
       </div>
 
@@ -88,14 +91,14 @@ function LeftMainBox() {
       <div className="absolute top-2 left-2 z-20 flex items-center space-x-2">
         <button
           onClick={handlePrev}
-          className="bg-black/50 text-white p-2 md:p-1 rounded-full hover:bg-black/70"
+          className="bg-black/50 text-white p-2 md:p-1 rounded-full hover:bg-black/70  cursor-pointer"
         >
           <ChevronLeft size={20} />
         </button>
 
         <button
           onClick={handleNext}
-          className="bg-black/50 text-white p-2 md:p-1 rounded-full hover:bg-black/70"
+          className="bg-black/50 text-white p-2 md:p-1 rounded-full hover:bg-black/70 cursor-pointer"
         >
           <ChevronRight size={20} />
         </button>
