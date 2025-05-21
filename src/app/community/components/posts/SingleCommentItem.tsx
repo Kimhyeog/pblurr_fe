@@ -55,12 +55,12 @@ function SingleCommentItem(props: Props) {
   return (
     <div className="bg-gray-50 rounded-lg p-4 shadow-sm">
       <div className="flex justify-between items-start">
-        <div className="flex-1 flex-row items-center gap-x-2">
-          <p className="flex text-sm text-gray-800 font-semibold">{userName}</p>
-        </div>
+        <p className="flex text-sm mt-2 sm:mt-0 text-gray-800 font-semibold items-center">
+          {userName}
+        </p>
         <div className="flex items-center">
           {myId === userId ? (
-            <div className="flex items-center gap-x-2">
+            <div className="flex flex-wrap items-center sm:gap-x-2">
               <button
                 onClick={() => setUpdateInputToggle(true)}
                 className="text-gray-400  boder-x-1 px-5 py-2 hover:underline rounded-xl text-sm transition"

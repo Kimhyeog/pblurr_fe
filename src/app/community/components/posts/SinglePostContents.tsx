@@ -126,7 +126,7 @@ function SinglePostContents({
           ? images.map((img, idx) => (
               <div
                 key={idx}
-                className="w-[300px] h-[300px] flex jusity-center items-center rounded-xl bg-gray-400 my-2 overflow-auto"
+                className="sm:w-[300px] sm:h-[300px] flex jusity-center items-center rounded-xl bg-gray-400 my-2 overflow-auto"
               >
                 <Image
                   width={400}
