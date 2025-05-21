@@ -77,14 +77,14 @@ export default function Page() {
   return (
     <div
       className="w-full mx-auto bg-[#FFFFFF] 
-     px-10 lg:px-20 
+     px-5 lg:px-20 
      py-5"
     >
       <div className="">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">게시물 수정</h1>
 
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-md font-bold text-gray-700 mb-2">
             제목
           </label>
           <input
@@ -96,7 +96,7 @@ export default function Page() {
         </div>
 
         <div className="mb-8">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-md font-bold text-gray-700 mb-2">
             내용
           </label>
           <textarea
@@ -106,7 +106,7 @@ export default function Page() {
           />
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex gap-x-1 sm:gap-4">
           <button
             onClick={handleUpdate}
             className="bg-pink-500 text-white px-6 py-2 rounded-xl text-sm hover:bg-pink-600 transition"

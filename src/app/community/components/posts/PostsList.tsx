@@ -11,12 +11,12 @@ function PostsList(props: PostsListProps) {
   const { isLoggedIn } = useAuth();
   const { posts } = props;
   return (
-    <div className="w-full bg-gray-100 rounded p-4 text-sm">
+    <div className="w-full bg-gray-100 rounded p-2 py-4 sm:px-4 text-sm">
       <div className="w-full flex justify-between items-center px-3 mb-4">
-        <h3 className="font-semibold ">실시간 인기 게시글</h3>
+        <h3 className="text-md sm:text-lg font-semibold ">전체 글</h3>
         {isLoggedIn ? (
           <Link
-            className="text-md px-2 py-1 bg-gray-300 rounded-lg text-white font-semibold"
+            className="tex-sm sm:text-md px-2 py-1 bg-gray-300 rounded-lg text-white font-semibold"
             href={"/community/post/creating"}
             onClick={() => {}}
           >
@@ -35,14 +35,21 @@ function PostsList(props: PostsListProps) {
               <span className="font-semibold text-sm text-gray-700">
                 {post.title}
               </span>
-              <span className="text-xs text-gray-500">
+              <span className="hidden sm:visible text-xs text-gray-500">
                 {dayjs(post.createAt).format("YYYY-MM-DD")}
               </span>
             </div>
-            <div className="text-xs text-gray-600 flex flex-wrap gap-3">
-              <span>작성자: {post.userName}</span>
-              <span>ID: {post.userId}</span>
-              <span>좋아요: {post.likes.length}</span>
+            <div className="text-xs font-semibold text-gray-400 flex flex-wrap gap-3">
+              <span className="hidden sm:visible">작성자: {post.userName}</span>
+              <span>
+                <span className="hidden sm:visible">ID</span>
+                <span className="visible sm:hidden">🧑‍🦲</span> : {post.userId}
+              </span>
+              <span>
+                <span className="hidden sm:visible">좋아요</span>
+                <span className="visible sm:hidden">♥️</span> :
+                {" " + post.likes.length}
+              </span>
             </div>
           </Link>
         ))}

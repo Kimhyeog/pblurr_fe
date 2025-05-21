@@ -5,22 +5,28 @@ import RightMainBox from "./RightBox";
 
 function MainFeed() {
   return (
-    <section className="w-full my-10">
+    <section className=" w-full my-0 sm:my-10">
       <div
         className="
+        bg-white shadow-md
       w-full 
-      h-[400px]   // ✅ 고정 높이 설정
-      grid 
+      h-auto
+      sm:h-[400px]   // ✅ 고정 높이 설정
       grid-cols-1 
+      flex flex-col
+      lg:grid 
       lg:grid-cols-[5fr_2fr] 
-      gap-4
+      gap-2
+      sm:gap-4
       items-stretch
     "
       >
         {/* Left: Main Feed */}
-        <div className="w-full h-full flex flex-col ">
-          <h2 className="text-2xl font-bold mb-4">피부르르의 추천 피드</h2>
-          <div className="flex-grow">
+        <div className="w-full sh-full flex flex-col">
+          <h2 className="text-center sm:text-left text-xl sm:text-2xl font-bold mb-4">
+            피부르르의 추천 피드
+          </h2>
+          <div className="w-full flex-grow">
             <LeftMainBox />
           </div>
         </div>

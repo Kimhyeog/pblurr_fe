@@ -73,9 +73,14 @@ export default function Page() {
   };
 
   return (
-    <div className="w-full flex flex-col justify-center bg-[#FFFFFF] px-10 py-4">
+    <div
+      className="w-full flex flex-col justify-cente
+    p-4 rounded-xl mt-3
+    bg-white shadow-md
+    sm:px-10 sm:py-4"
+    >
       <MainFeed />
-      <section className="w-full flex items-center my-10">
+      <section className="w-full flex items-center my-3 sm:my-5">
         <MainPostsFilter
           setSortTypeLatest={() => {
             setCurrentPage(1);

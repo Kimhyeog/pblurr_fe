@@ -8,7 +8,7 @@ function MainPostsFilter(props: MainPostsFilterProps) {
   const { setSortTypeLatest, setSortTypeLiked, setSortTypeCommented } = props;
 
   return (
-    <div className="flex space-x-4 mb-4">
+    <div className="hidden sm:visible sm:flex space-x-4 mb-4">
       <button
         onClick={() => setSortTypeLatest("latest")}
         className="px-4 py-2 whitespace-nowrap rounded-2xl border"

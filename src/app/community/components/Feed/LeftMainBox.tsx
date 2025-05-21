@@ -50,7 +50,7 @@ function LeftMainBox() {
   };
 
   return (
-    <div className="relative w-full min-h-[400px] rounded-xl overflow-hidden">
+    <div className="relative w-full h-[300px] sm:min-h-[400px] rounded-xl overflow-hidden">
       {/* 배경 이미지 */}
       <div className="absolute inset-0">
         <AnimatePresence mode="wait">
@@ -69,12 +69,19 @@ function LeftMainBox() {
       </div>
 
       {/* 텍스트 레이어 */}
-      <div className="absolute bottom-20 md:bottom-4 left-4 z-10 text-white bg-black/50 px-4 py-5 rounded-2xl max-w-[90%]">
-        <p className="text-xl md:text-2xl font-semibold">{currentFeed.title}</p>
-        <p className="text-sm md:text-md">{currentFeed.description}</p>
+      <div
+        className="absolute bottom-0 left-0 md:bottom-4 sm:left-4 z-10 text-white
+      
+     bg-black/40 sm:bg-black/50
+       px-4 py-5 
+       rounded-2xl 
+       w-full sm:max-w-[90%]"
+      >
+        <p className="text-lg sm:text-2xl font-semibold">{currentFeed.title}</p>
+        <p className="text-sm sm:text-md">{currentFeed.description}</p>
 
         {/* 카테고리 버튼 */}
-        <div className="flex flex-wrap gap-2 mt-2">
+        <div className="w-full hidden sm:visible sm:w-auto sm:flex flex-wrap gap-2 mt-2">
           {feeds.map((feed, index) => (
             <CMButton
               key={feed.title}
@@ -88,7 +95,7 @@ function LeftMainBox() {
       </div>
 
       {/* 컨트롤 버튼: 모바일은 하단 중앙, PC는 우측 상단 */}
-      <div className="absolute top-2 left-2 z-20 flex items-center space-x-2">
+      <div className="absolute left-3 top-2 sm:left-2 z-20 sm:flex items-center space-x-2">
         <button
           onClick={handlePrev}
           className="bg-black/50 text-white p-2 md:p-1 rounded-full hover:bg-black/70  cursor-pointer"
