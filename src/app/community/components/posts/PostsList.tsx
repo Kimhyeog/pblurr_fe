@@ -29,7 +29,7 @@ function PostsList(props: PostsListProps) {
           <div className="flex items-center gap-x-1 sm:gap-x-3">
             {isLoggedIn ? (
               <Link
-                className="text-sm sm:text-md px-3 py-1 bg-pink-400 hover:bg-pink-500 rounded-lg text-white font-semibold transition"
+                className="text-sm sm:text-lg px-4 py-1 bg-pink-400 hover:bg-pink-500 rounded-lg text-white font-semibold transition"
                 href={"/community/post/creating"}
               >
                 글쓰기

@@ -18,7 +18,7 @@ function AdminPostContents({ post, routerCallback }: AdminPostContentsProps) {
 
   const { isLoggedIn, myId } = useAuth();
   const [isLiked, setIsLiked] = useState(false);
-
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const adMinPostofLike = (userId: string) => {
     if (isLoggedIn) {
       const index = post.likes.indexOf(userId);
@@ -87,14 +87,14 @@ function AdminPostContents({ post, routerCallback }: AdminPostContentsProps) {
           ? images.map((img, idx) => (
               <div
                 key={idx}
-                className="w-[300px] h-[300px] flex jusity-center items-center rounded-xl bg-gray-400 my-2 overflow-auto"
+                className="relative w-[300px] h-[300px] overflow-hidden flex justify-center items-center rounded-xl bg-white my-2 cursor-pointer"
+                onClick={() => setSelectedImage(img)}
               >
                 <Image
-                  width={400}
-                  height={300}
                   src={img}
+                  fill
                   alt={`post-image-${idx}`}
-                  className=" rounded-xl w-[300px] h-[300px]"
+                  className="rounded-xl transition-all object-cover duration-300"
                   placeholder="empty"
                 />
               </div>
@@ -112,6 +112,22 @@ function AdminPostContents({ post, routerCallback }: AdminPostContentsProps) {
           isLiked={isLiked}
         />
       </div>
+      {/* 모달 */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative w-[90vw] h-[90vh] max-w-5xl max-h-[80vh]">
+            <Image
+              src={selectedImage}
+              alt="modal-image"
+              fill
+              className="object-contain rounded-lg"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

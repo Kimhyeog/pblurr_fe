@@ -31,11 +31,7 @@ function RightMainBox() {
               className="absolute inset-0 opacity-10 bg-cover bg-center rounded"
               style={{ backgroundImage: `url(${post.images[0]})` }}
             />
-          ) : (
-            <div className="absolute inset-0 flex items-center justify-center text-xs text-gray-400">
-              이미지가 없습니다
-            </div>
-          )}
+          ) : null}
           <div className="relative z-10">
             <div className="font-semibold text-sm truncate">
               제목 : {post.title}

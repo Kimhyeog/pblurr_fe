@@ -9,6 +9,7 @@ import { deletePost } from "@/api/community/posts.api";
 import Swal from "sweetalert2";
 import Image from "next/image";
 import { FaUser } from "react-icons/fa";
+import { useState } from "react";
 
 interface SinglePostContentsProps {
   isLoggedIn: boolean;
@@ -29,6 +30,7 @@ function SinglePostContents({
     post;
 
   const { myId, isLoading } = useAuth();
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const router = useRouter();
   const queryClient = useQueryClient();
   const mutationPostDelete = useMutation({
@@ -121,18 +123,19 @@ function SinglePostContents({
         <span>작성일: {new Date(createAt).toLocaleString()}</span>
       </div>
 
-      <div className="flex flex-col sm:flex-row lg:flex-row gap-x-3 my-2 overflow-auto">
+      <div className="flex flex-col sm:flex-row lg:flex-row gap-x-3 my-2">
         {images.length > 0 &&
           images.map((img, idx) => (
             <div
               key={idx}
-              className="relative w-[300px] h-[300px] flex justify-center items-center rounded-xl bg-gray-400 my-2 overflow-hidden group"
+              className="relative w-[300px] h-[300px] overflow-hidden flex justify-center items-center rounded-xl bg-white my-2 cursor-pointer"
+              onClick={() => setSelectedImage(img)}
             >
               <Image
                 src={img}
-                alt={`post-image-${idx}`}
                 fill
-                className="rounded-xl object-contain group-hover:object-cover transition-all duration-300"
+                alt={`post-image-${idx}`}
+                className="rounded-xl transition-all duration-300"
                 placeholder="empty"
               />
             </div>
@@ -150,6 +153,22 @@ function SinglePostContents({
           isLoggedIn={isLoggedIn}
         />
       </div>
+      {/* 모달 */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div className="relative w-[90vw] h-[90vh] max-w-5xl max-h-[80vh]">
+            <Image
+              src={selectedImage}
+              alt="modal-image"
+              fill
+              className="object-contain rounded-lg"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
