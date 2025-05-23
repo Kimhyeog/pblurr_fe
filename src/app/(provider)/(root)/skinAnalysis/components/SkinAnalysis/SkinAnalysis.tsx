@@ -142,15 +142,15 @@ const SkinAnalysis = ({ result }: Props) => {
 
             {totalDataView ? (
               <>
+                <div className="text-xl sm:text-2xl font-semibold text-[#3B6F82] border-b pb-5 border-[#DEDCE1] my-5">
+                  📊 세부 <span className="hidden sm:visible">항목별</span> 점수
+                </div>
                 <FaceAreaSelector
                   onSelect={setSelectedCategory}
                   selectedCategory={selectedCategory}
                 />
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                   <div className="col-span-full">
-                    <div className="text-xl sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1] my-5">
-                      📊 세부 항목별 점수
-                    </div>
                     <div className="flex flex-col gap-8 mt-5">
                       {filteredData.map((section, sectionIndex) => (
                         <div
@@ -200,8 +200,9 @@ const SkinAnalysis = ({ result }: Props) => {
               // "전체 보기" 선택 시: 모든 카테고리 한꺼번에 보여줌
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 <div className="col-span-full">
-                  <div className="text-xl sm:text-2xl font-semibold text-[#3B6F82] border-b pb-2 border-[#DEDCE1]">
-                    📊 전체 항목별 점수
+                  <div className="text-xl sm:text-2xl font-semibold pb-5 text-[#3B6F82] border-b pb-2 border-[#DEDCE1]">
+                    📊 전체 <span className="hidden sm:visible">항목별</span>{" "}
+                    점수
                   </div>
                   <div className="flex flex-col gap-8 mt-5">
                     {filteredData.map((section, sectionIndex) => (

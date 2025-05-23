@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import { getMostLikedPostsPreview } from "@/api/community/posts.api";
 import { MostLikedPostPreview } from "@/types/post.dto/types";
+import { useRouter } from "next/navigation";
 
 function RightMainBox() {
   const [posts, setPosts] = useState<MostLikedPostPreview[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -23,8 +25,11 @@ function RightMainBox() {
     <div className="w-full h-full overflow-y-auto pr-2 custom-scrollbar flex flex-col gap-4">
       {posts.map((post) => (
         <div
+          onClick={() => {
+            router.push(`/community/post/${post.id}`);
+          }}
           key={post.id}
-          className="p-3 bg-gray-100 rounded relative min-h-[150px] shadow-sm"
+          className="p-3 bg-gray-100 rounded relative min-h-[150px] shadow-sm cursor-pointer"
         >
           {post.images.length > 0 ? (
             <div
