@@ -19,6 +19,7 @@ function AdminPostContents({ post, routerCallback }: AdminPostContentsProps) {
   const { isLoggedIn, myId } = useAuth();
   const [isLiked, setIsLiked] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   const adMinPostofLike = (userId: string) => {
     if (isLoggedIn) {
       const index = post.likes.indexOf(userId);

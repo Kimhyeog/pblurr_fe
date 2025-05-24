@@ -10,7 +10,7 @@ function TotalScoreBox(props: Props) {
   const { totalWrinkle, totalPigmentation, totalPore } = props;
 
   const maxValues = {
-    주름: 26,
+    주름: 24,
     색소침착: 15,
     모공: 10,
   };
