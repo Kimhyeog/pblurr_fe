@@ -22,7 +22,6 @@ const getCategoryTheme = (category: string) => {
         badgeStyle: "bg-white text-[#333] border border-[#aacbdc] shadow-sm",
         textStyle: "text-[#4a99b3]",
       };
-    case "통합 색소침착":
     case "통합 색소 침착":
       return {
         icon: <FaPalette />,
