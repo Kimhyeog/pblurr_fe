@@ -68,7 +68,7 @@ const SeoulMap = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-y-10 items-center">
+    <div className="flex flex-col gap-y-0 sm:gap-y-10 items-center">
       {/* ✅ 위치 메시지 출력 */}
       <div className="my-4 p-4 bg-white rounded-xl shadow flex items-center space-x-3">
         <FaMapMarkerAlt className="text-2xl text-blue-600" />
